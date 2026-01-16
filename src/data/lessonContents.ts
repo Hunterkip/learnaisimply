@@ -728,6 +728,340 @@ Continue when ready and move on to the next module.`,
     resources: [
       { title: "Iteration Checklist", url: "#" }
     ]
+  },
+  "m3-1": {
+    title: "Writing Clear Emails and Messages",
+    description: "Learn how to use AI to write professional emails and messages that sound human and clear.",
+    notes: `Why This Module Matters
+
+A large part of work and daily life depends on communication:
+
+- emails
+- messages
+- reports
+- explanations
+- instructions
+
+When communication is unclear, it creates:
+
+- misunderstandings
+- delays
+- frustration
+- unnecessary stress
+
+AI can help improve communication — but only when it is guided properly.
+
+This module shows you how to use AI to:
+
+- write more clearly
+- sound professional and human
+- save time without losing your voice
+- reduce mental effort when communicating
+
+A Principle to Keep in Mind
+
+AI should help you express your thoughts more clearly, not replace them.
+
+AI can draft and suggest. You decide what is sent.
+
+You remain responsible for:
+
+- tone
+- accuracy
+- appropriateness
+- final judgment
+
+AI Tools You Can Experiment With
+
+You do not need many tools. Start with these three:
+
+1. ChatGPT
+
+Best for:
+
+- drafting emails and messages
+- rewriting text
+- improving clarity and tone
+- summarizing and explaining information
+
+This will be the main tool used in examples.
+
+2. Google Docs or Microsoft Word (AI features)
+
+Best for:
+
+- improving documents you already wrote
+- editing and refining tone
+- restructuring paragraphs
+
+Useful when you are already working inside a document.
+
+3. Grammarly (with AI features)
+
+Best for:
+
+- polishing language
+- improving clarity
+- checking tone
+
+Think of this as a final editor, not the main writer.
+
+Case Scenario 1: Writing a Professional Email
+
+Situation
+
+You need to inform a colleague that a meeting has been moved.
+
+Weak Prompt Example
+
+What you type into ChatGPT:
+
+"Write an email about a meeting change."
+
+Likely AI Response:
+
+Subject: Meeting Update
+
+Hello,
+
+Please note that the meeting has been rescheduled. Kindly adjust your plans accordingly.
+
+Thank you.
+
+Why this is weak:
+
+- No context
+- No details
+- Generic tone
+- Feels impersonal
+- AI had to guess
+
+Strong Prompt Example (Full Prompt)
+
+What you type into ChatGPT:
+
+"I need to send a professional and polite email to a colleague informing them that a meeting scheduled for tomorrow at 10:00am has been moved to 2:00pm.
+
+The tone should be respectful and clear.
+
+Keep the message concise and suitable for a professional workplace."
+
+AI Response:
+
+Subject: Change of Meeting Time
+
+Hello [Name],
+
+I hope you are well.
+
+Please note that the meeting scheduled for tomorrow at 10:00am has been moved to 2:00pm. We apologize for any inconvenience this may cause and appreciate your understanding.
+
+Kindly let me know if you have any questions.
+
+Best regards,
+[Your Name]
+
+Why This Works
+
+- Clear context
+- Specific details
+- Tone guidance
+- Structured outcome
+- You guided the AI clearly
+
+Improving the Draft (Iteration)
+
+You can refine the output instead of starting over.
+
+Follow-up Prompt:
+
+"Make the email slightly warmer but still professional."
+
+Improved AI Response:
+
+Subject: Update on Tomorrow's Meeting
+
+Hello [Name],
+
+I hope you're doing well.
+
+Just a quick note to let you know that tomorrow's meeting has been rescheduled from 10:00am to 2:00pm. Thank you for your flexibility, and please let me know if this change causes any challenges.
+
+Best regards,
+[Your Name]
+
+This step-by-step improvement is how quality is achieved.`,
+    examples: [
+      {
+        title: "Weak vs Strong Email Prompt",
+        content: "Weak: 'Write an email about a meeting change.' Strong: 'Write a professional email informing a colleague that tomorrow's 10am meeting is now at 2pm. Keep it polite and concise.' The difference is context and specificity."
+      },
+      {
+        title: "Iterating for Warmth",
+        content: "If the first draft feels too formal, simply ask: 'Make this slightly warmer but still professional.' Each refinement brings the message closer to your voice."
+      }
+    ],
+    resources: [
+      { title: "Email Prompting Templates (PDF)", url: "#" }
+    ]
+  },
+  "m3-2": {
+    title: "Refining and Humanizing AI Output",
+    description: "Learn how to improve existing writing, make AI output sound human, and know when NOT to use AI.",
+    notes: `Case Scenario 2: Improving Something You Already Wrote
+
+Situation
+
+You wrote a message, but it sounds unclear or defensive.
+
+Your original text:
+
+"The report is late because we are still waiting for feedback and the delay was unavoidable."
+
+Prompt You Give ChatGPT:
+
+"Please rewrite the following sentence to sound more professional and clear, without sounding defensive:
+
+'The report is late because we are still waiting for feedback and the delay was unavoidable.'"
+
+AI Response:
+
+"The report has been delayed as we are awaiting final feedback. Once received, we will complete and share the report promptly."
+
+You then review and decide if it reflects your intent.
+
+Case Scenario 3: Explaining Something Clearly
+
+Situation
+
+You need to explain a process or decision to someone who is not familiar with the details.
+
+Prompt:
+
+"Explain the following process in simple, clear language for a non-technical audience:
+
+[describe the process]"
+
+AI helps you organize and simplify your explanation.
+
+You then:
+
+- verify accuracy
+- adjust wording
+- ensure relevance
+
+Making AI Output Sound Human
+
+Sometimes AI drafts sound:
+
+- stiff
+- overly formal
+- generic
+
+To humanize AI output:
+
+- shorten sentences
+- remove unnecessary words
+- add natural phrasing
+- read it aloud
+
+You can also ask directly:
+
+"Rewrite this so it sounds more natural and human, while remaining professional."
+
+Always review before using.
+
+Case Scenario 4: Writing Reports or Summaries
+
+Situation
+
+You need to write or summarize a report.
+
+Prompt:
+
+"Summarize the key points of this document into a clear one-page summary, highlighting any important actions."
+
+AI can:
+
+- structure information
+- reduce length
+- extract key points
+
+You then:
+
+- confirm facts
+- adjust emphasis
+- add missing context
+
+AI helps with structure. You ensure accuracy.
+
+Detecting AI-Generated Content
+
+Sometimes you may wonder whether content was AI-generated.
+
+Possible signs:
+
+- very smooth but generic language
+- lack of specific details
+- neutral tone without strong opinions
+
+However, detection is not always reliable.
+
+The most important skill is critical review, regardless of who or what created the content.
+
+When NOT to Use AI for Communication
+
+Avoid using AI alone when:
+
+- messages are highly sensitive
+- confidentiality is critical
+- emotions are involved
+- decisions have serious consequences
+
+In such cases, AI may help you think — but you should write the final message yourself.
+
+A Practical Habit to Build
+
+For important communication:
+
+1. Draft with AI
+2. Review carefully
+3. Edit to match your voice
+4. Confirm accuracy
+5. Send with confidence
+
+Notice how much mental effort is reduced.
+
+A Final Reminder
+
+AI does not replace communication skills. It supports them.
+
+You remain responsible for:
+
+- clarity
+- tone
+- integrity
+
+Tech + Human = Superhumans
+
+Continue When Ready
+
+In the next module, you will learn how to use AI for planning, research, and document summarizing — further reducing mental load and improving clarity.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "Rewriting Defensive Text",
+        content: "Original: 'The report is late because we are waiting for feedback and the delay was unavoidable.' Improved: 'The report has been delayed as we await final feedback. Once received, we will complete it promptly.'"
+      },
+      {
+        title: "The 5-Step Habit",
+        content: "For important messages: 1) Draft with AI, 2) Review carefully, 3) Edit to match your voice, 4) Confirm accuracy, 5) Send with confidence."
+      }
+    ],
+    resources: [
+      { title: "AI Communication Checklist", url: "#" }
+    ]
   }
 };
 

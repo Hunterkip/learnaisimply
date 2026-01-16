@@ -36,9 +36,8 @@ export const courseModules: Module[] = [
     id: "module-3",
     title: "Module 3: Communication with AI",
     lessons: [
-      { id: "m3-1", title: "Writing Emails with AI Help", duration: "10 min", completed: false },
-      { id: "m3-2", title: "Summarizing Long Documents", duration: "9 min", completed: false },
-      { id: "m3-3", title: "Professional Communication Tips", duration: "8 min", completed: false },
+      { id: "m3-1", title: "Writing Clear Emails and Messages", duration: "12 min", completed: false },
+      { id: "m3-2", title: "Refining and Humanizing AI Output", duration: "10 min", completed: false },
     ],
   },
   {
