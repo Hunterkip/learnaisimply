@@ -69,12 +69,6 @@ const Index = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleDownloadCertificate = () => {
-    toast({
-      title: "Certificate Ready",
-      description: "Your certificate is being prepared for download.",
-    });
-  };
 
   const handleExploreMore = () => {
     toast({
@@ -86,7 +80,6 @@ const Index = () => {
   if (showCompletion) {
     return (
       <CourseCompletion
-        onDownloadCertificate={handleDownloadCertificate}
         onExploreMore={handleExploreMore}
       />
     );
