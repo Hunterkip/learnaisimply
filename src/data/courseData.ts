@@ -27,9 +27,7 @@ export const courseModules: Module[] = [
     id: "module-2",
     title: "Module 2: Prompting & Iteration",
     lessons: [
-      { id: "m2-1", title: "Your First AI Conversation", duration: "12 min", completed: false },
-      { id: "m2-2", title: "How to Ask Better Questions", duration: "10 min", completed: false },
-      { id: "m2-3", title: "Refining Your Results", duration: "8 min", completed: false },
+      { id: "m2-1", title: "Prompting & Iteration — How to Get Quality Results from AI", duration: "18 min", completed: false },
     ],
   },
   {
