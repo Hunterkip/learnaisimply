@@ -20,9 +20,7 @@ export const courseModules: Module[] = [
     id: "module-1",
     title: "Module 1: Understanding AI",
     lessons: [
-      { id: "m1-1", title: "What is AI, Really?", duration: "10 min", completed: false },
-      { id: "m1-2", title: "AI in Your Daily Life", duration: "8 min", completed: false },
-      { id: "m1-3", title: "Common Myths About AI", duration: "7 min", completed: false },
+      { id: "m1-1", title: "Understanding AI — Calmly and Clearly", duration: "15 min", completed: false },
     ],
   },
   {
