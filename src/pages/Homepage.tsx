@@ -5,7 +5,6 @@ import { WhoIsThisFor } from "@/components/homepage/WhoIsThisFor";
 import { WhatYouLearn } from "@/components/homepage/WhatYouLearn";
 import { CourseStructure } from "@/components/homepage/CourseStructure";
 import { HowYouLearn } from "@/components/homepage/HowYouLearn";
-import { PricingSection } from "@/components/homepage/PricingSection";
 import { FAQSection } from "@/components/homepage/FAQSection";
 import { FinalCTA } from "@/components/homepage/FinalCTA";
 import { Footer } from "@/components/homepage/Footer";
@@ -19,7 +18,6 @@ export default function Homepage() {
       <WhatYouLearn />
       <CourseStructure />
       <HowYouLearn />
-      <PricingSection />
       <FAQSection />
       <FinalCTA />
       <Footer />
