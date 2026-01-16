@@ -68,8 +68,8 @@ export const courseModules: Module[] = [
     id: "module-7",
     title: "Module 7: AI for Wellbeing",
     lessons: [
-      { id: "m7-1", title: "Mindful Use of Technology", duration: "9 min", completed: false },
-      { id: "m7-2", title: "Setting Healthy Boundaries", duration: "7 min", completed: false },
+      { id: "m7-1", title: "Health, Mind, and Responsible AI Use", duration: "12 min", completed: false },
+      { id: "m7-2", title: "Financial Clarity and Healthy Routines", duration: "10 min", completed: false },
     ],
   },
   {

@@ -1887,6 +1887,235 @@ Continue when ready and move on to the next module.`,
     resources: [
       { title: "Voice and Video AI Guide", url: "#" }
     ]
+  },
+  "m7-1": {
+    title: "Health, Mind, and Responsible AI Use",
+    description: "Learn how AI can support health and mental clarity — while understanding its important limitations.",
+    notes: `Why This Module Matters
+
+Modern life places heavy demands on:
+
+- mental energy
+- physical wellbeing
+- financial decision-making
+
+AI cannot replace doctors, therapists, or financial professionals. However, it can support clarity, reflection, and organization — when used wisely.
+
+This module shows how AI can be used as a support tool, not an authority.
+
+An Important Boundary (Please Read Carefully)
+
+AI is not:
+
+- a doctor
+- a therapist
+- a financial advisor
+
+AI should never be used to:
+
+- diagnose medical conditions
+- replace professional advice
+- make high-risk financial decisions
+
+AI can help you:
+
+- think more clearly
+- organize information
+- prepare better questions
+- build healthier routines
+
+A Guiding Principle
+
+AI supports awareness and preparation. Humans remain responsible for decisions and actions.
+
+AI Tools You Can Use
+
+You may use the same tools from earlier modules:
+
+- general AI chat tools for reflection and planning
+- note or journaling apps with AI features
+- budgeting or tracking tools that use AI summaries
+
+The tool matters less than how you use it.
+
+Real-Life Scenario 1: Supporting Physical Health (Non-Medical)
+
+Situation
+
+You want to build healthier routines but feel inconsistent.
+
+Weak Prompt
+
+"Give me health advice."
+
+Too broad and unsafe.
+
+Strong Prompt (Full Prompt)
+
+"Help me think through simple daily habits that can support general wellbeing, such as movement, rest, and hydration.
+
+Do not provide medical advice."
+
+Example AI Response
+
+- gentle daily movement suggestions
+- reminders about rest and balance
+- ideas for consistency
+
+You decide what fits your life and consult professionals when needed.
+
+Real-Life Scenario 2: Mental Clarity and Stress Reflection
+
+Situation
+
+You feel mentally overwhelmed and need clarity.
+
+Strong Prompt (Full Prompt)
+
+"Help me reflect on what might be contributing to mental stress in my daily routine.
+
+Ask me thoughtful questions rather than giving advice."
+
+AI helps you reflect, not diagnose.
+
+You can use it for:
+
+- journaling
+- thought organization
+- identifying patterns
+
+Real-Life Scenario 3: Emotional Processing (With Care)
+
+Situation
+
+You are dealing with difficult emotions and want to think clearly.
+
+Safe Prompt Example
+
+"Help me put my thoughts into words so I can better understand what I'm feeling.
+
+Do not act as a therapist or give mental health advice."
+
+AI helps with expression, not treatment.
+
+If distress feels serious or persistent, professional support is essential.`,
+    examples: [
+      {
+        title: "Health Support Prompt",
+        content: "Ask: 'Help me think through simple daily habits that can support general wellbeing, such as movement, rest, and hydration. Do not provide medical advice.' Then consult professionals when needed."
+      },
+      {
+        title: "Mental Clarity Prompt",
+        content: "Ask: 'Help me reflect on what might be contributing to mental stress in my daily routine. Ask me thoughtful questions rather than giving advice.' AI helps you reflect, not diagnose."
+      }
+    ],
+    resources: [
+      { title: "AI Wellbeing Boundaries Guide", url: "#" }
+    ]
+  },
+  "m7-2": {
+    title: "Financial Clarity and Healthy Routines",
+    description: "Learn how to use AI for financial organization and building balanced daily routines.",
+    notes: `Real-Life Scenario 4: Financial Awareness and Organization
+
+Situation
+
+You want better clarity around finances, not advice.
+
+Weak Prompt
+
+"Tell me how to invest my money."
+
+Strong Prompt (Full Prompt)
+
+"Help me organize my financial goals and questions so I can discuss them clearly with a financial professional."
+
+Example AI Support
+
+- organizing goals
+- listing questions
+- clarifying priorities
+
+AI helps you prepare, not decide.
+
+Real-Life Scenario 5: Building Healthier Routines
+
+Situation
+
+You want simple routines that support balance.
+
+Prompt
+
+"Help me design a simple daily routine that includes work, rest, movement, and reflection.
+
+Keep it realistic and flexible."
+
+You adjust based on:
+
+- energy levels
+- responsibilities
+- personal preferences
+
+When NOT to Use AI for Wellbeing
+
+Do not rely on AI alone when:
+
+- symptoms are severe or persistent
+- emotional distress feels overwhelming
+- financial decisions carry serious risk
+
+In these cases, AI can help you prepare — but human professionals are essential.
+
+A Healthy Way to Think About AI and Wellbeing
+
+AI is a mirror, not a healer. It helps you:
+
+- see patterns
+- organize thoughts
+- ask better questions
+
+Healing, growth, and decisions remain human responsibilities.
+
+A Practical Habit to Build
+
+Use AI to:
+
+- reflect
+- organize
+- prepare
+
+Then pause and ask:
+
+"Is this something I should discuss with a professional?"
+
+That pause protects you.
+
+A Final Reminder
+
+Wellbeing is not about perfection. It is about awareness, balance, and care.
+
+AI can support the process — but human judgment, connection, and care come first.
+
+Tech + Human = Superhumans
+
+Continue When Ready
+
+In the final module, you will learn about ethics, safety, trust, and staying relevant with AI — so you can use these tools confidently and responsibly over time.
+
+Continue when ready and move on to the final module.`,
+    examples: [
+      {
+        title: "Financial Clarity Prompt",
+        content: "Ask: 'Help me organize my financial goals and questions so I can discuss them clearly with a financial professional.' AI helps you prepare, not decide."
+      },
+      {
+        title: "The Protective Pause",
+        content: "After using AI for wellbeing topics, always pause and ask: 'Is this something I should discuss with a professional?' That pause protects you."
+      }
+    ],
+    resources: [
+      { title: "Healthy Routines Worksheet", url: "#" }
+    ]
   }
 };
 
