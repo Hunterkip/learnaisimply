@@ -1,13 +1,8 @@
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Award, ArrowRight, Sparkles } from "lucide-react";
+import { Award, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
-interface CourseCompletionProps {
-  onExploreMore: () => void;
-}
-
-export function CourseCompletion({ onExploreMore }: CourseCompletionProps) {
+export function CourseCompletion() {
   useEffect(() => {
     // Fire confetti on mount
     const duration = 3000;
@@ -112,21 +107,6 @@ export function CourseCompletion({ onExploreMore }: CourseCompletionProps) {
           </p>
         </div>
 
-        {/* Next Steps */}
-        <div className="text-center">
-          <p className="text-muted-foreground mb-4">
-            Ready to explore more? We have additional resources to continue your journey.
-          </p>
-          <Button 
-            variant="outline" 
-            size="lg"
-            onClick={onExploreMore}
-            className="gap-2"
-          >
-            Explore More Resources
-            <ArrowRight className="h-5 w-5" />
-          </Button>
-        </div>
       </div>
     </div>
   );

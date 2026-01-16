@@ -70,19 +70,8 @@ const Index = () => {
   };
 
 
-  const handleExploreMore = () => {
-    toast({
-      title: "Coming Soon",
-      description: "More courses and resources are on the way!",
-    });
-  };
-
   if (showCompletion) {
-    return (
-      <CourseCompletion
-        onExploreMore={handleExploreMore}
-      />
-    );
+    return <CourseCompletion />;
   }
 
   const currentLesson = allLessons[currentLessonIndex];
