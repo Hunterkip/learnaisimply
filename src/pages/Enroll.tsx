@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Check, Lock, CreditCard, BookOpen, Code2, Clock, Video, Lightbulb, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -179,24 +180,14 @@ const Enroll = () => {
               </p>
             </div>
 
-            {/* Right Side - Illustration */}
+            {/* Right Side - Image */}
             <div className="hidden md:flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="bg-primary-foreground/10 rounded-2xl p-8 backdrop-blur-sm border border-primary-foreground/20">
-                  <div className="space-y-4">
-                    <div className="bg-primary-foreground/20 rounded-lg h-8 w-3/4"></div>
-                    <div className="bg-primary-foreground/15 rounded-lg h-24"></div>
-                    <div className="flex gap-3">
-                      <div className="bg-accent/60 rounded-lg h-10 flex-1"></div>
-                      <div className="bg-primary-foreground/20 rounded-lg h-10 w-20"></div>
-                    </div>
-                    <div className="space-y-2 pt-2">
-                      <div className="bg-primary-foreground/10 rounded h-4 w-full"></div>
-                      <div className="bg-primary-foreground/10 rounded h-4 w-5/6"></div>
-                      <div className="bg-primary-foreground/10 rounded h-4 w-4/6"></div>
-                    </div>
-                  </div>
-                </div>
+                <img 
+                  src={confidentWomanImage} 
+                  alt="Confident professional woman using a laptop"
+                  className="rounded-2xl shadow-lg w-full h-auto object-cover"
+                />
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/15 rounded-full blur-3xl"></div>
               </div>
