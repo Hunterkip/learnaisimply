@@ -14,7 +14,7 @@ export function PricingSection() {
   const navigate = useNavigate();
   
   const handleEnroll = () => {
-    navigate("/course");
+    navigate("/signup");
   };
 
   return (
