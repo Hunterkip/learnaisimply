@@ -251,62 +251,7 @@ Continue when ready to complete the readiness check and begin learning.`,
   "m0-2": {
     title: "Your AI Readiness Profile",
     description: "Discover your learning profile and understand how this course will support you based on your starting point.",
-    notes: `## AI Readiness Check Questions
-
-Please answer honestly. This is for your reflection only.
-
-**1. How familiar does AI currently feel to you?**
-
-• Very unfamiliar — I'm not sure what it really does
-• Somewhat familiar — I've heard about it or seen examples
-• Fairly familiar — I've tried a few AI tools
-• Comfortable — I already use AI occasionally
-
-**2. How confident do you feel using new digital tools on your own?**
-
-• I usually feel unsure and need guidance
-• I can learn, but I prefer clear instructions
-• I'm fairly confident once I understand the basics
-• I'm comfortable exploring new tools independently
-
-**3. Have you ever used AI tools (like chatbots, document tools, or voice assistants)?**
-
-• No, I haven't used any yet
-• Yes, but only once or twice
-• Yes, occasionally
-• Yes, I already use them for specific tasks
-
-**4. What best describes how you currently feel about AI?**
-
-• Curious but cautious
-• Interested but overwhelmed
-• Unsure whether I should trust it
-• Open and willing to learn how to use it properly
-
-**5. What would you most like AI to help you with?** (You may choose more than one)
-
-• Writing or improving emails and documents
-• Planning my work or daily life
-• Researching and understanding information
-• Reducing mental load and stress
-• Learning new things more easily
-• I'm not sure yet — I want to explore
-
-**6. When learning something new, what approach suits you best?**
-
-• Slow and step-by-step
-• Practical examples I can relate to
-• Clear explanations without technical language
-• Trying things hands-on and adjusting as I go
-
-**7. Which statement feels closest to you right now?**
-
-• "AI feels intimidating, but I want to understand it."
-• "I believe AI could help me, but I don't know how."
-• "I've tried AI, but I want to use it better and more confidently."
-• "I'm ready to learn how to use AI in a calm, practical way."
-
-## Your AI Readiness Profile
+    notes: `## Your AI Readiness Profile
 
 You may see yourself in one profile, or in parts of several. All profiles are welcome here.
 
