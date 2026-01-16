@@ -479,6 +479,233 @@ Continue when ready and move on to the next module.`,
       { title: "Understanding AI: Quick Reference Guide", url: "#" },
       { title: "AI Expectations Checklist", url: "#" }
     ]
+  },
+  "m2-1": {
+    title: "Prompting & Iteration — How to Get Quality Results from AI",
+    description: "Learn how to communicate with AI effectively through clear prompting and thoughtful iteration.",
+    notes: `## Why This Module Is the Most Important
+
+Most people believe AI gives "good" or "bad" answers on its own.
+
+That is not true.
+
+AI responds based on how it is guided. The quality of what you get depends largely on:
+
+- how you explain your task
+- how much context you provide
+- how you follow up and refine
+
+This module teaches you how to communicate with AI properly, so you stay in control and get useful, reliable results.
+
+Once you understand this, everything else in the course becomes easier.
+
+## What Prompting Really Means
+
+A prompt is simply how you communicate with AI.
+
+It includes:
+
+- what you ask
+- how you ask it
+- the information you provide
+- the limits you set
+
+Prompting is not about using "magic words." It is about clear thinking expressed clearly.
+
+AI performs best when:
+
+- your request is specific
+- the context is clear
+- expectations are stated
+
+## Why Simple Questions Often Fail
+
+If you ask AI:
+
+> "Write an email."
+
+AI has too many options:
+
+- what kind of email?
+- to whom?
+- what tone?
+- what purpose?
+
+When instructions are vague, AI fills in the gaps — sometimes poorly.
+
+This is why many people feel:
+
+- "AI doesn't get me"
+- "The output feels generic"
+- "This sounds robotic"
+
+The problem is not AI. The problem is missing guidance.
+
+## The Foundation of a Good Prompt
+
+A strong prompt usually contains four elements:
+
+### 1. Context
+
+Explain the situation.
+
+- Who are you?
+- What is happening?
+- Why does this matter?
+
+### 2. Task
+
+Be clear about what you want AI to do.
+
+- Draft
+- Summarize
+- Improve
+- Organize
+- Suggest options
+
+### 3. Constraints
+
+Set boundaries.
+
+- length
+- tone
+- format
+- level of formality
+
+### 4. Outcome
+
+Describe what a good result looks like.
+
+You do not need to be perfect. Even partial clarity helps AI respond better.
+
+## Example: Weak Prompt vs Better Prompt
+
+Weak prompt:
+
+> Write an email.
+
+Better prompt:
+
+> Draft a clear, professional email informing a colleague about a meeting change. Keep the tone polite and concise.
+
+Notice how clarity improves direction.
+
+## Iteration: How Quality Is Really Achieved
+
+AI is not meant to get everything right on the first attempt.
+
+Quality comes from iteration — improving the output step by step.
+
+Think of AI as a first-draft assistant.
+
+You can:
+
+- ask it to rewrite
+- request a different tone
+- shorten or expand
+- clarify unclear parts
+- make it sound more human
+
+This back-and-forth is not failure. It is how good results are produced.
+
+## How to Iterate Effectively
+
+Instead of starting over, use follow-up instructions like:
+
+- "Make this more concise."
+- "Use a warmer but still professional tone."
+- "Rewrite this so it sounds more natural."
+- "Explain this more clearly for a non-technical audience."
+
+Each follow-up improves the output.
+
+You are guiding — not guessing.
+
+## Asking AI to Review Itself
+
+One powerful technique is to ask AI to evaluate its own response.
+
+You can ask:
+
+- "What might be unclear in this response?"
+- "Where could this be improved?"
+- "Does this sound natural?"
+- "Are there any assumptions here?"
+
+This helps surface weaknesses — but you still decide.
+
+AI can assist with review, but judgment remains human.
+
+## When to Stop Iterating
+
+Iteration is useful, but it should not replace thinking.
+
+Stop refining when:
+
+- the output meets your needs
+- further changes add little value
+- you understand and agree with the result
+
+Remember: AI supports decisions — it does not make them.
+
+## Common Prompting Mistakes to Avoid
+
+Avoid:
+
+- giving very little context
+- expecting perfect results instantly
+- accepting output without review
+- using AI to decide instead of assist
+
+Good use of AI is active, not passive.
+
+## A Calm Reminder
+
+You do not need to "master" prompting.
+
+You only need to:
+
+- explain your task clearly
+- improve outputs gradually
+- trust your judgment
+
+With practice, this becomes natural.
+
+## Before You Move On
+
+The skill you learned here — clear prompting and thoughtful iteration — will be used throughout the rest of the course:
+
+- emails and documents
+- planning and research
+- creative content
+- everyday tasks
+- wellbeing support
+
+This is the foundation.
+
+## Continue When Ready
+
+In the next module, you will apply this skill to real communication tasks — writing emails, documents, and messages that sound human, clear, and professional.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "Weak vs Strong Prompt",
+        content: "Weak: 'Write an email.' Strong: 'Draft a clear, professional email informing a colleague about a meeting change. Keep the tone polite and concise.' The difference is context and specificity."
+      },
+      {
+        title: "Iteration in Practice",
+        content: "First response feels too formal? Say 'Make this warmer but still professional.' Too long? Say 'Shorten this to 3 sentences.' Each follow-up refines the result."
+      },
+      {
+        title: "Self-Review Technique",
+        content: "After AI gives you a draft, ask: 'What might be unclear in this response?' AI will identify potential weak spots — but you decide what to change."
+      }
+    ],
+    resources: [
+      { title: "Prompting Quick Reference Guide (PDF)", url: "#" },
+      { title: "Iteration Checklist", url: "#" }
+    ]
   }
 };
 
