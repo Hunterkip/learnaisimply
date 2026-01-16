@@ -13,8 +13,7 @@ export const courseModules: Module[] = [
     id: "module-0",
     title: "Module 0: AI Readiness Check",
     lessons: [
-      { id: "m0-1", title: "AI Readiness Check & Orientation", duration: "6 min", completed: true },
-      { id: "m0-2", title: "Your AI Readiness Profile", duration: "10 min", completed: false },
+      { id: "m0-1", title: "AI Readiness Check & Your Profile", duration: "12 min", completed: false },
     ],
   },
   {
@@ -100,7 +99,7 @@ export const courseModules: Module[] = [
 ];
 
 export const initialProgress: CourseProgress = {
-  completedLessons: ["welcome-1", "welcome-2", "m0-1"],
-  currentLessonId: "m0-2",
-  percentComplete: 12,
+  completedLessons: ["welcome-1", "welcome-2"],
+  currentLessonId: "m0-1",
+  percentComplete: 10,
 };
