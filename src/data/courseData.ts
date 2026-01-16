@@ -44,9 +44,8 @@ export const courseModules: Module[] = [
     id: "module-4",
     title: "Module 4: Planning & Research",
     lessons: [
-      { id: "m4-1", title: "Research Made Simple", duration: "11 min", completed: false },
-      { id: "m4-2", title: "Planning Projects with AI", duration: "10 min", completed: false },
-      { id: "m4-3", title: "Making Better Decisions", duration: "9 min", completed: false },
+      { id: "m4-1", title: "Planning and Organizing with AI", duration: "12 min", completed: false },
+      { id: "m4-2", title: "Research and Document Summarizing", duration: "10 min", completed: false },
     ],
   },
   {
