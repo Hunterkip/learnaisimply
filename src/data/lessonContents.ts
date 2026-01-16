@@ -189,15 +189,7 @@ There is no rush. This is your learning journey.`,
   "m0-1": {
     title: "AI Readiness Check & Your Profile",
     description: "Understand where you are starting from and discover your learning profile. This is not a test — it's about clarity and confidence.",
-    notes: `## Why This Section Comes First
-
-Before learning how to use AI, it helps to understand where you are starting from and how this course works.
-
-This is not a test. There are no right or wrong answers.
-
-The goal is simple: clarity and confidence.
-
-## Your Starting Point Is Valid
+    notes: `## Your Starting Point Is Valid
 
 You might feel:
 
