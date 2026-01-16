@@ -12,7 +12,7 @@ This course was created for experienced adults: professionals, leaders, business
 
 It is not about trends, hype, or becoming a "tech person." It is about learning how to use modern tools without losing your identity, judgment, or values.
 
-## You Are in the Right Place
+You Are in the Right Place
 
 If technology sometimes feels like it is moving too fast…
 If AI feels confusing, overwhelming, or "not meant for people like you"…
@@ -24,9 +24,9 @@ Many capable, intelligent people feel this way. It does not mean you are behind.
 
 This course is different.
 
-## A Simple Idea to Hold Onto
+A Simple Idea to Hold Onto
 
-**Tech + Human = Superhumans**
+Tech + Human = Superhumans
 
 This does not mean machines replacing people. It means technology supporting human intelligence.
 
@@ -38,7 +38,7 @@ When experience, wisdom, and judgment are combined with the right tools, people 
 
 AI is not here to compete with you. It is here to assist you.
 
-## AI Is Not Only for "Tech People" or the Young
+AI Is Not Only for "Tech People" or the Young
 
 There is a common belief that AI is only for:
 
@@ -52,9 +52,9 @@ AI is most powerful when used by people who already understand work, responsibil
 
 Your experience gives direction. AI provides support. You remain in control.
 
-**Tech + Human = Superhumans.**
+Tech + Human = Superhumans.
 
-## What This Course Will Not Do
+What This Course Will Not Do
 
 This course will not:
 
@@ -66,7 +66,7 @@ This course will not:
 
 You will always remain the decision-maker.
 
-## What This Course Will Help You Do
+What This Course Will Help You Do
 
 This course will help you:
 
@@ -80,7 +80,7 @@ This course will help you:
 
 The goal is not to do more work — the goal is to do better work with less strain.
 
-## Using AI Does Not Make You Less Intelligent
+Using AI Does Not Make You Less Intelligent
 
 Using AI does not mean you are lazy. It means you are strategic.
 
@@ -90,7 +90,7 @@ Just as calculators did not destroy mathematics, and email did not destroy commu
 
 It supports it.
 
-## Learn at Your Own Pace
+Learn at Your Own Pace
 
 There is no competition here. There is no rush.
 
@@ -98,7 +98,7 @@ Move slowly. Apply what you learn to your real life. Question AI outputs. Trust 
 
 This is a calm, private learning space designed to support you — not pressure you.
 
-## Before You Continue
+Before You Continue
 
 Take a moment.
 
@@ -108,7 +108,7 @@ You are not late. You are not behind.
 
 You are learning how to use a powerful tool — on your own terms.
 
-**Tech + Human = Superhumans.**
+Tech + Human = Superhumans.
 
 Continue to the next section and see how AI can begin working with you.`,
     examples: [
@@ -130,11 +130,11 @@ Continue to the next section and see how AI can begin working with you.`,
   "welcome-2": {
     title: "How to Use This Platform",
     description: "Learn how to navigate the course, track your progress, and get the most out of your learning experience.",
-    notes: `## Getting Started with the Platform
+    notes: `Getting Started with the Platform
 
 This lesson will help you understand how to navigate and use this learning platform effectively.
 
-## Course Structure
+Course Structure
 
 The course is organized into modules, each containing several lessons. You can:
 
@@ -143,17 +143,17 @@ The course is organized into modules, each containing several lessons. You can:
 • Access video, audio, and written content for each lesson
 • Track which lessons you've completed
 
-## Learning Options
+Learning Options
 
 Every lesson offers multiple ways to learn:
 
-• **Video lessons** — Watch at your own pace with speed controls
-• **Audio versions** — Listen while doing other activities
-• **Written notes** — Read and review key concepts
-• **Examples** — See practical applications
-• **Resources** — Download helpful materials
+• Video lessons — Watch at your own pace with speed controls
+• Audio versions — Listen while doing other activities
+• Written notes — Read and review key concepts
+• Examples — See practical applications
+• Resources — Download helpful materials
 
-## Your Progress
+Your Progress
 
 Your progress is saved automatically. You can:
 
@@ -162,7 +162,7 @@ Your progress is saved automatically. You can:
 • Review completed lessons
 • Move at your own pace
 
-## Tips for Success
+Tips for Success
 
 • Take breaks when needed
 • Apply what you learn to real situations
@@ -189,7 +189,7 @@ There is no rush. This is your learning journey.`,
   "m0-1": {
     title: "AI Readiness Check & Your Profile",
     description: "Understand where you are starting from and discover your learning profile. This is not a test — it's about clarity and confidence.",
-    notes: `## Your Starting Point Is Valid
+    notes: `Your Starting Point Is Valid
 
 You might feel:
 
@@ -201,7 +201,7 @@ All of these are normal.
 
 This course is designed to support you exactly where you are.
 
-## How to Get the Most from This Course
+How to Get the Most from This Course
 
 You do not need to be technical or fast.
 
@@ -217,11 +217,11 @@ Tech + Human = Superhumans
 
 Your experience guides the technology — not the other way around.
 
-## Your AI Readiness Profile
+Your AI Readiness Profile
 
 You may see yourself in one profile, or in parts of several. All profiles are welcome here.
 
-## 🌱 Profile 1: The Curious Beginner
+🌱 Profile 1: The Curious Beginner
 
 You might recognize yourself if you:
 
@@ -230,9 +230,9 @@ You might recognize yourself if you:
 • feel curious but cautious
 • prefer slow, clear explanations
 
-**What this means:** You are at the perfect starting point. You are not behind — you are intentional.
+What this means: You are at the perfect starting point. You are not behind — you are intentional.
 
-**How this course supports you:**
+How this course supports you:
 
 • clear explanations without jargon
 • step-by-step guidance
@@ -241,7 +241,7 @@ You might recognize yourself if you:
 
 You will build confidence gradually and safely.
 
-## 🌿 Profile 2: The Careful Explorer
+🌿 Profile 2: The Careful Explorer
 
 You might recognize yourself if you:
 
@@ -250,9 +250,9 @@ You might recognize yourself if you:
 • see potential but feel overwhelmed
 • want guidance before using it more
 
-**What this means:** You are already engaged — you just need structure and clarity.
+What this means: You are already engaged — you just need structure and clarity.
 
-**How this course supports you:**
+How this course supports you:
 
 • teaches how to verify AI output
 • shows when and when not to use AI
@@ -261,7 +261,7 @@ You might recognize yourself if you:
 
 You will move from uncertainty to confidence.
 
-## 🌳 Profile 3: The Practical User
+🌳 Profile 3: The Practical User
 
 You might recognize yourself if you:
 
@@ -270,9 +270,9 @@ You might recognize yourself if you:
 • feel AI helps but doesn't always deliver quality
 • want to understand why AI works the way it does
 
-**What this means:** You are ready to deepen your skill, not just use tools.
+What this means: You are ready to deepen your skill, not just use tools.
 
-**How this course supports you:**
+How this course supports you:
 
 • teaches proper prompting and iteration
 • helps you refine and improve outputs
@@ -281,7 +281,7 @@ You might recognize yourself if you:
 
 You will use AI more deliberately and effectively.
 
-## 🌲 Profile 4: The Confident Improver
+🌲 Profile 4: The Confident Improver
 
 You might recognize yourself if you:
 
@@ -290,9 +290,9 @@ You might recognize yourself if you:
 • want to apply AI more thoughtfully
 • want to reduce mental load and improve quality
 
-**What this means:** You are ready for refinement and mastery, not basics.
+What this means: You are ready for refinement and mastery, not basics.
 
-**How this course supports you:**
+How this course supports you:
 
 • focuses on strategy, not speed
 • teaches decision support and oversight
@@ -301,7 +301,7 @@ You might recognize yourself if you:
 
 You will turn AI into a reliable assistant — not a distraction.
 
-## An Important Reminder
+An Important Reminder
 
 No profile is better than another.
 
@@ -309,7 +309,7 @@ Everyone moves at their own pace. This course is designed so that all profiles c
 
 What matters most is not where you start — but that you are willing to learn.
 
-**Tech + Human = Superhumans**`,
+Tech + Human = Superhumans`,
     examples: [
       {
         title: "The Curious Beginner",
@@ -336,7 +336,7 @@ What matters most is not where you start — but that you are willing to learn.
   "m1-1": {
     title: "What AI Really Is (and Isn't)",
     description: "Understand what AI actually is — and what it is not. Clear the confusion without technical jargon.",
-    notes: `## Why This Module Matters
+    notes: `Why This Module Matters
 
 Before using AI confidently, it helps to understand what AI actually is — and what it is not.
 
@@ -348,7 +348,7 @@ Many people feel uneasy about AI because it is often explained using:
 
 This module clears that confusion. You do not need technical knowledge to understand AI well enough to use it properly.
 
-## What AI Really Is
+What AI Really Is
 
 At its core, AI is a tool that:
 
@@ -360,7 +360,7 @@ AI does not think like a human. It does not understand the meaning the way peopl
 
 AI responds based on patterns — you provide the direction.
 
-## What AI Is Not
+What AI Is Not
 
 AI is not:
 
@@ -379,7 +379,7 @@ That is why:
 
 Understanding this puts you back in control.
 
-## Why AI Sometimes Gives Poor Answers
+Why AI Sometimes Gives Poor Answers
 
 AI can give weak or incorrect results when:
 
@@ -408,7 +408,7 @@ You will learn how to guide it properly later in the course.`,
   "m1-2": {
     title: "AI as Your Thinking Assistant",
     description: "Learn the right way to think about AI and why your experience matters more than ever.",
-    notes: `## The Right Way to Think About AI
+    notes: `The Right Way to Think About AI
 
 A helpful way to think about AI is this:
 
@@ -429,11 +429,11 @@ You remain responsible for:
 
 Remember:
 
-**Tech + Human = Superhumans**
+Tech + Human = Superhumans
 
 The strength comes from the combination — not from the tool alone.
 
-## Why Experience Matters More Than Ever
+Why Experience Matters More Than Ever
 
 AI is most effective when paired with:
 
@@ -445,7 +445,7 @@ Someone without experience may accept AI output blindly. Someone with experience
 
 Your experience is not outdated — it is essential.
 
-## What You Should Expect From AI (and What You Shouldn't)
+What You Should Expect From AI (and What You Shouldn't)
 
 You should expect AI to:
 
@@ -461,7 +461,7 @@ You should not expect AI to:
 
 Clear expectations prevent frustration.
 
-## A Calm Reminder Before Moving On
+A Calm Reminder Before Moving On
 
 You do not need to master AI to benefit from it. You only need to understand how to use it wisely.
 
@@ -472,7 +472,7 @@ This course will show you how to:
 - apply AI to real work and daily life
 - stay in control at all times
 
-## Continue When Ready
+Continue When Ready
 
 In the next module, you will learn one of the most important skills in using AI effectively: how to communicate with AI through clear prompting and thoughtful iteration.
 
@@ -494,7 +494,7 @@ Continue when ready and move on to the next module.`,
   "m2-1": {
     title: "The Art of Clear Prompting",
     description: "Learn how to communicate with AI effectively through clear, structured prompts.",
-    notes: `## Why This Module Is the Most Important
+    notes: `Why This Module Is the Most Important
 
 Most people believe AI gives "good" or "bad" answers on its own.
 
@@ -510,7 +510,7 @@ This module teaches you how to communicate with AI properly, so you stay in cont
 
 Once you understand this, everything else in the course becomes easier.
 
-## What Prompting Really Means
+What Prompting Really Means
 
 A prompt is simply how you communicate with AI.
 
@@ -529,11 +529,11 @@ AI performs best when:
 - the context is clear
 - expectations are stated
 
-## Why Simple Questions Often Fail
+Why Simple Questions Often Fail
 
 If you ask AI:
 
-> "Write an email."
+"Write an email."
 
 AI has too many options:
 
@@ -552,11 +552,11 @@ This is why many people feel:
 
 The problem is not AI. The problem is missing guidance.
 
-## The Foundation of a Good Prompt
+The Foundation of a Good Prompt
 
 A strong prompt usually contains four elements:
 
-### 1. Context
+1. Context
 
 Explain the situation.
 
@@ -564,7 +564,7 @@ Explain the situation.
 - What is happening?
 - Why does this matter?
 
-### 2. Task
+2. Task
 
 Be clear about what you want AI to do.
 
@@ -574,7 +574,7 @@ Be clear about what you want AI to do.
 - Organize
 - Suggest options
 
-### 3. Constraints
+3. Constraints
 
 Set boundaries.
 
@@ -583,21 +583,21 @@ Set boundaries.
 - format
 - level of formality
 
-### 4. Outcome
+4. Outcome
 
 Describe what a good result looks like.
 
 You do not need to be perfect. Even partial clarity helps AI respond better.
 
-## Example: Weak Prompt vs Better Prompt
+Example: Weak Prompt vs Better Prompt
 
 Weak prompt:
 
-> Write an email.
+"Write an email."
 
 Better prompt:
 
-> Draft a clear, professional email informing a colleague about a meeting change. Keep the tone polite and concise.
+"Draft a clear, professional email informing a colleague about a meeting change. Keep the tone polite and concise."
 
 Notice how clarity improves direction.`,
     examples: [
@@ -617,7 +617,7 @@ Notice how clarity improves direction.`,
   "m2-2": {
     title: "Iteration & Refinement",
     description: "Master the art of improving AI responses through thoughtful iteration.",
-    notes: `## Iteration: How Quality Is Really Achieved
+    notes: `Iteration: How Quality Is Really Achieved
 
 AI is not meant to get everything right on the first attempt.
 
@@ -635,7 +635,7 @@ You can:
 
 This back-and-forth is not failure. It is how good results are produced.
 
-## How to Iterate Effectively
+How to Iterate Effectively
 
 Instead of starting over, use follow-up instructions like:
 
@@ -648,7 +648,7 @@ Each follow-up improves the output.
 
 You are guiding — not guessing.
 
-## Asking AI to Review Itself
+Asking AI to Review Itself
 
 One powerful technique is to ask AI to evaluate its own response.
 
@@ -663,7 +663,7 @@ This helps surface weaknesses — but you still decide.
 
 AI can assist with review, but judgment remains human.
 
-## When to Stop Iterating
+When to Stop Iterating
 
 Iteration is useful, but it should not replace thinking.
 
@@ -675,7 +675,7 @@ Stop refining when:
 
 Remember: AI supports decisions — it does not make them.
 
-## Common Prompting Mistakes to Avoid
+Common Prompting Mistakes to Avoid
 
 Avoid:
 
@@ -686,7 +686,7 @@ Avoid:
 
 Good use of AI is active, not passive.
 
-## A Calm Reminder
+A Calm Reminder
 
 You do not need to "master" prompting.
 
@@ -698,7 +698,7 @@ You only need to:
 
 With practice, this becomes natural.
 
-## Before You Move On
+Before You Move On
 
 The skill you learned here — clear prompting and thoughtful iteration — will be used throughout the rest of the course:
 
@@ -710,7 +710,7 @@ The skill you learned here — clear prompting and thoughtful iteration — will
 
 This is the foundation.
 
-## Continue When Ready
+Continue When Ready
 
 In the next module, you will apply this skill to real communication tasks — writing emails, documents, and messages that sound human, clear, and professional.
 
@@ -735,7 +735,7 @@ Continue when ready and move on to the next module.`,
 export const defaultLessonContent: LessonContent = {
   title: "Lesson Coming Soon",
   description: "This lesson content is being prepared. Check back soon for the full lesson.",
-  notes: `## Coming Soon
+  notes: `Coming Soon
 
 This lesson is currently being developed. 
 
@@ -747,7 +747,7 @@ In the meantime, feel free to:
 
 Thank you for your patience.
 
-**Tech + Human = Superhumans**`,
+Tech + Human = Superhumans`,
   examples: [],
   resources: []
 };
