@@ -37,6 +37,26 @@ const trustItems = [
   }
 ];
 
+const learningOutcomes = [
+  "How AI works (without technical language)",
+  "How to write clearer emails and documents",
+  "How to plan, organize, and research with AI",
+  "How to use AI for everyday life tasks",
+  "How to use AI responsibly and safely"
+];
+
+const courseModules = [
+  { number: 0, title: "Welcome & Orientation" },
+  { number: 1, title: "Understanding AI" },
+  { number: 2, title: "Prompting & Iteration" },
+  { number: 3, title: "Communication with AI" },
+  { number: 4, title: "Planning & Research" },
+  { number: 5, title: "AI for Everyday Life" },
+  { number: 6, title: "Creative AI" },
+  { number: 7, title: "Wellbeing & Ethics" },
+  { number: 8, title: "Course Wrap-Up" }
+];
+
 const Enroll = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -216,6 +236,56 @@ const Enroll = () => {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What You'll Learn Section */}
+      <section className="bg-background py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
+              What You'll Learn
+            </h2>
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
+              <ul className="space-y-4">
+                {learningOutcomes.map((item, index) => (
+                  <li key={index} className="flex items-center gap-4">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                      <Check className="h-4 w-4 text-accent" />
+                    </div>
+                    <span className="text-foreground text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Structure Section */}
+      <section className="bg-secondary py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-3">
+              How the Course Is Structured
+            </h2>
+            <p className="text-muted-foreground text-center text-lg mb-10">
+              Short lessons. Clear explanations. No pressure.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {courseModules.map((module) => (
+                <div 
+                  key={module.number}
+                  className="flex items-center gap-4 p-4 bg-background rounded-xl shadow-sm"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <span className="text-accent font-semibold">{module.number}</span>
+                  </div>
+                  <span className="text-foreground font-medium">{module.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
