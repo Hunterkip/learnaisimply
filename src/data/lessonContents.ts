@@ -187,8 +187,8 @@ There is no rush. This is your learning journey.`,
   },
 
   "m0-1": {
-    title: "AI Readiness Check & Orientation",
-    description: "Understand where you are starting from and how this course works. This is not a test — it's about clarity and confidence.",
+    title: "AI Readiness Check & Your Profile",
+    description: "Understand where you are starting from and discover your learning profile. This is not a test — it's about clarity and confidence.",
     notes: `## Why This Section Comes First
 
 Before learning how to use AI, it helps to understand where you are starting from and how this course works.
@@ -196,17 +196,6 @@ Before learning how to use AI, it helps to understand where you are starting fro
 This is not a test. There are no right or wrong answers.
 
 The goal is simple: clarity and confidence.
-
-## The AI Readiness Check
-
-You will answer a short set of questions to reflect on:
-
-• your familiarity with AI
-• your confidence using digital tools
-• how you approach new technology
-• what you hope AI can help you with
-
-There is no score and no judgment. Your answers are for you.
 
 ## Your Starting Point Is Valid
 
@@ -232,26 +221,11 @@ What matters is:
 
 Remember:
 
-**Tech + Human = Superhumans**
+Tech + Human = Superhumans
 
 Your experience guides the technology — not the other way around.
 
-Continue when ready to complete the readiness check and begin learning.`,
-    examples: [
-      {
-        title: "Common Starting Points",
-        content: "Many learners start by feeling curious but unsure about AI. Others have tried it once or twice but want more structured guidance. Both are perfectly valid starting points."
-      }
-    ],
-    resources: [
-      { title: "AI Readiness Reflection Worksheet", url: "#" }
-    ]
-  },
-
-  "m0-2": {
-    title: "Your AI Readiness Profile",
-    description: "Discover your learning profile and understand how this course will support you based on your starting point.",
-    notes: `## Your AI Readiness Profile
+## Your AI Readiness Profile
 
 You may see yourself in one profile, or in parts of several. All profiles are welcome here.
 
