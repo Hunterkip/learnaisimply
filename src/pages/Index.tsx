@@ -3,7 +3,8 @@ import { CourseHeader } from "@/components/course/CourseHeader";
 import { CourseSidebar } from "@/components/course/CourseSidebar";
 import { LessonContent } from "@/components/course/LessonContent";
 import { CourseCompletion } from "@/components/course/CourseCompletion";
-import { courseModules, initialProgress, sampleLessonContent } from "@/data/courseData";
+import { courseModules, initialProgress } from "@/data/courseData";
+import { lessonContents, defaultLessonContent } from "@/data/lessonContents";
 import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -29,6 +30,11 @@ const Index = () => {
   const currentLessonIndex = allLessons.findIndex(
     (lesson) => lesson.id === currentLessonId
   );
+
+  // Get current lesson content
+  const currentLessonContent = useMemo(() => {
+    return lessonContents[currentLessonId] || defaultLessonContent;
+  }, [currentLessonId]);
 
   // Navigation handlers
   const handlePrevious = () => {
@@ -122,11 +128,11 @@ const Index = () => {
             </div>
 
             <LessonContent
-              title={sampleLessonContent.title}
-              description={sampleLessonContent.description}
-              notes={sampleLessonContent.notes}
-              examples={sampleLessonContent.examples}
-              resources={sampleLessonContent.resources}
+              title={currentLessonContent.title}
+              description={currentLessonContent.description}
+              notes={currentLessonContent.notes}
+              examples={currentLessonContent.examples}
+              resources={currentLessonContent.resources}
               onPrevious={handlePrevious}
               onNext={handleNext}
               hasPrevious={currentLessonIndex > 0}

@@ -5,7 +5,7 @@ export const courseModules: Module[] = [
     id: "welcome",
     title: "Welcome & Orientation",
     lessons: [
-      { id: "welcome-1", title: "Welcome to the Course", duration: "5 min", completed: true },
+      { id: "welcome-1", title: "Before You Begin: A Warm Welcome & Mindset Reset", duration: "8 min", completed: true },
       { id: "welcome-2", title: "How to Use This Platform", duration: "4 min", completed: true },
     ],
   },
@@ -13,8 +13,8 @@ export const courseModules: Module[] = [
     id: "module-0",
     title: "Module 0: AI Readiness Check",
     lessons: [
-      { id: "m0-1", title: "What You Already Know", duration: "6 min", completed: true },
-      { id: "m0-2", title: "Setting Your Learning Goals", duration: "8 min", completed: false },
+      { id: "m0-1", title: "AI Readiness Check & Orientation", duration: "6 min", completed: true },
+      { id: "m0-2", title: "Your AI Readiness Profile", duration: "10 min", completed: false },
     ],
   },
   {
@@ -103,56 +103,4 @@ export const initialProgress: CourseProgress = {
   completedLessons: ["welcome-1", "welcome-2", "m0-1"],
   currentLessonId: "m0-2",
   percentComplete: 12,
-};
-
-export const sampleLessonContent = {
-  title: "Setting Your Learning Goals",
-  description: "Before diving into AI, let's take a moment to think about what you want to achieve. This will help you get the most out of this course.",
-  notes: `
-## Why Goals Matter
-
-Taking a few minutes now to think about your goals will make your learning journey much more effective. Everyone comes to AI with different needs and interests.
-
-## Common Goals for This Course
-
-Here are some goals other learners have set:
-
-• **Save time at work** – Use AI to handle repetitive tasks like emails and scheduling
-• **Stay informed** – Understand AI enough to have confident conversations about it
-• **Boost creativity** – Use AI as a brainstorming partner for projects
-• **Simplify daily life** – Get help with travel planning, research, and decisions
-• **Stay relevant** – Keep your skills current in a changing workplace
-
-## Your Personal Goals
-
-Think about these questions:
-
-1. What tasks take up too much of your time right now?
-2. Where do you feel stuck or overwhelmed?
-3. What would you love to accomplish if you had a helpful assistant?
-
-Write down 2-3 specific goals. You don't need to share them—they're just for you.
-
-## Remember
-
-There's no rush. This course is designed to be taken at your own pace. The most important thing is that you feel comfortable and confident as you learn.
-  `,
-  examples: [
-    {
-      title: "Example Goal 1",
-      content: "\"I want to write better work emails in half the time.\""
-    },
-    {
-      title: "Example Goal 2", 
-      content: "\"I want to understand AI well enough to help my grandchildren with their questions.\""
-    },
-    {
-      title: "Example Goal 3",
-      content: "\"I want to use AI to plan our family vacation without getting overwhelmed.\""
-    }
-  ],
-  resources: [
-    { title: "Goal Setting Worksheet (PDF)", url: "#" },
-    { title: "Printable Course Overview", url: "#" },
-  ]
 };
