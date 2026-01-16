@@ -2395,7 +2395,14 @@ You may choose to:
 
 There is no rush.
 
-You are equipped.`,
+You are equipped.
+
+Thank You
+
+Thank you for taking the time to learn, reflect, and grow.
+
+This is not the end —
+It is simply a more confident beginning.`,
     examples: [
       {
         title: "Start Small",
