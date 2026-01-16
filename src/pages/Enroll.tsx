@@ -10,8 +10,7 @@ const included = [
   "Full course access (all 9 modules)",
   "Video + audio lessons",
   "Written lesson notes",
-  "Lifetime access",
-  "Certificate of completion"
+  "Lifetime access"
 ];
 
 const trustItems = [
