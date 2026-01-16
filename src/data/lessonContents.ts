@@ -2288,6 +2288,189 @@ Tech + Human = Superhumans`,
     resources: [
       { title: "AI Ethics Guidelines", url: "#" }
     ]
+  },
+  "wrap-1": {
+    title: "What You've Learned",
+    description: "Take a moment to reflect on the knowledge and skills you've gained throughout this course.",
+    notes: `Course Wrap-Up — Bringing It All Together
+
+Take a Moment to Reflect
+
+You have reached the end of this course.
+
+Before moving on, take a moment to reflect on what has changed.
+
+You now understand:
+
+• what AI is — and what it is not
+• how to guide AI through clear prompting
+• how to improve AI output through iteration
+• how to use AI for communication, planning, creativity, and daily life
+• how to use AI responsibly and ethically
+
+Most importantly, you understand your role.
+
+AI works best when guided by human judgment.
+
+This Is Not About Mastery
+
+You are not expected to:
+
+• know everything
+• use every tool
+• be perfect
+
+What you now have is more valuable than mastery:
+
+• clarity
+• confidence
+• control
+
+You know how to approach AI calmly and thoughtfully.
+
+Tech + Human = Superhumans`,
+    examples: [
+      {
+        title: "Key Skills You've Developed",
+        content: "Clear prompting, critical review of AI outputs, iterative refinement, ethical AI use, and knowing when AI is the right tool for the job."
+      },
+      {
+        title: "Your New Mindset",
+        content: "AI is a tool that supports your thinking, not replaces it. Your experience, judgment, and values remain central to every decision."
+      }
+    ],
+    resources: [
+      { title: "Course Summary Guide", url: "#" }
+    ]
+  },
+  "wrap-2": {
+    title: "Your Next Steps",
+    description: "Reflect on how you'll integrate AI into your life and develop a personal plan for continued growth.",
+    notes: `Your Personal AI Integration Plan
+
+You may find it helpful to reflect on the following questions:
+
+• Where could AI realistically support my work or daily life?
+• What tasks create an unnecessary mental load for me?
+• How will I decide when to use AI — and when not to?
+• What boundaries will I keep around privacy and ethics?
+
+You do not need to write formal answers.
+Even quiet reflection is enough.
+
+This is about ownership, not assessment.
+
+Looking Ahead
+
+AI will continue to change.
+
+You do not need to chase every update or tool.
+
+If you:
+
+• ask clear questions
+• review outputs critically
+• protect your values
+• apply AI where it genuinely helps
+
+You will remain relevant.
+
+Skills last longer than tools.
+
+A Final Thought
+
+Technology does not replace human thinking.
+
+When used wisely, it supports it.
+
+Tech + Human = Superhumans
+
+Where to Go Next (Optional)
+
+You may choose to:
+
+• revisit any module at your own pace
+• apply what you've learned gradually
+• explore deeper learning when you feel ready
+
+There is no rush.
+
+You are equipped.`,
+    examples: [
+      {
+        title: "Start Small",
+        content: "Choose one area where AI can reduce mental load. Practice using it consistently before expanding to other areas."
+      },
+      {
+        title: "Build Gradually",
+        content: "You don't need to master everything at once. Apply what feels comfortable and expand naturally over time."
+      }
+    ],
+    resources: [
+      { title: "Personal AI Integration Worksheet", url: "#" }
+    ]
+  },
+  "wrap-3": {
+    title: "Certificate & Congratulations",
+    description: "Celebrate your achievement and receive recognition for completing this course.",
+    notes: `Thank You
+
+Thank you for taking the time to learn, reflect, and grow.
+
+This is not the end —
+It is simply a more confident beginning.
+
+Congratulations on Completing the Course
+
+You have demonstrated:
+
+• commitment to learning
+• openness to new ideas
+• willingness to grow
+
+These qualities are more valuable than any technical skill.
+
+Your Certificate
+
+You have earned your certificate of completion.
+
+This certificate recognizes your dedication to understanding AI thoughtfully and responsibly.
+
+Display it proudly — you have earned it.
+
+What This Means
+
+By completing this course, you have joined a community of thoughtful adults who:
+
+• understand AI clearly
+• use it responsibly
+• remain in control
+
+You are equipped to navigate the future with confidence.
+
+A Final Reminder
+
+Tech + Human = Superhumans
+
+You are the human in that equation.
+
+Your experience, wisdom, and judgment make all the difference.
+
+Thank you for learning with us.`,
+    examples: [
+      {
+        title: "Share Your Achievement",
+        content: "Consider sharing your certificate with colleagues, friends, or on professional networks to inspire others."
+      },
+      {
+        title: "Continue Learning",
+        content: "This is a foundation. Continue exploring, practicing, and growing at your own pace."
+      }
+    ],
+    resources: [
+      { title: "Download Certificate", url: "#" },
+      { title: "Share on LinkedIn", url: "#" }
+    ]
   }
 };
 
