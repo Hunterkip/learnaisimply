@@ -60,9 +60,8 @@ export const courseModules: Module[] = [
     id: "module-6",
     title: "Module 6: Creative AI",
     lessons: [
-      { id: "m6-1", title: "Writing with AI Assistance", duration: "12 min", completed: false },
-      { id: "m6-2", title: "Generating Ideas", duration: "8 min", completed: false },
-      { id: "m6-3", title: "Visual Creativity Basics", duration: "10 min", completed: false },
+      { id: "m6-1", title: "Creative AI Tools and Getting Started", duration: "12 min", completed: false },
+      { id: "m6-2", title: "Voice, Video, and Creative Expression", duration: "10 min", completed: false },
     ],
   },
   {
