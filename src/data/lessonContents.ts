@@ -1646,6 +1646,247 @@ Continue when ready and move on to the next module.`,
     resources: [
       { title: "Personal AI Use Guidelines", url: "#" }
     ]
+  },
+  "m6-1": {
+    title: "Creative AI Tools and Getting Started",
+    description: "Discover how AI can help you visualize ideas and create supporting materials — no artistic skills required.",
+    notes: `Why This Module Matters
+
+Many people believe creativity belongs only to:
+
+- designers
+- videographers
+- content creators
+
+That is not true.
+
+Creativity is simply expressing ideas clearly — visually, verbally, or emotionally.
+
+AI can help you:
+
+- visualize ideas
+- explain things more clearly
+- create supporting materials
+- communicate more effectively
+
+You do not need to be artistic or technical to benefit.
+
+A Principle to Remember
+
+AI does not replace creativity.
+
+It helps you:
+
+- explore ideas
+- generate options
+- save time on execution
+
+You still decide:
+
+- what feels right
+- what represents you
+- what should be shared
+
+AI Tools You Can Use for Creative Tasks
+
+You do not need all of these. Start with one that feels comfortable.
+
+ChatGPT
+
+Best for:
+
+- generating ideas
+- writing descriptions or scripts
+- refining creative direction
+
+Think of it as a creative thinking partner.
+
+DALL·E
+
+Best for:
+
+- generating images from text
+- visualizing concepts
+- creating simple illustrations
+
+You describe the image — AI generates options.
+
+Midjourney
+
+Best for:
+
+- artistic images
+- realistic visuals
+- concept-style imagery
+
+Useful when visual quality matters.
+
+Canva
+
+Best for:
+
+- simple designs
+- presentations
+- social media graphics
+
+Good if you prefer drag-and-drop simplicity.
+
+ElevenLabs
+
+Best for:
+
+- converting text to natural-sounding voice
+- narration
+- explanations
+
+Useful when you want audio without recording yourself.
+
+Pictory
+
+Best for:
+
+- turning text into short videos
+- simple visual storytelling
+
+Good for basic video needs.
+
+Real-Life Scenario 1: Creating an Image for an Idea
+
+Situation
+
+You want an image to support a presentation, document, or message.
+
+Weak Prompt
+
+"Create an image about teamwork."
+
+Too vague.
+
+Strong Prompt (Full Prompt)
+
+"Create a clean, professional illustration showing people collaborating around a table, sharing ideas, and working together.
+
+The style should be simple, modern, and suitable for a professional presentation."
+
+AI generates multiple image options. You choose what fits your message.`,
+    examples: [
+      {
+        title: "Image Prompt Example",
+        content: "Instead of 'Create an image about teamwork,' try: 'Create a clean, professional illustration showing people collaborating around a table. Style should be simple, modern, suitable for a presentation.'"
+      },
+      {
+        title: "Choosing the Right Tool",
+        content: "Start with one tool that feels comfortable. ChatGPT for ideas and scripts, DALL·E or Canva for images, ElevenLabs for voice. You don't need to master all of them."
+      }
+    ],
+    resources: [
+      { title: "Creative AI Tools Overview (PDF)", url: "#" }
+    ]
+  },
+  "m6-2": {
+    title: "Voice, Video, and Creative Expression",
+    description: "Learn how to use AI for scripts, voice, and video while maintaining authenticity and integrity.",
+    notes: `Real-Life Scenario 2: Turning an Idea into a Short Script
+
+Situation
+
+You want to explain an idea clearly — maybe for a presentation or short video.
+
+Weak Prompt
+
+"Write a script about this topic."
+
+Strong Prompt (Full Prompt)
+
+"Write a short, clear script explaining this idea in simple language.
+
+The tone should be calm, professional, and easy to understand for a general audience."
+
+AI drafts a script. You review and adjust wording to match your voice.
+
+Real-Life Scenario 3: Converting Text into Voice
+
+Situation
+
+You want to listen instead of read, or share spoken explanations.
+
+How to Use AI Voice Tools
+
+- Prepare your text
+- Paste it into a voice generator
+- Choose a calm, natural voice
+- Listen and adjust wording if needed
+
+AI handles the voice — you control the message.
+
+Real-Life Scenario 4: Creating a Simple Video
+
+Situation
+
+You want a short video without filming or editing.
+
+Strong Prompt (Example)
+
+"Turn the following text into a short, calm video with simple visuals and readable text.
+
+Keep it clear and professional."
+
+AI creates a draft video.
+
+You:
+
+- review visuals
+- adjust pacing
+- ensure the message feels right
+
+Important Boundaries in Creative AI
+
+Use AI creatively, but avoid:
+
+- sharing misleading visuals
+- presenting AI-generated work as human testimony
+- using AI where authenticity is critical
+
+AI supports expression — integrity remains human.
+
+A Healthy Creative Mindset
+
+You do not need to be perfect. You do not need to impress.
+
+Use creative AI to:
+
+- explore
+- experiment
+- clarify
+
+Not everything needs to be shared.
+
+A Final Reminder
+
+Creativity is not about talent. It is about expression and clarity.
+
+AI helps remove barriers to expression — you provide meaning and direction.
+
+Tech + Human = Superhumans
+
+Continue When Ready
+
+In the next module, you will learn how to use AI to support health, mental wellbeing, and financial clarity — responsibly and realistically.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "Script Writing Prompt",
+        content: "Ask: 'Write a short, clear script explaining this idea in simple language. The tone should be calm, professional, and easy to understand for a general audience.' Then adjust to match your voice."
+      },
+      {
+        title: "Creative Boundaries",
+        content: "Use AI creatively, but avoid sharing misleading visuals or presenting AI-generated work as human testimony. AI supports expression — integrity remains human."
+      }
+    ],
+    resources: [
+      { title: "Voice and Video AI Guide", url: "#" }
+    ]
   }
 };
 
