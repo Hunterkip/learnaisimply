@@ -84,7 +84,7 @@ export function LessonContent({
               if (paragraph.startsWith("## ")) {
                 return (
                   <h2 key={index} className="text-xl font-semibold text-foreground mt-8 mb-4">
-                    {paragraph.replace("## ", "")}
+                    {paragraph.replace("## ", "").replace(/\*\*/g, "")}
                   </h2>
                 );
               }
@@ -116,7 +116,7 @@ export function LessonContent({
               }
               return (
                 <p key={index} className="text-foreground/90 mb-4 leading-relaxed">
-                  {paragraph}
+                  {paragraph.replace(/\*\*/g, "")}
                 </p>
               );
             })}
