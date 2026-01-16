@@ -1062,6 +1062,321 @@ Continue when ready and move on to the next module.`,
     resources: [
       { title: "AI Communication Checklist", url: "#" }
     ]
+  },
+  "m4-1": {
+    title: "Planning and Organizing with AI",
+    description: "Learn how to use AI as a thinking and organizing assistant to reduce mental load.",
+    notes: `Why This Module Matters
+
+Mental fatigue often does not come from doing hard work — it comes from holding too much in your head at once.
+
+Examples:
+
+- too many tasks
+- unclear priorities
+- long documents
+- scattered notes
+- information overload
+
+AI can help you:
+
+- plan more clearly
+- organize tasks
+- research efficiently
+- summarize long documents
+
+This module shows you how to use AI as a thinking and organizing assistant, not a decision-maker.
+
+A Principle to Remember
+
+AI helps you see things clearly. It does not decide what matters.
+
+You remain responsible for:
+
+- priorities
+- accuracy
+- judgment
+
+AI supports clarity — you provide direction.
+
+AI Tools You Can Experiment With
+
+Start simple. These tools are enough for most needs.
+
+1. ChatGPT
+
+Best for:
+
+- planning tasks and schedules
+- breaking down goals
+- research summaries
+- turning information into action steps
+
+This will be the main tool used in examples.
+
+2. ChatPDF or Similar Document Tools
+
+Best for:
+
+- summarizing long PDFs
+- extracting key points
+- identifying action items
+
+Useful for reports, policies, proposals, and long documents.
+
+3. Google Docs / Microsoft Word (AI features)
+
+Best for:
+
+- organizing notes
+- restructuring content
+- refining summaries
+
+Helpful when you already have written material.
+
+Case Scenario 1: Planning Your Day or Week
+
+Situation
+
+You have many responsibilities and feel mentally overloaded.
+
+Weak Prompt Example
+
+What you type into ChatGPT:
+
+"Help me plan my week."
+
+Likely AI Response:
+
+- Generic schedule
+- Unrealistic timing
+- No awareness of your real constraints
+
+AI is guessing.
+
+Strong Prompt Example (Full Prompt)
+
+What you type into ChatGPT:
+
+"I have a busy week with meetings, report writing, and follow-ups.
+
+Help me organize my tasks into a realistic weekly plan.
+
+Assume I work standard hours, have limited energy in the afternoons, and need flexibility for unexpected issues.
+
+Please keep the plan practical, not overly packed."
+
+AI Response (Example):
+
+Here is a suggested weekly structure:
+
+Monday–Tuesday: Focus on meetings and discussions while energy is higher.
+Midweek: Allocate focused time for report writing.
+End of week: Handle follow-ups, reviews, and lighter tasks.
+
+Leave buffer time each day for unexpected matters.
+
+Why This Works
+
+- Clear context
+- Realistic constraints
+- AI supports thinking, not control
+- You adjust the plan to fit your reality
+
+Case Scenario 2: Turning a Goal into Action Steps
+
+Situation
+
+You have a goal but feel unsure how to start.
+
+Weak Prompt
+
+"Help me achieve this goal."
+
+Too vague.
+
+Strong Prompt (Full Prompt)
+
+"I want to complete a project report within the next two weeks.
+
+Break this goal into clear, manageable steps and suggest a simple timeline."
+
+AI Response (Example):
+
+Suggested steps may include:
+
+- Outline the report structure
+- Gather key information
+- Draft sections progressively
+- Review and refine
+
+Spread the work across manageable sessions.
+
+AI gives structure — you decide pacing and priorities.`,
+    examples: [
+      {
+        title: "Week Planning Prompt",
+        content: "Instead of 'Help me plan my week,' try: 'I have meetings, report writing, and follow-ups. Help me organize into a realistic plan. I have limited afternoon energy and need flexibility for unexpected issues.'"
+      },
+      {
+        title: "Goal Breakdown",
+        content: "For any goal, ask AI to 'Break this into clear, manageable steps and suggest a simple timeline.' Then adjust based on your real constraints."
+      }
+    ],
+    resources: [
+      { title: "Weekly Planning Template (PDF)", url: "#" }
+    ]
+  },
+  "m4-2": {
+    title: "Research and Document Summarizing",
+    description: "Learn how to use AI to research topics efficiently and summarize long documents.",
+    notes: `Case Scenario 3: Researching a Topic Clearly
+
+Situation
+
+You need to understand a topic quickly without getting overwhelmed.
+
+Weak Prompt
+
+"Tell me about this topic."
+
+Too broad.
+
+Strong Prompt (Full Prompt)
+
+"Give me a clear, high-level overview of this topic.
+
+Highlight the main ideas, common challenges, and key considerations.
+
+Keep the explanation simple and practical."
+
+AI Response (Example):
+
+- Organized overview
+- Clear headings
+- Simplified explanation
+
+Important Reminder on Research
+
+AI helps you:
+
+- understand
+- organize
+- summarize
+
+AI does not replace:
+
+- verification
+- trusted sources
+- critical thinking
+
+Always double-check important facts.
+
+Case Scenario 4: Summarizing a Long Document
+
+Situation
+
+You receive a long document and need the key points.
+
+Weak Prompt
+
+"Summarize this document."
+
+Too vague.
+
+Strong Prompt (Full Prompt)
+
+"Summarize this document into clear key points.
+
+Highlight any important actions, deadlines, or decisions.
+
+Keep the summary concise and easy to read."
+
+AI Response (Example):
+
+- Short bullet points
+- Clear structure
+- Action-focused summary
+
+Turning Summaries into Action
+
+After summarizing, you can ask:
+
+"Based on this summary, what are the main actions or decisions to consider?"
+
+This moves you from reading to doing.
+
+Case Scenario 5: Organizing Notes and Ideas
+
+Situation
+
+Your notes are scattered and hard to follow.
+
+Prompt:
+
+"Organize the following notes into clear sections with headings:
+
+[paste notes]"
+
+AI helps you create structure.
+
+You then:
+
+- refine wording
+- remove anything unnecessary
+- ensure it reflects your thinking
+
+Common Mistakes to Avoid
+
+Avoid:
+
+- using AI plans without review
+- accepting summaries blindly
+- giving vague instructions
+- overloading AI with too many tasks at once
+
+Good AI use is collaborative, not automatic.
+
+A Practical Habit to Build
+
+Use AI to:
+
+- plan
+- organize
+- summarize
+
+Then pause and ask:
+
+"Does this make sense for my real situation?"
+
+That pause keeps you in control.
+
+A Final Reminder
+
+You do not need to hold everything in your head. You do not need to remember every detail.
+
+AI can help carry some of the mental load — while you focus on judgment, meaning, and decisions.
+
+Tech + Human = Superhumans
+
+Continue When Ready
+
+In the next module, you will explore how AI can support everyday life tasks — from personal planning to practical daily needs like meals, routines, and learning.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "Document Summary Prompt",
+        content: "Instead of 'Summarize this document,' try: 'Summarize into clear key points. Highlight important actions, deadlines, or decisions. Keep it concise and easy to read.'"
+      },
+      {
+        title: "From Summary to Action",
+        content: "After getting a summary, ask: 'Based on this summary, what are the main actions or decisions to consider?' This moves you from reading to doing."
+      }
+    ],
+    resources: [
+      { title: "Document Summarizing Checklist", url: "#" }
+    ]
   }
 };
 
