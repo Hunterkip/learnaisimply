@@ -332,6 +332,153 @@ What matters most is not where you start — but that you are willing to learn.
       { title: "AI Readiness Profile Summary (PDF)", url: "#" },
       { title: "Personal Goals Worksheet", url: "#" }
     ]
+  },
+  "m1-1": {
+    title: "Understanding AI — Calmly and Clearly",
+    description: "Before using AI confidently, it helps to understand what AI actually is — and what it is not. This module clears the confusion without technical jargon.",
+    notes: `## Why This Module Matters
+
+Before using AI confidently, it helps to understand what AI actually is — and what it is not.
+
+Many people feel uneasy about AI because it is often explained using:
+
+• technical language
+• exaggerated claims
+• fear-based narratives
+
+This module clears that confusion. You do not need technical knowledge to understand AI well enough to use it properly.
+
+## What AI Really Is
+
+At its core, AI is a tool that:
+
+• recognizes patterns
+• works with large amounts of information
+• generates responses based on what it has learned
+
+AI does not think like a human. It does not understand the meaning the way people do. It does not have judgment, values, or intentions.
+
+AI responds based on patterns — you provide the direction.
+
+## What AI Is Not
+
+AI is not:
+
+• human intelligence
+• wisdom
+• common sense
+• moral judgment
+
+AI does not "know" things in the human sense. It predicts likely responses based on data.
+
+That is why:
+
+• AI can sound confident but be wrong
+• AI can give useful drafts but poor decisions
+• AI needs human oversight
+
+Understanding this puts you back in control.
+
+## Why AI Sometimes Gives Poor Answers
+
+AI can give weak or incorrect results when:
+
+• instructions are vague
+• context is missing
+• questions are unclear
+• it is asked to decide instead of assist
+
+This is not a failure on your part. It simply means AI needs better guidance.
+
+You will learn how to guide it properly later in the course.
+
+## The Right Way to Think About AI
+
+A helpful way to think about AI is this:
+
+AI is a thinking assistant, not a decision-maker.
+
+It helps you:
+
+• organize thoughts
+• draft ideas
+• explore options
+• reduce repetitive mental work
+
+You remain responsible for:
+
+• judgment
+• verification
+• final decisions
+
+Remember:
+
+**Tech + Human = Superhumans**
+
+The strength comes from the combination — not from the tool alone.
+
+## Why Experience Matters More Than Ever
+
+AI is most effective when paired with:
+
+• life experience
+• professional judgment
+• contextual understanding
+
+Someone without experience may accept AI output blindly. Someone with experience knows how to question, refine, and decide.
+
+Your experience is not outdated — it is essential.
+
+## What You Should Expect From AI (and What You Shouldn't)
+
+You should expect AI to:
+
+• save time on drafting and summarizing
+• help you think through ideas
+• support planning and research
+
+You should not expect AI to:
+
+• replace your thinking
+• make important decisions for you
+• understand complex human situations on its own
+
+Clear expectations prevent frustration.
+
+## A Calm Reminder Before Moving On
+
+You do not need to master AI to benefit from it. You only need to understand how to use it wisely.
+
+This course will show you how to:
+
+• ask better questions
+• improve AI responses step by step
+• apply AI to real work and daily life
+• stay in control at all times
+
+## Continue When Ready
+
+In the next module, you will learn one of the most important skills in using AI effectively: how to communicate with AI through clear prompting and thoughtful iteration.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "AI as Pattern Recognition",
+        content: "When you ask AI to write an email, it doesn't understand your relationship with the recipient. It recognizes patterns from millions of emails and predicts what words typically follow others. Your guidance shapes the final result."
+      },
+      {
+        title: "Why Context Matters",
+        content: "Asking 'Write me an email' gives poor results. Asking 'Write a polite follow-up email to a colleague about a delayed project, keeping a professional but friendly tone' gives much better results. The difference is context."
+      },
+      {
+        title: "Experience in Action",
+        content: "A manager with 20 years of experience can spot when an AI-generated report misses important context. A newcomer might accept it as-is. Your experience is your advantage."
+      }
+    ],
+    resources: [
+      { title: "Understanding AI: Quick Reference Guide", url: "#" },
+      { title: "AI Expectations Checklist", url: "#" }
+    ]
   }
 };
 
