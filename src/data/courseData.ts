@@ -76,9 +76,8 @@ export const courseModules: Module[] = [
     id: "module-8",
     title: "Module 8: Ethics & Staying Relevant",
     lessons: [
-      { id: "m8-1", title: "Understanding AI Limitations", duration: "10 min", completed: false },
-      { id: "m8-2", title: "Privacy & Security Basics", duration: "11 min", completed: false },
-      { id: "m8-3", title: "Keeping Your Skills Fresh", duration: "8 min", completed: false },
+      { id: "m8-1", title: "Safety, Privacy, and AI Accuracy", duration: "12 min", completed: false },
+      { id: "m8-2", title: "Ethics and Staying Relevant", duration: "10 min", completed: false },
     ],
   },
   {

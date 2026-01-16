@@ -2116,6 +2116,178 @@ Continue when ready and move on to the final module.`,
     resources: [
       { title: "Healthy Routines Worksheet", url: "#" }
     ]
+  },
+  "m8-1": {
+    title: "Safety, Privacy, and AI Accuracy",
+    description: "Learn what to keep private, how to verify AI outputs, and when to trust AI — and when not to.",
+    notes: `Why This Module Matters
+
+AI is powerful — but power without judgment creates risk.
+
+To use AI confidently over time, it is important to understand:
+
+- what is safe to share
+- what should remain private
+- how to verify information
+- how to stay relevant without chasing every new tool
+
+This module helps you build long-term confidence and responsibility.
+
+A Core Principle
+
+AI should work with your values, not against them.
+
+You remain responsible for:
+
+- decisions
+- ethics
+- boundaries
+- accountability
+
+AI is a tool — not an authority.
+
+What You Should Never Share with AI
+
+Avoid sharing:
+
+- personal identification details
+- confidential work information
+- passwords or access codes
+- sensitive financial or health records
+- private conversations without permission
+
+If something should not be shared with a stranger, it should not be shared with AI.
+
+Understanding AI Accuracy
+
+AI can sound confident and still be wrong.
+
+AI may:
+
+- misunderstand context
+- rely on outdated information
+- generate plausible but incorrect details
+
+Because of this:
+
+- always verify important facts
+- cross-check critical information
+- apply common sense and experience
+
+AI assists thinking — it does not guarantee truth.
+
+Knowing When to Trust — and When Not To
+
+AI is useful for:
+
+- drafts
+- summaries
+- ideas
+- organization
+
+AI should not be trusted blindly for:
+
+- legal decisions
+- medical decisions
+- financial decisions
+- sensitive interpersonal situations
+
+In high-stakes situations, AI helps you prepare — humans decide.`,
+    examples: [
+      {
+        title: "Privacy Rule",
+        content: "If something should not be shared with a stranger, it should not be shared with AI. Avoid personal identification, passwords, confidential work info, and private conversations."
+      },
+      {
+        title: "Verification Habit",
+        content: "AI can sound confident and still be wrong. Always verify important facts, cross-check critical information, and apply common sense and experience."
+      }
+    ],
+    resources: [
+      { title: "AI Privacy Checklist", url: "#" }
+    ]
+  },
+  "m8-2": {
+    title: "Ethics and Staying Relevant",
+    description: "Learn to use AI responsibly and stay confident without chasing every new tool or trend.",
+    notes: `Ethical Use of AI
+
+Using AI responsibly means:
+
+- being honest about AI-assisted work when necessary
+- not misleading others with AI-generated content
+- respecting privacy and consent
+- avoiding manipulation or deception
+
+Integrity builds trust — and trust matters more than speed.
+
+Staying Relevant Without Feeling Overwhelmed
+
+You do not need to:
+
+- learn every new AI tool
+- follow every trend
+- keep up with constant updates
+
+Instead:
+
+- focus on core skills (clear prompting, review, judgment)
+- revisit tools only when needed
+- use AI to support your real life and work
+
+Skills last longer than tools.
+
+A Simple Long-Term Strategy
+
+To stay confident with AI:
+
+- Use it regularly but intentionally
+- Question outputs instead of accepting them
+- Update your approach when needed
+- Protect your values and boundaries
+
+That is enough.
+
+Your Role Going Forward
+
+You now understand:
+
+- what AI is and is not
+- how to guide it through prompting
+- how to apply it to work, life, creativity, and wellbeing
+- how to use it safely and ethically
+
+You do not need permission to use AI. You do not need to fear it.
+
+You are equipped to use it thoughtfully and responsibly.
+
+A Final Reflection
+
+Technology will continue to change.
+
+What remains constant is:
+
+- human judgment
+- experience
+- values
+- responsibility
+
+When these are combined with the right tools, the result is strength — not replacement.
+
+Tech + Human = Superhumans`,
+    examples: [
+      {
+        title: "Ethical AI Use",
+        content: "Be honest about AI-assisted work when necessary. Don't mislead others with AI-generated content. Respect privacy and consent. Integrity builds trust."
+      },
+      {
+        title: "Long-Term Strategy",
+        content: "Focus on core skills (clear prompting, review, judgment). You don't need to learn every new tool or follow every trend. Skills last longer than tools."
+      }
+    ],
+    resources: [
+      { title: "AI Ethics Guidelines", url: "#" }
+    ]
   }
 };
 
