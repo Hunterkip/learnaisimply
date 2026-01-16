@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check, Lock, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -10,9 +11,10 @@ const included = [
 ];
 
 export function PricingSection() {
+  const navigate = useNavigate();
+  
   const handleEnroll = () => {
-    // TODO: Integrate with Stripe payment
-    console.log("Enroll clicked - Stripe integration pending");
+    navigate("/course");
   };
 
   return (
