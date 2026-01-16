@@ -20,14 +20,16 @@ export const courseModules: Module[] = [
     id: "module-1",
     title: "Module 1: Understanding AI",
     lessons: [
-      { id: "m1-1", title: "Understanding AI — Calmly and Clearly", duration: "15 min", completed: false },
+      { id: "m1-1", title: "What AI Really Is (and Isn't)", duration: "10 min", completed: false },
+      { id: "m1-2", title: "AI as Your Thinking Assistant", duration: "8 min", completed: false },
     ],
   },
   {
     id: "module-2",
     title: "Module 2: Prompting & Iteration",
     lessons: [
-      { id: "m2-1", title: "Prompting & Iteration — How to Get Quality Results from AI", duration: "18 min", completed: false },
+      { id: "m2-1", title: "The Art of Clear Prompting", duration: "12 min", completed: false },
+      { id: "m2-2", title: "Iteration & Refinement", duration: "10 min", completed: false },
     ],
   },
   {
