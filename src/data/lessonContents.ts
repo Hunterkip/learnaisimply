@@ -1377,6 +1377,275 @@ Continue when ready and move on to the next module.`,
     resources: [
       { title: "Document Summarizing Checklist", url: "#" }
     ]
+  },
+  "m5-1": {
+    title: "AI Tools for Daily Life",
+    description: "Discover how AI can support everyday life beyond work — from planning to personal organization.",
+    notes: `Why This Module Matters
+
+AI is not only for offices, reports, or formal work.
+
+It can also support:
+
+- daily planning
+- personal organization
+- learning new things
+- decision-making
+- reducing everyday mental stress
+
+Many people discover that AI becomes most valuable outside of work, where it quietly reduces mental load and decision fatigue.
+
+This module shows how to use AI to support everyday life without losing control or independence.
+
+A Principle to Remember
+
+AI should simplify life, not complicate it.
+
+You decide what matters. AI helps you organize thoughts, explore options, and reduce unnecessary effort.
+
+AI Tools You Can Use for Everyday Life
+
+You do not need to rely on one tool. The skills you are learning work across many AI systems.
+
+ChatGPT
+
+Best for:
+
+- everyday questions
+- planning routines
+- writing and rewriting text
+- learning new topics step by step
+- thinking through decisions
+
+A strong all-purpose assistant.
+
+Perplexity
+
+Best for:
+
+- research
+- fact-based questions
+- getting sources and references
+- understanding current or real-world topics
+
+Helpful when accuracy and evidence matter.
+
+DeepSeek
+
+Best for:
+
+- structured reasoning
+- breaking down complex ideas
+- step-by-step explanations
+
+Useful when you want logic and clarity.
+
+Microsoft Copilot
+
+Best for:
+
+- users of Word, Excel, Outlook
+- summarizing documents
+- drafting emails
+
+Helpful if you already work within Microsoft tools.
+
+Google Gemini
+
+Best for:
+
+- quick explanations
+- integration with Gmail and Google Docs
+- everyday assistance
+
+Good if you use Google products regularly.
+
+Important Reminder About Tools
+
+You do not need to learn all of these.
+
+Start with one. Focus on learning how to:
+
+- explain what you need
+- review responses
+- improve outputs
+
+The tool is replaceable. Your judgment is not.
+
+Real-Life Scenario 1: Planning Your Day at Home
+
+Situation
+
+You feel mentally overwhelmed with household tasks, personal errands, and responsibilities.
+
+Weak Prompt
+
+"Help me organize my day."
+
+Too general. AI has no context.
+
+Strong Prompt (Full Prompt)
+
+"I have household chores, personal errands, and some rest time to balance today.
+
+Help me create a simple, realistic daily plan that does not feel rushed and includes breaks."
+
+Example AI Response
+
+Here is a gentle structure for your day:
+
+- Morning: high-energy tasks
+- Midday: lighter errands
+- Afternoon: rest or personal time
+- Evening: prepare for the next day
+
+You adjust the plan to match your energy and preferences.
+
+Real-Life Scenario 2: Planning Meals or Recipes
+
+Situation
+
+You are tired of deciding what to cook and want simple ideas.
+
+Weak Prompt
+
+"Give me a recipe."
+
+Strong Prompt (Full Prompt)
+
+"Suggest simple, healthy meal ideas I can prepare at home this week.
+
+Consider limited time, common ingredients, and balanced nutrition."
+
+Example AI Response
+
+- simple meal suggestions
+- flexible ingredients
+- short preparation steps
+
+You choose what fits your taste, time, and budget.`,
+    examples: [
+      {
+        title: "Daily Planning Prompt",
+        content: "Instead of 'Help me organize my day,' try: 'I have household chores, errands, and rest time to balance. Help me create a simple, realistic plan that includes breaks.'"
+      },
+      {
+        title: "Meal Planning",
+        content: "Ask: 'Suggest simple, healthy meal ideas for this week. Consider limited time, common ingredients, and balanced nutrition.' Then choose what fits your preferences."
+      }
+    ],
+    resources: [
+      { title: "AI Tools Comparison Guide (PDF)", url: "#" }
+    ]
+  },
+  "m5-2": {
+    title: "Practical AI for Personal Decisions",
+    description: "Learn how to use AI for learning, decision-making, and personal messages while maintaining control.",
+    notes: `Real-Life Scenario 3: Learning Something New
+
+Situation
+
+You want to understand a topic without long or technical explanations.
+
+Weak Prompt
+
+"Explain this topic."
+
+Strong Prompt (Full Prompt)
+
+"Explain this topic in clear, simple language as if teaching someone new to it.
+
+Use practical examples and avoid technical terms."
+
+You can follow up with:
+
+- "Give a simple example."
+- "Explain this another way."
+
+Learning becomes calmer and more accessible.
+
+Real-Life Scenario 4: Making Everyday Decisions
+
+Situation
+
+You are weighing options and feel mentally stuck.
+
+Strong Prompt (Full Prompt)
+
+"Help me think through the pros and cons of these options.
+
+Do not make the decision for me — just help organize my thinking."
+
+AI structures your thoughts. You decide.
+
+Real-Life Scenario 5: Writing Personal Messages
+
+Situation
+
+You need to send a thoughtful personal message.
+
+Prompt
+
+"Help me draft a warm, respectful message for this situation.
+
+Keep it natural and sincere."
+
+Always read and adjust before sending.
+
+When NOT to Use AI in Daily Life
+
+Avoid relying on AI alone when:
+
+- emotions are strong
+- privacy is critical
+- decisions have serious personal consequences
+
+AI can help you reflect — but human judgment comes first.
+
+A Simple Habit to Build
+
+Use AI to:
+
+- plan
+- organize
+- explore options
+
+Then pause and ask:
+
+"Does this reflect what I truly want or value?"
+
+That pause keeps AI supportive, not controlling.
+
+A Final Reminder
+
+AI does not replace:
+
+- personal responsibility
+- emotional understanding
+- human connection
+
+It supports clarity and reduces unnecessary mental strain.
+
+Tech + Human = Superhumans
+
+Continue When Ready
+
+In the next module, you will explore how AI can support creative expression — including images, voice, and video — in simple, practical ways.
+
+Continue when ready and move on to the next module.`,
+    examples: [
+      {
+        title: "Learning Prompt",
+        content: "Ask: 'Explain this topic in clear, simple language as if teaching someone new to it. Use practical examples and avoid technical terms.' Follow up with 'Give a simple example' if needed."
+      },
+      {
+        title: "Decision Support",
+        content: "When stuck between options, ask: 'Help me think through the pros and cons of these options. Do not make the decision for me — just help organize my thinking.'"
+      }
+    ],
+    resources: [
+      { title: "Personal AI Use Guidelines", url: "#" }
+    ]
   }
 };
 
