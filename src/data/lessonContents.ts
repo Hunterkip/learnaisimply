@@ -2409,68 +2409,6 @@ You are equipped.`,
     resources: [
       { title: "Personal AI Integration Worksheet", url: "#" }
     ]
-  },
-  "wrap-3": {
-    title: "Certificate & Congratulations",
-    description: "Celebrate your achievement and receive recognition for completing this course.",
-    notes: `Thank You
-
-Thank you for taking the time to learn, reflect, and grow.
-
-This is not the end —
-It is simply a more confident beginning.
-
-Congratulations on Completing the Course
-
-You have demonstrated:
-
-• commitment to learning
-• openness to new ideas
-• willingness to grow
-
-These qualities are more valuable than any technical skill.
-
-Your Certificate
-
-You have earned your certificate of completion.
-
-This certificate recognizes your dedication to understanding AI thoughtfully and responsibly.
-
-Display it proudly — you have earned it.
-
-What This Means
-
-By completing this course, you have joined a community of thoughtful adults who:
-
-• understand AI clearly
-• use it responsibly
-• remain in control
-
-You are equipped to navigate the future with confidence.
-
-A Final Reminder
-
-Tech + Human = Superhumans
-
-You are the human in that equation.
-
-Your experience, wisdom, and judgment make all the difference.
-
-Thank you for learning with us.`,
-    examples: [
-      {
-        title: "Share Your Achievement",
-        content: "Consider sharing your certificate with colleagues, friends, or on professional networks to inspire others."
-      },
-      {
-        title: "Continue Learning",
-        content: "This is a foundation. Continue exploring, practicing, and growing at your own pace."
-      }
-    ],
-    resources: [
-      { title: "Download Certificate", url: "#" },
-      { title: "Share on LinkedIn", url: "#" }
-    ]
   }
 };
 

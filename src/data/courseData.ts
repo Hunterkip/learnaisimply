@@ -86,7 +86,6 @@ export const courseModules: Module[] = [
     lessons: [
       { id: "wrap-1", title: "What You've Learned", duration: "6 min", completed: false },
       { id: "wrap-2", title: "Your Next Steps", duration: "5 min", completed: false },
-      { id: "wrap-3", title: "Certificate & Congratulations", duration: "3 min", completed: false },
     ],
   },
 ];
