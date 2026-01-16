@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Check, Lock, CreditCard, BookOpen } from "lucide-react";
+import { Check, Lock, CreditCard, BookOpen, Code2, Clock, Video, Lightbulb, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const included = [
@@ -11,6 +11,29 @@ const included = [
   "Written lesson notes",
   "Lifetime access",
   "Certificate of completion"
+];
+
+const trustItems = [
+  {
+    icon: Code2,
+    title: "No coding required",
+    description: "Everything is explained in plain language"
+  },
+  {
+    icon: Clock,
+    title: "Learn at your own pace",
+    description: "Take your time with each lesson"
+  },
+  {
+    icon: Video,
+    title: "Video + audio lessons",
+    description: "Watch, listen, or read — your choice"
+  },
+  {
+    icon: Lightbulb,
+    title: "Practical examples",
+    description: "Real-life situations you'll recognize"
+  }
 ];
 
 const Enroll = () => {
@@ -31,7 +54,6 @@ const Enroll = () => {
 
       setUserEmail(session.user.email || null);
 
-      // Check if user already has access
       const { data: profile } = await supabase
         .from("profiles")
         .select("has_access")
@@ -47,7 +69,6 @@ const Enroll = () => {
 
     checkAuth();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate("/login");
@@ -58,8 +79,6 @@ const Enroll = () => {
   }, [navigate]);
 
   const handlePayment = async () => {
-    // TODO: Integrate Stripe payment
-    // For now, show a message that payment integration is coming
     toast({
       title: "Payment Coming Soon",
       description: "Stripe payment integration will be set up shortly.",
@@ -83,7 +102,6 @@ const Enroll = () => {
     );
   }
 
-  // If user already has access, show access button instead
   if (hasAccess) {
     return (
       <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12">
@@ -124,87 +142,167 @@ const Enroll = () => {
   }
 
   return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-lg">
-        {/* Welcome message */}
-        <div className="text-center mb-6">
-          <p className="text-muted-foreground">
-            Logged in as <span className="font-medium text-foreground">{userEmail}</span>
-          </p>
-        </div>
+    <div className="min-h-screen">
+      {/* Hero Section - Matching Homepage */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Text Content */}
+            <div className="space-y-6">
+              <p className="text-primary-foreground/70 text-sm">
+                Welcome back, <span className="text-primary-foreground">{userEmail}</span>
+              </p>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+                AI for Adults 40+
+              </h1>
+              <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium">
+                A Practical Guide to Using AI at Work and in Life
+              </p>
+              <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-xl">
+                Use AI confidently — without fear, hype, or technical complexity.
+                This course is designed for adults aged 40 and above who want to 
+                understand and use AI calmly and practically in work and everyday life.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button 
+                  size="lg" 
+                  variant="continue"
+                  onClick={handlePayment}
+                  className="text-lg px-8"
+                >
+                  Enroll Now — $97
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+              <p className="text-primary-foreground/60 text-sm">
+                One-time payment • Lifetime access • No subscriptions
+              </p>
+            </div>
 
-        {/* Enrollment Card */}
-        <div className="bg-card rounded-2xl shadow-sm border-2 border-accent/30 p-8 md:p-10">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              Complete Your Enrollment
-            </h1>
-            <p className="text-muted-foreground text-base">
-              One-time payment for lifetime access
-            </p>
+            {/* Right Side - Illustration */}
+            <div className="hidden md:flex justify-center">
+              <div className="relative w-full max-w-md">
+                <div className="bg-primary-foreground/10 rounded-2xl p-8 backdrop-blur-sm border border-primary-foreground/20">
+                  <div className="space-y-4">
+                    <div className="bg-primary-foreground/20 rounded-lg h-8 w-3/4"></div>
+                    <div className="bg-primary-foreground/15 rounded-lg h-24"></div>
+                    <div className="flex gap-3">
+                      <div className="bg-accent/60 rounded-lg h-10 flex-1"></div>
+                      <div className="bg-primary-foreground/20 rounded-lg h-10 w-20"></div>
+                    </div>
+                    <div className="space-y-2 pt-2">
+                      <div className="bg-primary-foreground/10 rounded h-4 w-full"></div>
+                      <div className="bg-primary-foreground/10 rounded h-4 w-5/6"></div>
+                      <div className="bg-primary-foreground/10 rounded h-4 w-4/6"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/15 rounded-full blur-3xl"></div>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Price */}
-          <div className="text-center mb-8">
+      {/* Trust Section */}
+      <section className="bg-secondary py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {trustItems.map((item, index) => (
+              <div 
+                key={index}
+                className="flex flex-col items-center text-center p-6 bg-background rounded-xl shadow-sm"
+              >
+                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                  <item.icon className="h-7 w-7 text-accent" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What's Included Section */}
+      <section className="bg-background py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
+              What's Included
+            </h2>
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
+              <ul className="space-y-4">
+                {included.map((item, index) => (
+                  <li key={index} className="flex items-center gap-4">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                      <Check className="h-4 w-4 text-accent" />
+                    </div>
+                    <span className="text-foreground text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="bg-secondary py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-lg mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+              Ready to Start Learning?
+            </h2>
+            <p className="text-muted-foreground text-lg mb-8">
+              Get lifetime access to all course materials for a one-time payment.
+            </p>
+            
             <div className="text-5xl font-bold text-foreground mb-2">
               $97
             </div>
-            <p className="text-muted-foreground">
-              One-time payment • No subscriptions
+            <p className="text-muted-foreground mb-8">
+              One-time payment
             </p>
-          </div>
-          
-          {/* What's included */}
-          <div className="space-y-4 mb-8">
-            <h3 className="font-semibold text-foreground text-lg">
-              What's included:
-            </h3>
-            <ul className="space-y-3">
-              {included.map((item, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Check className="h-3 w-3 text-accent" />
-                  </div>
-                  <span className="text-foreground">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Payment Button */}
-          <Button 
-            size="lg" 
-            variant="continue"
-            onClick={handlePayment}
-            className="w-full text-lg py-6 mb-6"
-          >
-            Pay $97 & Get Access
-          </Button>
-          
-          {/* Payment info */}
-          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Lock className="h-4 w-4" />
-              <span>Secure checkout</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CreditCard className="h-4 w-4" />
-              <span>Powered by Stripe</span>
-            </div>
-          </div>
-        </div>
 
-        {/* Logout option */}
-        <div className="text-center mt-6">
-          <Button 
-            variant="ghost" 
-            onClick={handleLogout}
-            className="text-muted-foreground"
-          >
-            Log out
-          </Button>
+            <Button 
+              size="lg" 
+              variant="continue"
+              onClick={handlePayment}
+              className="w-full max-w-sm text-lg py-6 mb-6"
+            >
+              Get Access Now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Lock className="h-4 w-4" />
+                <span>Secure checkout</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4" />
+                <span>Powered by Stripe</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      {/* Logout Footer */}
+      <div className="bg-background py-8 text-center border-t border-border">
+        <Button 
+          variant="ghost" 
+          onClick={handleLogout}
+          className="text-muted-foreground"
+        >
+          Log out
+        </Button>
       </div>
     </div>
   );
