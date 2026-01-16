@@ -5,7 +5,6 @@ export interface Lesson {
   completed: boolean;
   videoUrl?: string;
   audioUrl?: string;
-  content?: string;
 }
 
 export interface Module {
@@ -18,4 +17,12 @@ export interface CourseProgress {
   completedLessons: string[];
   currentLessonId: string;
   percentComplete: number;
+}
+
+export interface LessonContent {
+  title: string;
+  description: string;
+  notes: string;
+  examples?: { title: string; content: string }[];
+  resources?: { title: string; url: string }[];
 }
