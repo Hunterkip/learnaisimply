@@ -52,9 +52,8 @@ export const courseModules: Module[] = [
     id: "module-5",
     title: "Module 5: AI for Everyday Life",
     lessons: [
-      { id: "m5-1", title: "Travel Planning", duration: "8 min", completed: false },
-      { id: "m5-2", title: "Health & Wellness Questions", duration: "10 min", completed: false },
-      { id: "m5-3", title: "Home & Family Organization", duration: "7 min", completed: false },
+      { id: "m5-1", title: "AI Tools for Daily Life", duration: "12 min", completed: false },
+      { id: "m5-2", title: "Practical AI for Personal Decisions", duration: "10 min", completed: false },
     ],
   },
   {
