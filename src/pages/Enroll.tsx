@@ -99,10 +99,8 @@ const Enroll = () => {
   }, [navigate]);
 
   const handlePayment = async () => {
-    toast({
-      title: "Payment Coming Soon",
-      description: "Stripe payment integration will be set up shortly.",
-    });
+    // TODO: Integrate Stripe payment here
+    navigate("/course");
   };
 
   const handleAccessCourse = () => {
