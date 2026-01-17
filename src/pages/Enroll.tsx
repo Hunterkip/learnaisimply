@@ -69,7 +69,7 @@ const Enroll = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        navigate("/login");
+        navigate("/log-in");
         return;
       }
 
@@ -92,7 +92,7 @@ const Enroll = () => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
-        navigate("/login");
+        navigate("/log-in");
       }
     });
 
