@@ -345,7 +345,7 @@ const Enroll = () => {
 
             <div className="max-w-md mx-auto space-y-4">
               <p className="text-muted-foreground text-base leading-relaxed">
-                After completing payment on PayPal, please return to this website and log in using the email you registered with to access your course. If you need assistance, WhatsApp support is available.
+                You will be redirected to PayPal to complete payment securely. After payment, please return to this website and log in to access your course.
               </p>
               <Link 
                 to="/payment-help" 
