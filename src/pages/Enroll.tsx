@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Check, Lock, CreditCard, BookOpen, Code2, Clock, Video, Lightbulb, ArrowRight } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Check, Lock, BookOpen, Code2, Clock, Video, Lightbulb, ArrowRight } from "lucide-react";
 import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
 
 const included = [
@@ -56,9 +56,10 @@ const courseModules = [
   { number: 8, title: "Course Wrap-Up" }
 ];
 
+const PAYPAL_PAYMENT_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
+
 const Enroll = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [hasAccess, setHasAccess] = useState(false);
@@ -98,9 +99,8 @@ const Enroll = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handlePayment = async () => {
-    // TODO: Integrate Stripe payment here
-    navigate("/course");
+  const handlePayment = () => {
+    window.location.href = PAYPAL_PAYMENT_LINK;
   };
 
   const handleAccessCourse = () => {
@@ -332,21 +332,27 @@ const Enroll = () => {
               size="lg" 
               variant="continue"
               onClick={handlePayment}
-              className="w-full max-w-sm text-lg py-6 mb-6"
+              className="w-full max-w-sm text-lg py-6 mb-4"
             >
-              Get Access Now
+              Enroll Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
-            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Lock className="h-4 w-4" />
-                <span>Secure checkout</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4" />
-                <span>Powered by Stripe</span>
-              </div>
+            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-6">
+              <Lock className="h-4 w-4" />
+              <span>Secure checkout via PayPal</span>
+            </div>
+
+            <div className="max-w-md mx-auto space-y-4">
+              <p className="text-muted-foreground text-base leading-relaxed">
+                After completing payment on PayPal, please return to this website and log in using the email you registered with to access your course. If you need assistance, WhatsApp support is available.
+              </p>
+              <Link 
+                to="/payment-help" 
+                className="text-primary hover:underline text-base inline-block"
+              >
+                Having trouble after payment? Click here for help.
+              </Link>
             </div>
           </div>
         </div>
