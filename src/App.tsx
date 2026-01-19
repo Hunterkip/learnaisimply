@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Enroll from "./pages/Enroll";
 import PaymentHelp from "./pages/PaymentHelp";
 import LandingPage from "./pages/LandingPage";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/course" element={<Index />} />
           <Route path="/payment-help" element={<PaymentHelp />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
