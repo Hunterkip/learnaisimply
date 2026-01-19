@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,15 +11,8 @@ const included = [
   "Full course access (all 9 modules)",
   "Video + audio lessons",
   "Written lesson notes",
-  "Lifetime access"
-];
-
-const masteryIncludes = [
-  "Everything in Standard Path",
-  "Gemini Tutor Pro access",
-  "Priority support",
-  "Lifetime updates",
-  "Community access"
+  "Lifetime access",
+  "No subscriptions"
 ];
 
 const trustItems = [
@@ -65,27 +58,14 @@ const courseModules = [
   { number: 8, title: "Course Wrap-Up" }
 ];
 
-// PayPal links for each plan
-const PAYPAL_LINKS = {
-  standard: "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94",
-  mastery: "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94", // Update with mastery payment link
-};
+// PayPal payment link
+const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
 
 const Enroll = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string>("");
   const [hasAccess, setHasAccess] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<'standard' | 'mastery'>('standard');
-
-  useEffect(() => {
-    // Get plan from URL params
-    const planParam = searchParams.get('plan');
-    if (planParam === 'mastery' || planParam === 'standard') {
-      setSelectedPlan(planParam);
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -131,7 +111,7 @@ const Enroll = () => {
   }, [navigate]);
 
   const handlePaypalPayment = () => {
-    window.location.href = PAYPAL_LINKS[selectedPlan];
+    window.location.href = PAYPAL_LINK;
   };
 
   const handleAccessCourse = () => {
@@ -233,41 +213,17 @@ const Enroll = () => {
         </div>
       </section>
 
-      {/* Plan Selection */}
+      {/* Pricing Section */}
       <section className="bg-background py-12 border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-xl font-semibold text-foreground text-center mb-6">
-              Select Your Plan
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                onClick={() => setSelectedPlan('standard')}
-                className={`p-4 rounded-xl border-2 transition-all text-left ${
-                  selectedPlan === 'standard'
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                <div className="font-semibold text-foreground">Standard Path</div>
-                <div className="text-2xl font-bold text-primary mt-1">KES 2,500</div>
-                <div className="text-sm text-muted-foreground">$20 USD</div>
-              </button>
-              <button
-                onClick={() => setSelectedPlan('mastery')}
-                className={`p-4 rounded-xl border-2 transition-all text-left relative ${
-                  selectedPlan === 'mastery'
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                <span className="absolute -top-2 right-4 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
-                  BEST VALUE
-                </span>
-                <div className="font-semibold text-foreground">Mastery Path</div>
-                <div className="text-2xl font-bold text-primary mt-1">KES 5,000</div>
-                <div className="text-sm text-muted-foreground">$40 USD</div>
-              </button>
+          <div className="max-w-md mx-auto">
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-6 text-center">
+              <h2 className="text-xl font-semibold text-foreground mb-2">
+                Full Course Access
+              </h2>
+              <p className="text-muted-foreground mb-4">One-time payment • Lifetime access</p>
+              <div className="text-4xl font-bold text-primary mb-1">KES 2,500</div>
+              <div className="text-muted-foreground">≈ $20 USD</div>
             </div>
           </div>
         </div>
@@ -352,11 +308,11 @@ const Enroll = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
-              What's Included in {selectedPlan === 'mastery' ? 'Mastery Path' : 'Standard Path'}
+              What's Included
             </h2>
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
               <ul className="space-y-4">
-                {(selectedPlan === 'mastery' ? masteryIncludes : included).map((item, index) => (
+                {included.map((item, index) => (
                   <li key={index} className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
                       <Check className="h-4 w-4 text-accent" />
@@ -376,7 +332,7 @@ const Enroll = () => {
           <div className="max-w-xl mx-auto">
             <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
               <PaymentModeSelector
-                plan={selectedPlan}
+                plan="standard"
                 userEmail={userEmail}
                 onPaypalPayment={handlePaypalPayment}
               />
