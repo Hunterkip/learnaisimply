@@ -57,7 +57,7 @@ export function CourseCompletion() {
           🎉 Congratulations!
         </h1>
         <p className="text-xl text-muted-foreground mb-4 leading-relaxed">
-          You've completed the <span className="text-foreground font-medium">AI for Adults 40+</span> course!
+          You've completed the <span className="text-foreground font-medium">AI Simplified</span> course!
         </p>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           You now know how to use AI calmly and confidently in your work and daily life.
