@@ -1,65 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Users, Lightbulb, Shield, Clock, Video, Code2, Check } from "lucide-react";
-import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
+import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
-
-const services = [
-  {
-    icon: BookOpen,
-    title: "Comprehensive AI Course",
-    description: "9 carefully structured modules covering everything from AI basics to practical applications"
-  },
-  {
-    icon: Users,
-    title: "For Everyone",
-    description: "Designed for professionals, business owners, teams, and everyday individuals"
-  },
-  {
-    icon: Lightbulb,
-    title: "Practical Learning",
-    description: "Real-world examples and hands-on exercises you can apply immediately"
-  },
-  {
-    icon: Shield,
-    title: "Safe & Ethical",
-    description: "Learn to use AI responsibly with built-in ethics and safety guidance"
-  }
-];
 
 const features = [
   {
-    icon: Code2,
-    title: "No coding required",
-    description: "Everything explained in plain language"
-  },
-  {
     icon: Clock,
-    title: "Learn at your own pace",
-    description: "Take your time with each lesson"
+    title: "Self-Paced",
+    description: "Access anytime, take as long as you need."
   },
   {
     icon: Video,
-    title: "Video + audio lessons",
-    description: "Watch, listen, or read — your choice"
+    title: "Multi-Format",
+    description: "Watch, listen, or read — your choice."
   },
   {
-    icon: Lightbulb,
-    title: "Practical examples",
-    description: "Real-life situations you'll recognize"
+    icon: Shield,
+    title: "No Experience",
+    description: "Prior technical knowledge is not required."
+  },
+  {
+    icon: Star,
+    title: "Lifetime Access",
+    description: "No deadlines. Your course never expires."
   }
 ];
 
-const courseModules = [
-  { number: 0, title: "Welcome & Orientation" },
-  { number: 1, title: "Understanding AI" },
-  { number: 2, title: "Prompting & Iteration" },
-  { number: 3, title: "Communication with AI" },
-  { number: 4, title: "Planning & Research" },
-  { number: 5, title: "AI for Everyday Life" },
-  { number: 6, title: "Creative AI" },
-  { number: 7, title: "Wellbeing & Ethics" },
-  { number: 8, title: "Course Wrap-Up" }
+const standardFeatures = [
+  "All 9 Modules",
+  "Audio/Video Versions",
+  "Written Notes",
+  "Certificate"
+];
+
+const masteryFeatures = [
+  "All Modules",
+  "Gemini Tutor Pro",
+  "Priority Support",
+  "Lifetime Updates",
+  "Community Access"
 ];
 
 export default function LandingPage() {
@@ -72,7 +51,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-4">
             <Link to="/log-in">
               <Button variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
-                Sign In
+                Log In
               </Button>
             </Link>
             <Link to="/sign-up">
@@ -85,116 +64,47 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Text Content */}
-            <div className="space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-                AI Simplified
-              </h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium">
-                For Everyday People and Business
-              </p>
-              <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-xl">
-                AI Simplified is a practical, easy-to-follow course designed to help 
-                everyday people and businesses understand and use AI confidently — 
-                without coding, hype, or overwhelm.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/sign-up">
-                  <Button 
-                    size="lg" 
-                    variant="continue"
-                    className="text-lg px-8 w-full sm:w-auto"
-                  >
-                    Enroll Now — $29
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="/log-in">
-                  <Button 
-                    size="lg" 
-                    className="text-lg px-8 w-full sm:w-auto bg-transparent border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-              </div>
-              <p className="text-primary-foreground/60 text-sm">
-                One-time payment • Lifetime access • No subscriptions
-              </p>
-            </div>
-
-            {/* Right Side - Image */}
-            <div className="hidden md:flex justify-center">
-              <div className="relative w-full max-w-md">
-                <img 
-                  src={confidentWomanImage} 
-                  alt="Confident professional woman using a laptop"
-                  className="rounded-2xl shadow-lg w-full h-auto object-cover"
-                />
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/15 rounded-full blur-3xl"></div>
-              </div>
-            </div>
-          </div>
+      <section className="bg-primary text-primary-foreground py-16 md:py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4">
+            AI Simplified
+          </h1>
+          <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium mb-6">
+            For Everyday People and Business
+          </p>
+          <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-2xl mx-auto mb-8">
+            A practical, easy-to-follow course designed to help everyday people and businesses 
+            understand and use AI confidently — without coding, hype, or overwhelm.
+          </p>
+          <Link to="/sign-up">
+            <Button 
+              size="lg" 
+              variant="continue"
+              className="text-lg px-8"
+            >
+              Get Started
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="bg-secondary py-16 md:py-20">
+      {/* Features Strip */}
+      <section className="bg-background py-12 md:py-16 border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              What We Offer
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              A complete learning experience designed to make AI accessible to everyone
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <div 
-                key={index}
-                className="flex flex-col items-center text-center p-6 bg-background rounded-xl shadow-sm"
-              >
-                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <service.icon className="h-7 w-7 text-accent" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="bg-background py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              How You'll Learn
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="flex flex-col items-center text-center p-6"
+                className="flex flex-col items-center text-center"
               >
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="h-7 w-7 text-primary" />
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                  <feature.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
+                <h3 className="text-base font-semibold text-primary mb-1">
                   {feature.title}
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   {feature.description}
                 </p>
               </div>
@@ -203,30 +113,86 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Course Structure Section */}
-      <section className="bg-secondary py-16 md:py-20">
+      {/* Pricing Section */}
+      <section id="pricing" className="bg-secondary py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-3">
-              Course Structure
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+              Choose Your Learning Path
             </h2>
-            <p className="text-muted-foreground text-center text-lg mb-10">
-              9 modules designed for progressive, stress-free learning
+            <p className="text-muted-foreground text-lg">
+              Select the plan that works best for you
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {courseModules.map((module) => (
-                <div 
-                  key={module.number}
-                  className="flex items-center gap-4 p-4 bg-background rounded-xl shadow-sm"
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Standard Path */}
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                Standard Path
+              </h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-primary">KSH 2,500</span>
+                <span className="text-muted-foreground ml-2">/ $20</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                {standardFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-3 w-3 text-accent" />
+                    </div>
+                    <span className="text-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link to="/sign-up?plan=standard">
+                <Button 
+                  variant="outline" 
+                  className="w-full h-12 text-base border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                    <span className="text-accent font-semibold">{module.number}</span>
-                  </div>
-                  <span className="text-foreground font-medium">{module.title}</span>
-                </div>
-              ))}
+                  Enroll as Standard Path
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mastery Path */}
+            <div className="bg-card rounded-2xl shadow-sm border-2 border-primary p-8 relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                  RECOMMENDED
+                </span>
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                Mastery Path
+              </h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-primary">KSH 5,000</span>
+                <span className="text-muted-foreground ml-2">/ $40</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                {masteryFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-3 w-3 text-accent" />
+                    </div>
+                    <span className="text-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link to="/sign-up?plan=mastery">
+                <Button 
+                  variant="continue"
+                  className="w-full h-12 text-base"
+                >
+                  Enroll as Mastery Path
+                </Button>
+              </Link>
             </div>
           </div>
+
+          <p className="text-center text-muted-foreground mt-8 text-sm">
+            Already enrolled? <Link to="/log-in" className="text-primary hover:underline">Sign in</Link> to continue your learning journey.
+          </p>
         </div>
       </section>
 
@@ -256,7 +222,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section id="pricing" className="bg-primary py-16 md:py-20">
+      <section className="bg-primary py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-lg mx-auto text-center text-primary-foreground">
             <h2 className="text-2xl md:text-3xl font-semibold mb-4">
@@ -264,13 +230,6 @@ export default function LandingPage() {
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8">
               Join thousands of learners who are already using AI confidently.
-            </p>
-            
-            <div className="text-5xl font-bold mb-2">
-              $29
-            </div>
-            <p className="text-primary-foreground/70 mb-8">
-              One-time payment • Lifetime access
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -295,7 +254,7 @@ export default function LandingPage() {
             </div>
 
             <p className="text-primary-foreground/60 text-sm mt-6">
-              Already enrolled? Sign in to continue your learning journey.
+              One-time payment • Lifetime access • No subscriptions
             </p>
           </div>
         </div>

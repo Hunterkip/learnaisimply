@@ -1,1 +1,10 @@
 project_id = "sutnggvyjstgykoyvgqs"
+
+[functions.mpesa-stk-push]
+verify_jwt = false
+
+[functions.mpesa-callback]
+verify_jwt = false
+
+[functions.paypal-webhook]
+verify_jwt = false
