@@ -1,11 +1,11 @@
 import { Check } from "lucide-react";
 
 const audiences = [
-  "Adults aged 40 and above",
-  "Professionals, leaders, and business owners",
-  "Retirees exploring new skills",
-  "Anyone curious about AI but unsure where to start",
-  "People who want practical use, not technical theory"
+  "Professionals who want to work smarter",
+  "Business owners looking to save time and grow",
+  "Teams wanting practical AI skills",
+  "Everyday individuals curious about AI",
+  "Anyone who wants practical use, not technical theory"
 ];
 
 export function WhoIsThisFor() {
@@ -17,7 +17,7 @@ export function WhoIsThisFor() {
             Who This Course Is Designed For
           </h2>
           <p className="text-muted-foreground text-center mb-10 text-lg">
-            This course welcomes learners from all backgrounds.
+            This course is for professionals, business owners, teams, and everyday individuals who want to use AI practically — without needing a technical background.
           </p>
           
           <div className="bg-secondary rounded-2xl p-8 md:p-10">

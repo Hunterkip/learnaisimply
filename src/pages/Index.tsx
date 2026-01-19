@@ -80,8 +80,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Course Header */}
       <CourseHeader
-        title="AI for Adults 40+"
-        subtitle="A Practical Guide to Using AI at Work and in Life"
+        title="AI Simplified"
+        subtitle="For Everyday People and Business"
         progress={progress}
         onContinue={handleContinue}
       />

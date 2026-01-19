@@ -171,15 +171,15 @@ const Enroll = () => {
                 Welcome back, <span className="text-primary-foreground">{userEmail}</span>
               </p>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-                AI for Adults 40+
+                AI Simplified
               </h1>
               <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium">
-                A Practical Guide to Using AI at Work and in Life
+                For Everyday People and Business
               </p>
               <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-xl">
-                Use AI confidently — without fear, hype, or technical complexity.
-                This course is designed for adults aged 40 and above who want to 
-                understand and use AI calmly and practically in work and everyday life.
+                AI Simplified is a practical, easy-to-follow course designed to help 
+                everyday people and businesses understand and use AI confidently — 
+                without coding, hype, or overwhelm.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button 
