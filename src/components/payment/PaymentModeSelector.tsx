@@ -5,42 +5,88 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CreditCard, Phone, ArrowRight, Lock, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 type PaymentMode = "paypal" | "mpesa";
 
 interface PaymentModeSelectorProps {
+  plan: 'standard' | 'mastery';
+  userEmail: string;
   onPaypalPayment: () => void;
-  onMpesaPayment: (phoneNumber: string) => void;
-  isProcessing?: boolean;
 }
 
+const PRICING = {
+  standard: { usd: 20, kes: 2500 },
+  mastery: { usd: 40, kes: 5000 },
+};
+
 export function PaymentModeSelector({ 
-  onPaypalPayment, 
-  onMpesaPayment, 
-  isProcessing = false 
+  plan,
+  userEmail,
+  onPaypalPayment,
 }: PaymentModeSelectorProps) {
+  const { toast } = useToast();
   const [selectedMode, setSelectedMode] = useState<PaymentMode | null>(null);
   const [mpesaPhone, setMpesaPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const pricing = PRICING[plan];
 
   const validatePhone = (phone: string) => {
-    // Accept formats: 0712345678, 254712345678, +254712345678
     const cleanPhone = phone.replace(/[\s\-\+]/g, "");
     const kenyaPhoneRegex = /^(0|254)?7\d{8}$/;
     return kenyaPhoneRegex.test(cleanPhone);
   };
 
-  const handleMpesaSubmit = () => {
+  const handleMpesaSubmit = async () => {
     if (!validatePhone(mpesaPhone)) {
       setPhoneError("Please enter a valid Kenyan phone number (e.g., 0712345678)");
       return;
     }
     setPhoneError("");
-    onMpesaPayment(mpesaPhone);
-  };
+    setIsProcessing(true);
 
-  const handlePaypalSubmit = () => {
-    onPaypalPayment();
+    try {
+      const { data, error } = await supabase.functions.invoke('mpesa-stk-push', {
+        body: {
+          phoneNumber: mpesaPhone,
+          amount: pricing.kes,
+          accountReference: userEmail,
+          plan: plan,
+        },
+      });
+
+      if (error) {
+        console.error('STK Push error:', error);
+        toast({
+          title: "Payment Error",
+          description: "Failed to initiate M-Pesa payment. Please try again.",
+          variant: "destructive",
+        });
+      } else if (data?.success) {
+        toast({
+          title: "Check Your Phone",
+          description: "An M-Pesa payment request has been sent to your phone. Enter your PIN to complete.",
+        });
+      } else {
+        toast({
+          title: "Payment Failed",
+          description: data?.message || "Failed to initiate payment",
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      console.error('STK Push error:', err);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -50,7 +96,7 @@ export function PaymentModeSelector({
           Choose Payment Method
         </h3>
         <p className="text-muted-foreground">
-          Select your preferred payment option
+          {plan === 'mastery' ? 'Mastery Path' : 'Standard Path'} — KES {pricing.kes.toLocaleString()} / ${pricing.usd}
         </p>
       </div>
 
@@ -108,7 +154,7 @@ export function PaymentModeSelector({
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-foreground">M-Pesa</h4>
-              <p className="text-sm text-muted-foreground">Paybill payment</p>
+              <p className="text-sm text-muted-foreground">STK Push / Paybill</p>
             </div>
             {selectedMode === "mpesa" && (
               <Check className="h-5 w-5 text-primary" />
@@ -132,10 +178,10 @@ export function PaymentModeSelector({
             size="lg" 
             variant="continue"
             className="w-full text-lg"
-            onClick={handlePaypalSubmit}
+            onClick={onPaypalPayment}
             disabled={isProcessing}
           >
-            {isProcessing ? "Processing..." : "Pay with PayPal — $29"}
+            {isProcessing ? "Processing..." : `Pay with PayPal — $${pricing.usd}`}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
@@ -144,18 +190,6 @@ export function PaymentModeSelector({
       {selectedMode === "mpesa" && (
         <div className="bg-muted/50 rounded-xl p-6 space-y-4">
           <div className="space-y-4">
-            <div className="bg-background rounded-lg p-4 space-y-2">
-              <h4 className="font-semibold text-foreground">M-Pesa Paybill Details</h4>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <span className="text-muted-foreground">Business Number:</span>
-                <span className="font-medium text-foreground">XXXXXX</span>
-                <span className="text-muted-foreground">Account Number:</span>
-                <span className="font-medium text-foreground">Your Email</span>
-                <span className="text-muted-foreground">Amount:</span>
-                <span className="font-medium text-foreground">KES 3,700</span>
-              </div>
-            </div>
-            
             <div className="space-y-2">
               <Label htmlFor="mpesa-phone" className="text-foreground">
                 M-Pesa Phone Number
@@ -187,7 +221,7 @@ export function PaymentModeSelector({
             onClick={handleMpesaSubmit}
             disabled={isProcessing || !mpesaPhone}
           >
-            {isProcessing ? "Processing..." : "Pay with M-Pesa — KES 3,700"}
+            {isProcessing ? "Processing..." : `Pay with M-Pesa — KES ${pricing.kes.toLocaleString()}`}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           

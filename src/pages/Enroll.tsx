@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
-import { useToast } from "@/hooks/use-toast";
 import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
 
 const included = [
@@ -13,6 +12,14 @@ const included = [
   "Video + audio lessons",
   "Written lesson notes",
   "Lifetime access"
+];
+
+const masteryIncludes = [
+  "Everything in Standard Path",
+  "Gemini Tutor Pro access",
+  "Priority support",
+  "Lifetime updates",
+  "Community access"
 ];
 
 const trustItems = [
@@ -58,15 +65,27 @@ const courseModules = [
   { number: 8, title: "Course Wrap-Up" }
 ];
 
-const PAYPAL_PAYMENT_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
+// PayPal links for each plan
+const PAYPAL_LINKS = {
+  standard: "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94",
+  mastery: "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94", // Update with mastery payment link
+};
 
 const Enroll = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string>("");
   const [hasAccess, setHasAccess] = useState(false);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<'standard' | 'mastery'>('standard');
+
+  useEffect(() => {
+    // Get plan from URL params
+    const planParam = searchParams.get('plan');
+    if (planParam === 'mastery' || planParam === 'standard') {
+      setSelectedPlan(planParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -77,11 +96,19 @@ const Enroll = () => {
         return;
       }
 
-      setUserEmail(session.user.email || null);
+      setUserEmail(session.user.email || "");
+
+      // Update profile email if needed
+      if (session.user.email) {
+        await supabase
+          .from("profiles")
+          .update({ email: session.user.email })
+          .eq("id", session.user.id);
+      }
 
       const { data: profile } = await supabase
         .from("profiles")
-        .select("has_access")
+        .select("has_access, plan")
         .eq("id", session.user.id)
         .single();
 
@@ -104,21 +131,7 @@ const Enroll = () => {
   }, [navigate]);
 
   const handlePaypalPayment = () => {
-    setIsProcessingPayment(true);
-    window.location.href = PAYPAL_PAYMENT_LINK;
-  };
-
-  const handleMpesaPayment = (phoneNumber: string) => {
-    setIsProcessingPayment(true);
-    // For now, show instructions since M-Pesa integration requires backend setup
-    toast({
-      title: "M-Pesa Payment Instructions",
-      description: "Please complete the payment using the Paybill details shown. Your access will be unlocked once payment is confirmed.",
-    });
-    setIsProcessingPayment(false);
-    
-    // TODO: Implement STK push via edge function when M-Pesa API is configured
-    // This would call an edge function that initiates the STK push
+    window.location.href = PAYPAL_LINKS[selectedPlan];
   };
 
   const handleAccessCourse = () => {
@@ -220,6 +233,46 @@ const Enroll = () => {
         </div>
       </section>
 
+      {/* Plan Selection */}
+      <section className="bg-background py-12 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-xl font-semibold text-foreground text-center mb-6">
+              Select Your Plan
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => setSelectedPlan('standard')}
+                className={`p-4 rounded-xl border-2 transition-all text-left ${
+                  selectedPlan === 'standard'
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border hover:border-primary/50'
+                }`}
+              >
+                <div className="font-semibold text-foreground">Standard Path</div>
+                <div className="text-2xl font-bold text-primary mt-1">KES 2,500</div>
+                <div className="text-sm text-muted-foreground">$20 USD</div>
+              </button>
+              <button
+                onClick={() => setSelectedPlan('mastery')}
+                className={`p-4 rounded-xl border-2 transition-all text-left relative ${
+                  selectedPlan === 'mastery'
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border hover:border-primary/50'
+                }`}
+              >
+                <span className="absolute -top-2 right-4 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                  BEST VALUE
+                </span>
+                <div className="font-semibold text-foreground">Mastery Path</div>
+                <div className="text-2xl font-bold text-primary mt-1">KES 5,000</div>
+                <div className="text-sm text-muted-foreground">$40 USD</div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Trust Section */}
       <section className="bg-secondary py-16 md:py-20">
         <div className="container mx-auto px-4">
@@ -299,11 +352,11 @@ const Enroll = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
-              What's Included
+              What's Included in {selectedPlan === 'mastery' ? 'Mastery Path' : 'Standard Path'}
             </h2>
             <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
               <ul className="space-y-4">
-                {included.map((item, index) => (
+                {(selectedPlan === 'mastery' ? masteryIncludes : included).map((item, index) => (
                   <li key={index} className="flex items-center gap-4">
                     <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
                       <Check className="h-4 w-4 text-accent" />
@@ -321,23 +374,11 @@ const Enroll = () => {
       <section id="payment" className="bg-secondary py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-                Ready to Start Learning?
-              </h2>
-              <p className="text-muted-foreground text-lg mb-4">
-                Get lifetime access to all course materials for a one-time payment.
-              </p>
-              <div className="text-4xl font-bold text-foreground mb-2">
-                $29 <span className="text-lg font-normal text-muted-foreground">/ KES 3,700</span>
-              </div>
-            </div>
-
             <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
               <PaymentModeSelector
+                plan={selectedPlan}
+                userEmail={userEmail}
                 onPaypalPayment={handlePaypalPayment}
-                onMpesaPayment={handleMpesaPayment}
-                isProcessing={isProcessingPayment}
               />
             </div>
 
