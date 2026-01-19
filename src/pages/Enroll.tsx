@@ -188,7 +188,7 @@ const Enroll = () => {
                   onClick={handlePayment}
                   className="text-lg px-8"
                 >
-                  Enroll Now — $97
+                  Enroll Now — $29
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -322,7 +322,7 @@ const Enroll = () => {
             </p>
             
             <div className="text-5xl font-bold text-foreground mb-2">
-              $97
+              $29
             </div>
             <p className="text-muted-foreground mb-8">
               One-time payment
