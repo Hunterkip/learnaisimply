@@ -14,24 +14,81 @@ export type Database = {
   }
   public: {
     Tables: {
+      payment_transactions: {
+        Row: {
+          account_reference: string
+          amount: number
+          checkout_request_id: string | null
+          created_at: string
+          id: string
+          merchant_request_id: string | null
+          mpesa_receipt_number: string | null
+          payment_method: string
+          paypal_transaction_id: string | null
+          phone_number: string | null
+          plan: string | null
+          result_desc: string | null
+          status: string
+          transaction_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_reference: string
+          amount: number
+          checkout_request_id?: string | null
+          created_at?: string
+          id?: string
+          merchant_request_id?: string | null
+          mpesa_receipt_number?: string | null
+          payment_method: string
+          paypal_transaction_id?: string | null
+          phone_number?: string | null
+          plan?: string | null
+          result_desc?: string | null
+          status?: string
+          transaction_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_reference?: string
+          amount?: number
+          checkout_request_id?: string | null
+          created_at?: string
+          id?: string
+          merchant_request_id?: string | null
+          mpesa_receipt_number?: string | null
+          payment_method?: string
+          paypal_transaction_id?: string | null
+          phone_number?: string | null
+          plan?: string | null
+          result_desc?: string | null
+          status?: string
+          transaction_date?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
           email: string
           has_access: boolean
           id: string
+          plan: string | null
         }
         Insert: {
           created_at?: string
           email: string
           has_access?: boolean
           id: string
+          plan?: string | null
         }
         Update: {
           created_at?: string
           email?: string
           has_access?: boolean
           id?: string
+          plan?: string | null
         }
         Relationships: []
       }
