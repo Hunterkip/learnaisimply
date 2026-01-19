@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
+import { AnimatedHero } from "@/components/homepage/AnimatedHero";
 
 const features = [
   {
@@ -26,19 +27,12 @@ const features = [
   }
 ];
 
-const standardFeatures = [
+const courseIncludes = [
   "All 9 Modules",
-  "Audio/Video Versions",
+  "Video & Audio Lessons",
   "Written Notes",
-  "Certificate"
-];
-
-const masteryFeatures = [
-  "All Modules",
-  "Gemini Tutor Pro",
-  "Priority Support",
-  "Lifetime Updates",
-  "Community Access"
+  "Lifetime Access",
+  "No Subscriptions"
 ];
 
 export default function LandingPage() {
@@ -63,31 +57,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-16 md:py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4">
-            AI Simplified
-          </h1>
-          <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium mb-6">
-            For Everyday People and Business
-          </p>
-          <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-2xl mx-auto mb-8">
-            A practical, easy-to-follow course designed to help everyday people and businesses 
-            understand and use AI confidently — without coding, hype, or overwhelm.
-          </p>
-          <Link to="/sign-up">
-            <Button 
-              size="lg" 
-              variant="continue"
-              className="text-lg px-8"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {/* Animated Hero Section */}
+      <AnimatedHero />
 
       {/* Features Strip */}
       <section className="bg-background py-12 md:py-16 border-b border-border">
@@ -118,73 +89,40 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              Choose Your Learning Path
+              Simple, One-Time Pricing
             </h2>
             <p className="text-muted-foreground text-lg">
-              Select the plan that works best for you
+              Full access. No subscriptions. Learn forever.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Standard Path */}
-            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
+          <div className="max-w-md mx-auto">
+            {/* Single Pricing Card */}
+            <div className="bg-card rounded-2xl shadow-lg border-2 border-primary p-8 text-center">
               <h3 className="text-xl font-semibold text-foreground mb-2">
-                Standard Path
+                Full Course Access
               </h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-primary">KSH 2,500</span>
-                <span className="text-muted-foreground ml-2">/ $20</span>
+                <span className="text-5xl font-bold text-primary">KES 2,500</span>
+                <p className="text-muted-foreground mt-1">≈ $20 USD</p>
               </div>
-              <ul className="space-y-4 mb-8">
-                {standardFeatures.map((feature, index) => (
+              <ul className="space-y-4 mb-8 text-left">
+                {courseIncludes.map((feature, index) => (
                   <li key={index} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-3 w-3 text-accent" />
+                    <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-4 w-4 text-accent" />
                     </div>
                     <span className="text-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
-              <Link to="/sign-up?plan=standard">
-                <Button 
-                  variant="outline" 
-                  className="w-full h-12 text-base border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  Enroll as Standard Path
-                </Button>
-              </Link>
-            </div>
-
-            {/* Mastery Path */}
-            <div className="bg-card rounded-2xl shadow-sm border-2 border-primary p-8 relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                  RECOMMENDED
-                </span>
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Mastery Path
-              </h3>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-primary">KSH 5,000</span>
-                <span className="text-muted-foreground ml-2">/ $40</span>
-              </div>
-              <ul className="space-y-4 mb-8">
-                {masteryFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-3 w-3 text-accent" />
-                    </div>
-                    <span className="text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/sign-up?plan=mastery">
+              <Link to="/sign-up">
                 <Button 
                   variant="continue"
-                  className="w-full h-12 text-base"
+                  className="w-full h-14 text-lg"
                 >
-                  Enroll as Mastery Path
+                  Get Started Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>
