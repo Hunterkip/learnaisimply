@@ -8,10 +8,10 @@ import {
   BookOpen, 
   Play, 
   CheckCircle2, 
-  Clock, 
   Trophy,
   LogOut,
-  Sparkles
+  Sparkles,
+  Brain
 } from "lucide-react";
 import { courseModules } from "@/data/courseData";
 
@@ -22,6 +22,26 @@ const UserDashboard = () => {
   const [userName, setUserName] = useState("");
   const [hasAccess, setHasAccess] = useState(false);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  
+  // Animation states
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+  const [currentStage, setCurrentStage] = useState(0);
+
+  const aiPhrases = [
+    "Writing emails effortlessly...",
+    "Creating content in seconds...",
+    "Making smarter decisions...",
+    "Boosting productivity daily...",
+  ];
+
+  const progressStages = [
+    { label: "Beginner", icon: "🌱" },
+    { label: "Explorer", icon: "🔍" },
+    { label: "Learner", icon: "📚" },
+    { label: "Confident", icon: "💪" },
+    { label: "Pro User", icon: "🚀" },
+  ];
 
   // Calculate all lessons and progress
   const allLessons = useMemo(() => {
@@ -37,6 +57,56 @@ const UserDashboard = () => {
       module.lessons.every(lesson => completedLessons.includes(lesson.id))
     ).length;
   }, [completedLessons]);
+
+  // Typing animation effect
+  useEffect(() => {
+    let currentPhraseIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    let timeout: NodeJS.Timeout;
+
+    const type = () => {
+      const currentPhrase = aiPhrases[currentPhraseIndex];
+
+      if (!isDeleting) {
+        setDisplayedText(currentPhrase.slice(0, currentCharIndex + 1));
+        currentCharIndex++;
+
+        if (currentCharIndex === currentPhrase.length) {
+          isDeleting = true;
+          timeout = setTimeout(type, 2000);
+          return;
+        }
+      } else {
+        setDisplayedText(currentPhrase.slice(0, currentCharIndex - 1));
+        currentCharIndex--;
+
+        if (currentCharIndex === 0) {
+          isDeleting = false;
+          currentPhraseIndex = (currentPhraseIndex + 1) % aiPhrases.length;
+        }
+      }
+
+      timeout = setTimeout(type, isDeleting ? 30 : 80);
+    };
+
+    timeout = setTimeout(type, 500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // Progress stage animation
+  useEffect(() => {
+    const stageFromProgress = Math.floor((progressPercent / 100) * (progressStages.length - 1));
+    
+    const interval = setInterval(() => {
+      setCurrentStage((prev) => {
+        if (prev < stageFromProgress) return prev + 1;
+        return prev;
+      });
+    }, 600);
+
+    return () => clearInterval(interval);
+  }, [progressPercent]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -103,31 +173,138 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-primary text-primary-foreground py-6 px-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-14 w-14 border-2 border-primary-foreground/30">
-              <AvatarImage src="" />
-              <AvatarFallback className="bg-accent text-accent-foreground text-lg font-semibold">
-                {getInitials(userEmail)}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="text-xl font-semibold">Welcome back, {userName}!</h1>
-              <p className="text-primary-foreground/70 text-sm">{userEmail}</p>
-            </div>
+      {/* Header with Profile and Logout */}
+      <header className="bg-card border-b border-border sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Brain className="h-8 w-8 text-primary" />
+            <span className="font-semibold text-foreground hidden sm:block">AI Simplified</span>
           </div>
-          <Button 
-            variant="ghost" 
-            onClick={handleLogout}
-            className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10"
-          >
-            <LogOut className="h-5 w-5 mr-2" />
-            Log out
-          </Button>
+          
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10 border-2 border-primary/20">
+                <AvatarImage src="" />
+                <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">
+                  {getInitials(userEmail)}
+                </AvatarFallback>
+              </Avatar>
+              <div className="hidden sm:block">
+                <p className="text-sm font-medium text-foreground">{userName}</p>
+                <p className="text-xs text-muted-foreground">{userEmail}</p>
+              </div>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={handleLogout}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Log out</span>
+            </Button>
+          </div>
         </div>
       </header>
+
+      {/* Animated Hero Section */}
+      <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-primary-foreground py-12 px-4 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-10 right-10 w-48 h-48 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            {/* Welcome Message */}
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm">
+                <Sparkles className="h-4 w-4" />
+                <span>Welcome back!</span>
+              </div>
+              
+              <h1 className="text-3xl md:text-4xl font-bold leading-tight">
+                Hello, {userName}! 👋
+              </h1>
+              
+              <p className="text-lg text-primary-foreground/80">
+                Continue your AI journey and master the skills that matter.
+              </p>
+
+              {/* Typing Animation */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <p className="text-sm text-primary-foreground/60 mb-2">With AI, you're now...</p>
+                <p className="text-xl font-medium h-8">
+                  {displayedText}
+                  <span className="animate-pulse">|</span>
+                </p>
+              </div>
+
+              <Button 
+                size="lg"
+                variant="continue"
+                onClick={() => navigate("/course")}
+                className="text-lg"
+              >
+                <Play className="mr-2 h-5 w-5" />
+                Continue Learning
+              </Button>
+            </div>
+
+            {/* AI Progress Journey Visualization */}
+            <div className="hidden lg:block">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <h3 className="text-lg font-semibold mb-6 text-center">Your AI Journey</h3>
+                
+                {/* Progress Stages */}
+                <div className="relative">
+                  {/* Progress Line */}
+                  <div className="absolute top-6 left-0 right-0 h-1 bg-white/20 rounded-full">
+                    <div 
+                      className="h-full bg-accent rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: `${(currentStage / (progressStages.length - 1)) * 100}%` }}
+                    />
+                  </div>
+
+                  {/* Stage Points */}
+                  <div className="flex justify-between relative">
+                    {progressStages.map((stage, index) => (
+                      <div 
+                        key={stage.label}
+                        className={`flex flex-col items-center transition-all duration-500 ${
+                          index <= currentStage ? 'opacity-100' : 'opacity-40'
+                        }`}
+                      >
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-2 transition-all duration-300 ${
+                          index <= currentStage 
+                            ? 'bg-accent scale-110' 
+                            : 'bg-white/20'
+                        }`}>
+                          {stage.icon}
+                        </div>
+                        <span className="text-xs text-center font-medium">{stage.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Current Status */}
+                <div className="mt-8 text-center p-4 bg-white/5 rounded-xl">
+                  <p className="text-sm text-primary-foreground/70">Current Level</p>
+                  <p className="text-2xl font-bold flex items-center justify-center gap-2">
+                    <Trophy className="h-6 w-6 text-accent" />
+                    {getProgressLevel()}
+                  </p>
+                  <p className="text-sm text-primary-foreground/60 mt-1">
+                    {progressPercent}% Complete
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <main className="container mx-auto px-4 py-8">
         {/* Progress Overview */}
