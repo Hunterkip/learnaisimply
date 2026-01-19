@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Check, Lock, BookOpen, Code2, Clock, Video, Lightbulb, ArrowRight } from "lucide-react";
+import { Check, BookOpen, Code2, Clock, Video, Lightbulb } from "lucide-react";
+import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
+import { useToast } from "@/hooks/use-toast";
 import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
 
 const included = [
@@ -60,9 +62,11 @@ const PAYPAL_PAYMENT_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
 
 const Enroll = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [hasAccess, setHasAccess] = useState(false);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -99,8 +103,22 @@ const Enroll = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handlePayment = () => {
+  const handlePaypalPayment = () => {
+    setIsProcessingPayment(true);
     window.location.href = PAYPAL_PAYMENT_LINK;
+  };
+
+  const handleMpesaPayment = (phoneNumber: string) => {
+    setIsProcessingPayment(true);
+    // For now, show instructions since M-Pesa integration requires backend setup
+    toast({
+      title: "M-Pesa Payment Instructions",
+      description: "Please complete the payment using the Paybill details shown. Your access will be unlocked once payment is confirmed.",
+    });
+    setIsProcessingPayment(false);
+    
+    // TODO: Implement STK push via edge function when M-Pesa API is configured
+    // This would call an edge function that initiates the STK push
   };
 
   const handleAccessCourse = () => {
@@ -161,7 +179,7 @@ const Enroll = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Matching Homepage */}
+      {/* Hero Section */}
       <section className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -181,17 +199,6 @@ const Enroll = () => {
                 everyday people and businesses understand and use AI confidently — 
                 without coding, hype, or overwhelm.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button 
-                  size="lg" 
-                  variant="continue"
-                  onClick={handlePayment}
-                  className="text-lg px-8"
-                >
-                  Enroll Now — $29
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
               <p className="text-primary-foreground/60 text-sm">
                 One-time payment • Lifetime access • No subscriptions
               </p>
@@ -310,48 +317,36 @@ const Enroll = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="bg-secondary py-16 md:py-20">
+      {/* Payment Section */}
+      <section id="payment" className="bg-secondary py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-lg mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              Ready to Start Learning?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Get lifetime access to all course materials for a one-time payment.
-            </p>
-            
-            <div className="text-5xl font-bold text-foreground mb-2">
-              $29
-            </div>
-            <p className="text-muted-foreground mb-8">
-              One-time payment
-            </p>
-
-            <Button 
-              size="lg" 
-              variant="continue"
-              onClick={handlePayment}
-              className="w-full max-w-sm text-lg py-6 mb-4"
-            >
-              Enroll Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-
-            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-6">
-              <Lock className="h-4 w-4" />
-              <span>Secure checkout via PayPal</span>
-            </div>
-
-            <div className="max-w-md mx-auto space-y-4">
-              <p className="text-muted-foreground text-base leading-relaxed">
-                You will be redirected to PayPal to complete payment securely. After payment, please return to this website and log in to access your course.
+          <div className="max-w-xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                Ready to Start Learning?
+              </h2>
+              <p className="text-muted-foreground text-lg mb-4">
+                Get lifetime access to all course materials for a one-time payment.
               </p>
+              <div className="text-4xl font-bold text-foreground mb-2">
+                $29 <span className="text-lg font-normal text-muted-foreground">/ KES 3,700</span>
+              </div>
+            </div>
+
+            <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
+              <PaymentModeSelector
+                onPaypalPayment={handlePaypalPayment}
+                onMpesaPayment={handleMpesaPayment}
+                isProcessing={isProcessingPayment}
+              />
+            </div>
+
+            <div className="mt-6 text-center">
               <Link 
                 to="/payment-help" 
-                className="text-primary hover:underline text-base inline-block"
+                className="text-primary hover:underline text-base"
               >
-                Having trouble after payment? Click here for help.
+                Having trouble with payment? Click here for help.
               </Link>
             </div>
           </div>
