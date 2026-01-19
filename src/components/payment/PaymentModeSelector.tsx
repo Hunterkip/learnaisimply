@@ -117,21 +117,19 @@ export function PaymentModeSelector({
         {/* PayPal Option */}
         <Card 
           className={cn(
-            "p-4 cursor-pointer transition-all border-2",
+            "p-4 cursor-pointer transition-all border-2 overflow-hidden",
             selectedMode === "paypal" 
-              ? "border-paypal bg-paypal/5" 
-              : "border-border hover:border-paypal/50"
+              ? "border-paypal bg-paypal-light" 
+              : "border-border hover:border-paypal/50 bg-card"
           )}
           onClick={() => setSelectedMode("paypal")}
         >
           <div className="flex items-center gap-4">
             <div className={cn(
               "w-12 h-12 rounded-full flex items-center justify-center",
-              selectedMode === "paypal" ? "bg-paypal/20" : "bg-muted"
+              selectedMode === "paypal" ? "bg-paypal text-white" : "bg-paypal/10"
             )}>
-              <PayPalIcon className={cn(
-                selectedMode === "paypal" ? "text-paypal" : "text-muted-foreground"
-              )} />
+              <PayPalIcon className="h-6 w-6" />
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-foreground">PayPal</h4>
@@ -146,21 +144,19 @@ export function PaymentModeSelector({
         {/* M-Pesa Option */}
         <Card 
           className={cn(
-            "p-4 cursor-pointer transition-all border-2",
+            "p-4 cursor-pointer transition-all border-2 overflow-hidden",
             selectedMode === "mpesa" 
-              ? "border-mpesa bg-mpesa/5" 
-              : "border-border hover:border-mpesa/50"
+              ? "border-mpesa bg-mpesa-light" 
+              : "border-border hover:border-mpesa/50 bg-card"
           )}
           onClick={() => setSelectedMode("mpesa")}
         >
           <div className="flex items-center gap-4">
             <div className={cn(
               "w-12 h-12 rounded-full flex items-center justify-center",
-              selectedMode === "mpesa" ? "bg-mpesa/20" : "bg-muted"
+              selectedMode === "mpesa" ? "bg-mpesa text-white" : "bg-mpesa/10"
             )}>
-              <MpesaIcon className={cn(
-                selectedMode === "mpesa" ? "text-mpesa" : "text-muted-foreground"
-              )} />
+              <MpesaIcon className="h-6 w-6" />
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-foreground">M-Pesa</h4>

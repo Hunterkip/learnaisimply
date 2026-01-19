@@ -52,9 +52,11 @@ export default {
         },
         paypal: {
           DEFAULT: "hsl(var(--paypal))",
+          light: "hsl(var(--paypal-light))",
         },
         mpesa: {
           DEFAULT: "hsl(var(--mpesa))",
+          light: "hsl(var(--mpesa-light))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
