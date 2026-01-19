@@ -39,6 +39,10 @@
     --success: 158 51% 36%;
     --success-foreground: 0 0% 100%;
 
+    /* Payment Brand Colors */
+    --paypal: 210 100% 44%;
+    --mpesa: 122 39% 49%;
+
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 213 50% 25%;

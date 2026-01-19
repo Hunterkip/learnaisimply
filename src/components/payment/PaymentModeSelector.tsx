@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CreditCard, Phone, ArrowRight, Lock, Check } from "lucide-react";
+import { ArrowRight, Lock, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { PayPalIcon, MpesaIcon } from "@/components/icons/PaymentIcons";
+import { PaymentProcessingDialog } from "./PaymentProcessingDialog";
 
 type PaymentMode = "paypal" | "mpesa";
 
@@ -31,6 +33,8 @@ export function PaymentModeSelector({
   const [mpesaPhone, setMpesaPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showProcessingDialog, setShowProcessingDialog] = useState(false);
+  const [activePaymentMethod, setActivePaymentMethod] = useState<"mpesa" | "paypal">("mpesa");
 
   const pricing = PRICING[plan];
 
@@ -47,6 +51,8 @@ export function PaymentModeSelector({
     }
     setPhoneError("");
     setIsProcessing(true);
+    setActivePaymentMethod("mpesa");
+    setShowProcessingDialog(true);
 
     try {
       const { data, error } = await supabase.functions.invoke('mpesa-stk-push', {
@@ -65,18 +71,16 @@ export function PaymentModeSelector({
           description: "Failed to initiate M-Pesa payment. Please try again.",
           variant: "destructive",
         });
-      } else if (data?.success) {
-        toast({
-          title: "Check Your Phone",
-          description: "An M-Pesa payment request has been sent to your phone. Enter your PIN to complete.",
-        });
-      } else {
+        setShowProcessingDialog(false);
+      } else if (!data?.success) {
         toast({
           title: "Payment Failed",
           description: data?.message || "Failed to initiate payment",
           variant: "destructive",
         });
+        setShowProcessingDialog(false);
       }
+      // If success, dialog stays open and handles the flow
     } catch (err) {
       console.error('STK Push error:', err);
       toast({
@@ -84,9 +88,17 @@ export function PaymentModeSelector({
         description: "An unexpected error occurred. Please try again.",
         variant: "destructive",
       });
+      setShowProcessingDialog(false);
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handlePaypalClick = () => {
+    setActivePaymentMethod("paypal");
+    // Open PayPal in new window
+    window.open("https://www.paypal.com/ncp/payment/4ZXYM57QPZW94", "_blank", "noopener,noreferrer");
+    setShowProcessingDialog(true);
   };
 
   return (
@@ -107,19 +119,18 @@ export function PaymentModeSelector({
           className={cn(
             "p-4 cursor-pointer transition-all border-2",
             selectedMode === "paypal" 
-              ? "border-primary bg-primary/5" 
-              : "border-border hover:border-primary/50"
+              ? "border-paypal bg-paypal/5" 
+              : "border-border hover:border-paypal/50"
           )}
           onClick={() => setSelectedMode("paypal")}
         >
           <div className="flex items-center gap-4">
             <div className={cn(
               "w-12 h-12 rounded-full flex items-center justify-center",
-              selectedMode === "paypal" ? "bg-primary/20" : "bg-muted"
+              selectedMode === "paypal" ? "bg-paypal/20" : "bg-muted"
             )}>
-              <CreditCard className={cn(
-                "h-6 w-6",
-                selectedMode === "paypal" ? "text-primary" : "text-muted-foreground"
+              <PayPalIcon className={cn(
+                selectedMode === "paypal" ? "text-paypal" : "text-muted-foreground"
               )} />
             </div>
             <div className="flex-1">
@@ -127,7 +138,7 @@ export function PaymentModeSelector({
               <p className="text-sm text-muted-foreground">Card or PayPal balance</p>
             </div>
             {selectedMode === "paypal" && (
-              <Check className="h-5 w-5 text-primary" />
+              <Check className="h-5 w-5 text-paypal" />
             )}
           </div>
         </Card>
@@ -137,19 +148,18 @@ export function PaymentModeSelector({
           className={cn(
             "p-4 cursor-pointer transition-all border-2",
             selectedMode === "mpesa" 
-              ? "border-primary bg-primary/5" 
-              : "border-border hover:border-primary/50"
+              ? "border-mpesa bg-mpesa/5" 
+              : "border-border hover:border-mpesa/50"
           )}
           onClick={() => setSelectedMode("mpesa")}
         >
           <div className="flex items-center gap-4">
             <div className={cn(
               "w-12 h-12 rounded-full flex items-center justify-center",
-              selectedMode === "mpesa" ? "bg-primary/20" : "bg-muted"
+              selectedMode === "mpesa" ? "bg-mpesa/20" : "bg-muted"
             )}>
-              <Phone className={cn(
-                "h-6 w-6",
-                selectedMode === "mpesa" ? "text-primary" : "text-muted-foreground"
+              <MpesaIcon className={cn(
+                selectedMode === "mpesa" ? "text-mpesa" : "text-muted-foreground"
               )} />
             </div>
             <div className="flex-1">
@@ -157,7 +167,7 @@ export function PaymentModeSelector({
               <p className="text-sm text-muted-foreground">STK Push / Paybill</p>
             </div>
             {selectedMode === "mpesa" && (
-              <Check className="h-5 w-5 text-primary" />
+              <Check className="h-5 w-5 text-mpesa" />
             )}
           </div>
         </Card>
@@ -165,20 +175,19 @@ export function PaymentModeSelector({
 
       {/* Payment Details */}
       {selectedMode === "paypal" && (
-        <div className="bg-muted/50 rounded-xl p-6 space-y-4">
+        <div className="bg-paypal/5 border border-paypal/20 rounded-xl p-6 space-y-4">
           <div className="text-center space-y-2">
             <p className="text-foreground">
-              You'll be redirected to PayPal to complete your payment securely.
+              A new window will open for PayPal payment.
             </p>
             <p className="text-sm text-muted-foreground">
-              After payment, return to this site and log in to access your course.
+              Complete payment in the new window, then return here.
             </p>
           </div>
           <Button 
             size="lg" 
-            variant="continue"
-            className="w-full text-lg"
-            onClick={onPaypalPayment}
+            className="w-full text-lg bg-paypal hover:bg-paypal/90 text-white"
+            onClick={handlePaypalClick}
             disabled={isProcessing}
           >
             {isProcessing ? "Processing..." : `Pay with PayPal — $${pricing.usd}`}
@@ -188,7 +197,7 @@ export function PaymentModeSelector({
       )}
 
       {selectedMode === "mpesa" && (
-        <div className="bg-muted/50 rounded-xl p-6 space-y-4">
+        <div className="bg-mpesa/5 border border-mpesa/20 rounded-xl p-6 space-y-4">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="mpesa-phone" className="text-foreground">
@@ -203,7 +212,7 @@ export function PaymentModeSelector({
                   setMpesaPhone(e.target.value);
                   setPhoneError("");
                 }}
-                className="h-12 text-base"
+                className="h-12 text-base border-mpesa/30 focus:border-mpesa"
               />
               {phoneError && (
                 <p className="text-sm text-destructive">{phoneError}</p>
@@ -216,8 +225,7 @@ export function PaymentModeSelector({
           
           <Button 
             size="lg" 
-            variant="continue"
-            className="w-full text-lg"
+            className="w-full text-lg bg-mpesa hover:bg-mpesa/90 text-white"
             onClick={handleMpesaSubmit}
             disabled={isProcessing || !mpesaPhone}
           >
@@ -236,6 +244,15 @@ export function PaymentModeSelector({
         <Lock className="h-4 w-4" />
         <span>Secure payment processing</span>
       </div>
+
+      {/* Payment Processing Dialog */}
+      <PaymentProcessingDialog
+        open={showProcessingDialog}
+        onOpenChange={setShowProcessingDialog}
+        paymentMethod={activePaymentMethod}
+        phoneNumber={mpesaPhone}
+        userEmail={userEmail}
+      />
     </div>
   );
 }

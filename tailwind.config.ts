@@ -50,6 +50,12 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
+        paypal: {
+          DEFAULT: "hsl(var(--paypal))",
+        },
+        mpesa: {
+          DEFAULT: "hsl(var(--mpesa))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
