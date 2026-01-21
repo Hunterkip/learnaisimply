@@ -9,7 +9,8 @@ import m3Lesson1Audio from "@/assets/audio/m3-1-audio.mp3";
 import m3Lesson2Audio from "@/assets/audio/m3-2-audio.mp3";
 import m4Lesson1Audio from "@/assets/audio/m4-1-audio.mp3";
 import m4Lesson2Audio from "@/assets/audio/m4-2-audio.mp3";
-
+import m5Lesson1Audio from "@/assets/audio/m5-1-audio.mp3";
+import m5Lesson2Audio from "@/assets/audio/m5-2-audio.mp3";
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
     title: "Before You Begin: A Warm Welcome & Mindset Reset",
@@ -1400,6 +1401,7 @@ Continue when ready and move on to the next module.`,
   "m5-1": {
     title: "AI Tools for Daily Life",
     description: "Discover how AI can support everyday life beyond work — from planning to personal organization.",
+    audioUrl: m5Lesson1Audio,
     notes: `Why This Module Matters
 
 AI is not only for offices, reports, or formal work.
@@ -1560,6 +1562,7 @@ You choose what fits your taste, time, and budget.`,
   "m5-2": {
     title: "Practical AI for Personal Decisions",
     description: "Learn how to use AI for learning, decision-making, and personal messages while maintaining control.",
+    audioUrl: m5Lesson2Audio,
     notes: `Real-Life Scenario 3: Learning Something New
 
 Situation
