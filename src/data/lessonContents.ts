@@ -5,6 +5,8 @@ import m1Lesson1Audio from "@/assets/audio/m1-1-audio.mp3";
 import m1Lesson2Audio from "@/assets/audio/m1-2-audio.mp3";
 import m2Lesson1Audio from "@/assets/audio/m2-1-audio.mp3";
 import m2Lesson2Audio from "@/assets/audio/m2-2-audio.mp3";
+import m3Lesson1Audio from "@/assets/audio/m3-1-audio.mp3";
+import m3Lesson2Audio from "@/assets/audio/m3-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -743,6 +745,7 @@ Continue when ready and move on to the next module.`,
   "m3-1": {
     title: "Writing Clear Emails and Messages",
     description: "Learn how to use AI to write professional emails and messages that sound human and clear.",
+    audioUrl: m3Lesson1Audio,
     notes: `Why This Module Matters
 
 A large part of work and daily life depends on communication:
@@ -919,6 +922,7 @@ This step-by-step improvement is how quality is achieved.`,
   "m3-2": {
     title: "Refining and Humanizing AI Output",
     description: "Learn how to improve existing writing, make AI output sound human, and know when NOT to use AI.",
+    audioUrl: m3Lesson2Audio,
     notes: `Case Scenario 2: Improving Something You Already Wrote
 
 Situation
