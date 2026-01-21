@@ -125,14 +125,47 @@ interface AudioOptionProps {
 }
 
 export function AudioOption({ audioUrl }: AudioOptionProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
+  };
+
+  if (!audioUrl) {
+    return (
+      <div className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl">
+        <Button variant="audio" className="gap-2" disabled>
+          <Volume2 className="h-5 w-5" />
+          Audio Coming Soon
+        </Button>
+        <span className="text-sm text-muted-foreground">
+          Audio version will be available soon.
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl">
-      <Button variant="audio" className="gap-2">
-        <Volume2 className="h-5 w-5" />
-        Listen to Audio Version
+      <audio ref={audioRef} src={audioUrl} onEnded={handleAudioEnded} />
+      <Button variant="audio" className="gap-2" onClick={toggleAudio}>
+        {isPlaying ? <Pause className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        {isPlaying ? "Pause Audio" : "Listen to Audio Version"}
       </Button>
       <span className="text-sm text-muted-foreground">
-        Prefer to listen? Download or stream the audio.
+        Prefer to listen? Play the audio version.
       </span>
     </div>
   );

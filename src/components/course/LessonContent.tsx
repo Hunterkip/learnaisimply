@@ -8,6 +8,7 @@ interface LessonContentProps {
   title: string;
   description: string;
   notes: string;
+  audioUrl?: string;
   examples?: { title: string; content: string }[];
   resources?: { title: string; url: string }[];
   onPrevious: () => void;
@@ -21,6 +22,7 @@ export function LessonContent({
   title,
   description,
   notes,
+  audioUrl,
   examples = [],
   resources = [],
   onPrevious,
@@ -43,7 +45,7 @@ export function LessonContent({
       <VideoPlayer className="mb-6" />
 
       {/* Audio Option */}
-      <AudioOption />
+      <AudioOption audioUrl={audioUrl} />
 
       {/* Lesson Header */}
       <div className="mt-8 mb-6">
