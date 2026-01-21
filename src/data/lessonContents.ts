@@ -7,6 +7,8 @@ import m2Lesson1Audio from "@/assets/audio/m2-1-audio.mp3";
 import m2Lesson2Audio from "@/assets/audio/m2-2-audio.mp3";
 import m3Lesson1Audio from "@/assets/audio/m3-1-audio.mp3";
 import m3Lesson2Audio from "@/assets/audio/m3-2-audio.mp3";
+import m4Lesson1Audio from "@/assets/audio/m4-1-audio.mp3";
+import m4Lesson2Audio from "@/assets/audio/m4-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -1081,6 +1083,7 @@ Continue when ready and move on to the next module.`,
   "m4-1": {
     title: "Planning and Organizing with AI",
     description: "Learn how to use AI as a thinking and organizing assistant to reduce mental load.",
+    audioUrl: m4Lesson1Audio,
     notes: `Why This Module Matters
 
 Mental fatigue often does not come from doing hard work — it comes from holding too much in your head at once.
@@ -1245,6 +1248,7 @@ AI gives structure — you decide pacing and priorities.`,
   "m4-2": {
     title: "Research and Document Summarizing",
     description: "Learn how to use AI to research topics efficiently and summarize long documents.",
+    audioUrl: m4Lesson2Audio,
     notes: `Case Scenario 3: Researching a Topic Clearly
 
 Situation
