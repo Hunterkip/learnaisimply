@@ -121,6 +121,7 @@ const Index = () => {
               hasPrevious={currentLessonIndex > 0}
               hasNext={currentLessonIndex < allLessons.length - 1}
               isCompleting={currentLessonIndex === allLessons.length - 1}
+              hideMedia={currentLessonId.startsWith("wrap-")}
             />
           </div>
         </main>
