@@ -3,6 +3,8 @@ import { LessonContent } from "@/types/course";
 import welcome1Audio from "@/assets/audio/welcome-1-audio.mp3";
 import m1Lesson1Audio from "@/assets/audio/m1-1-audio.mp3";
 import m1Lesson2Audio from "@/assets/audio/m1-2-audio.mp3";
+import m2Lesson1Audio from "@/assets/audio/m2-1-audio.mp3";
+import m2Lesson2Audio from "@/assets/audio/m2-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -501,6 +503,7 @@ Continue when ready and move on to the next module.`,
   "m2-1": {
     title: "The Art of Clear Prompting",
     description: "Learn how to communicate with AI effectively through clear, structured prompts.",
+    audioUrl: m2Lesson1Audio,
     notes: `Why This Module Is the Most Important
 
 Most people believe AI gives "good" or "bad" answers on its own.
@@ -624,6 +627,7 @@ Notice how clarity improves direction.`,
   "m2-2": {
     title: "Iteration & Refinement",
     description: "Master the art of improving AI responses through thoughtful iteration.",
+    audioUrl: m2Lesson2Audio,
     notes: `Iteration: How Quality Is Really Achieved
 
 AI is not meant to get everything right on the first attempt.
