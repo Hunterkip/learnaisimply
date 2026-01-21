@@ -1,6 +1,8 @@
 import { LessonContent } from "@/types/course";
 
 import welcome1Audio from "@/assets/audio/welcome-1-audio.mp3";
+import m1Lesson1Audio from "@/assets/audio/m1-1-audio.mp3";
+import m1Lesson2Audio from "@/assets/audio/m1-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -339,6 +341,7 @@ Tech + Human = Superhumans`,
   "m1-1": {
     title: "What AI Really Is (and Isn't)",
     description: "Understand what AI actually is — and what it is not. Clear the confusion without technical jargon.",
+    audioUrl: m1Lesson1Audio,
     notes: `Why This Module Matters
 
 Before using AI confidently, it helps to understand what AI actually is — and what it is not.
@@ -411,6 +414,7 @@ You will learn how to guide it properly later in the course.`,
   "m1-2": {
     title: "AI as Your Thinking Assistant",
     description: "Learn the right way to think about AI and why your experience matters more than ever.",
+    audioUrl: m1Lesson2Audio,
     notes: `The Right Way to Think About AI
 
 A helpful way to think about AI is this:
