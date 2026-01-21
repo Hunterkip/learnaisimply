@@ -11,6 +11,9 @@ import m4Lesson1Audio from "@/assets/audio/m4-1-audio.mp3";
 import m4Lesson2Audio from "@/assets/audio/m4-2-audio.mp3";
 import m5Lesson1Audio from "@/assets/audio/m5-1-audio.mp3";
 import m5Lesson2Audio from "@/assets/audio/m5-2-audio.mp3";
+import m6Lesson1Audio from "@/assets/audio/m6-1-audio.mp3";
+import m6Lesson2Audio from "@/assets/audio/m6-2-audio.mp3";
+
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
     title: "Before You Begin: A Warm Welcome & Mindset Reset",
@@ -1672,6 +1675,7 @@ Continue when ready and move on to the next module.`,
   "m6-1": {
     title: "Creative AI Tools and Getting Started",
     description: "Discover how AI can help you visualize ideas and create supporting materials — no artistic skills required.",
+    audioUrl: m6Lesson1Audio,
     notes: `Why This Module Matters
 
 Many people believe creativity belongs only to:
@@ -1808,6 +1812,7 @@ AI generates multiple image options. You choose what fits your message.`,
   "m6-2": {
     title: "Voice, Video, and Creative Expression",
     description: "Learn how to use AI for scripts, voice, and video while maintaining authenticity and integrity.",
+    audioUrl: m6Lesson2Audio,
     notes: `Real-Life Scenario 2: Turning an Idea into a Short Script
 
 Situation
