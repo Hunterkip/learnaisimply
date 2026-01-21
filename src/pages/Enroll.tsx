@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
+import { Check, BookOpen, Code2, Clock, Video, Lightbulb } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
+import confidentWomanImage from "@/assets/confident-woman-laptop.jpg";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -58,13 +58,6 @@ const courseModules = [
   { number: 8, title: "Course Wrap-Up" }
 ];
 
-const typingTexts = [
-  "Write emails that connect...",
-  "Research topics in seconds...",
-  "Plan your day smarter...",
-  "Create content effortlessly..."
-];
-
 // PayPal payment link
 const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
 
@@ -73,47 +66,6 @@ const Enroll = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string>("");
   const [hasAccess, setHasAccess] = useState(false);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-  const [showCursor, setShowCursor] = useState(true);
-
-  // Typing animation effect
-  useEffect(() => {
-    const text = typingTexts[currentTextIndex];
-    
-    if (isTyping) {
-      if (displayedText.length < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayedText(text.slice(0, displayedText.length + 1));
-        }, 50);
-        return () => clearTimeout(timeout);
-      } else {
-        const timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, 2000);
-        return () => clearTimeout(timeout);
-      }
-    } else {
-      if (displayedText.length > 0) {
-        const timeout = setTimeout(() => {
-          setDisplayedText(displayedText.slice(0, -1));
-        }, 30);
-        return () => clearTimeout(timeout);
-      } else {
-        setCurrentTextIndex((prev) => (prev + 1) % typingTexts.length);
-        setIsTyping(true);
-      }
-    }
-  }, [displayedText, isTyping, currentTextIndex]);
-
-  // Cursor blink effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 530);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -171,18 +123,6 @@ const Enroll = () => {
     navigate("/");
   };
 
-  // Get user initials for avatar
-  const getUserInitials = () => {
-    if (!userEmail) return "U";
-    return userEmail.charAt(0).toUpperCase();
-  };
-
-  // Get display name (part before @)
-  const getDisplayName = () => {
-    if (!userEmail) return "User";
-    return userEmail.split("@")[0];
-  };
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-secondary flex items-center justify-center">
@@ -232,156 +172,41 @@ const Enroll = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Top Welcome Bar with Avatar and Logout */}
-      <div className="bg-foreground/95 text-background py-3 px-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-8 w-8 border-2 border-accent/50">
-              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-medium">
-                {getUserInitials()}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-sm">
-              Welcome back, <span className="font-medium">{getDisplayName()}</span>
-            </span>
-          </div>
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={handleLogout}
-            className="text-background/80 hover:text-background hover:bg-background/10"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Log out
-          </Button>
-        </div>
-      </div>
-
-      {/* Hero Section with AI Gradient */}
-      <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/80 text-primary-foreground relative overflow-hidden">
-        {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-accent/5 animate-pulse" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/15 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+      {/* Hero Section */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
             <div className="space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight drop-shadow-sm">
+              <p className="text-primary-foreground/70 text-sm">
+                Welcome back, <span className="text-primary-foreground">{userEmail}</span>
+              </p>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
                 AI Simplified
               </h1>
               <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium">
                 For Everyday People and Business
               </p>
-              
-              {/* AI Typing Effect Container */}
-              <div className="bg-foreground/10 backdrop-blur-md rounded-xl p-5 border border-primary-foreground/20 shadow-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-success/80"></div>
-                  <span className="ml-2 text-xs text-primary-foreground/60">AI Assistant</span>
-                </div>
-                <div className="font-mono text-lg text-primary-foreground/90 min-h-[1.75rem]">
-                  <span className="text-accent">→</span> {displayedText}
-                  <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>|</span>
-                </div>
-              </div>
-
               <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-xl">
-                Learn to use AI confidently — without coding, hype, or overwhelm.
+                AI Simplified is a practical, easy-to-follow course designed to help 
+                everyday people and businesses understand and use AI confidently — 
+                without coding, hype, or overwhelm.
               </p>
               <p className="text-primary-foreground/60 text-sm">
                 One-time payment • Lifetime access • No subscriptions
               </p>
             </div>
 
-            {/* Right Side - AI Journey Preview */}
+            {/* Right Side - Image */}
             <div className="hidden md:flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="bg-foreground/10 backdrop-blur-md rounded-2xl p-8 border border-primary-foreground/20 shadow-xl">
-                  <div className="text-center mb-6">
-                    <span className="text-sm text-primary-foreground/60 uppercase tracking-wider">Your AI Journey</span>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    {[
-                      { icon: Sparkles, label: "Curious Beginner" },
-                      { icon: Brain, label: "Understanding AI" },
-                      { icon: Zap, label: "Confident User" }
-                    ].map((stage, index) => (
-                      <div 
-                        key={index}
-                        className="flex items-center gap-4 p-3 rounded-lg bg-primary-foreground/10"
-                      >
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary-foreground/20">
-                          <stage.icon className="h-5 w-5" />
-                        </div>
-                        <span className="font-medium text-primary-foreground/80">
-                          {stage.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/30 rounded-full blur-2xl animate-pulse"></div>
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Locked Course Preview Section */}
-      <section className="bg-muted py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full mb-4">
-                <Lock className="h-4 w-4" />
-                <span className="text-sm font-medium">Course Preview</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-                What's Inside
-              </h2>
-            </div>
-            
-            {/* Blurred Course Content */}
-            <div className="relative">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 filter blur-sm select-none pointer-events-none">
-                {courseModules.map((module) => (
-                  <div 
-                    key={module.number}
-                    className="flex items-center gap-4 p-4 bg-background rounded-xl shadow-sm"
-                  >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                      <span className="text-accent font-semibold">{module.number}</span>
-                    </div>
-                    <span className="text-foreground font-medium">{module.title}</span>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Lock Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-muted/80 via-transparent to-muted/80">
-                <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border text-center max-w-sm">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Lock className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    Unlock Full Course
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Complete your enrollment to access all 9 modules
-                  </p>
-                  <Button 
-                    variant="continue" 
-                    onClick={() => document.getElementById("payment")?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Enroll Now
-                  </Button>
-                </div>
+                <img 
+                  src={confidentWomanImage} 
+                  alt="Confident professional woman using a laptop"
+                  className="rounded-2xl shadow-lg w-full h-auto object-cover"
+                />
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/15 rounded-full blur-3xl"></div>
               </div>
             </div>
           </div>
@@ -451,8 +276,35 @@ const Enroll = () => {
         </div>
       </section>
 
-      {/* What's Included Section */}
+      {/* Course Structure Section */}
       <section className="bg-secondary py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-3">
+              How the Course Is Structured
+            </h2>
+            <p className="text-muted-foreground text-center text-lg mb-10">
+              Short lessons. Clear explanations. No pressure.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {courseModules.map((module) => (
+                <div 
+                  key={module.number}
+                  className="flex items-center gap-4 p-4 bg-background rounded-xl shadow-sm"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <span className="text-accent font-semibold">{module.number}</span>
+                  </div>
+                  <span className="text-foreground font-medium">{module.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What's Included Section */}
+      <section className="bg-background py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
@@ -475,7 +327,7 @@ const Enroll = () => {
       </section>
 
       {/* Payment Section */}
-      <section id="payment" className="bg-background py-16 md:py-20">
+      <section id="payment" className="bg-secondary py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-xl mx-auto">
             <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
@@ -497,6 +349,17 @@ const Enroll = () => {
           </div>
         </div>
       </section>
+
+      {/* Logout Footer */}
+      <div className="bg-background py-8 text-center border-t border-border">
+        <Button 
+          variant="ghost" 
+          onClick={handleLogout}
+          className="text-muted-foreground"
+        >
+          Log out
+        </Button>
+      </div>
     </div>
   );
 };
