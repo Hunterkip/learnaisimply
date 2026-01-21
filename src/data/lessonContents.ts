@@ -15,6 +15,8 @@ import m6Lesson1Audio from "@/assets/audio/m6-1-audio.mp3";
 import m6Lesson2Audio from "@/assets/audio/m6-2-audio.mp3";
 import m7Lesson1Audio from "@/assets/audio/m7-1-audio.mp3";
 import m7Lesson2Audio from "@/assets/audio/m7-2-audio.mp3";
+import m8Lesson1Audio from "@/assets/audio/m8-1-audio.mp3";
+import m8Lesson2Audio from "@/assets/audio/m8-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -2151,6 +2153,7 @@ Continue when ready and move on to the final module.`,
   "m8-1": {
     title: "Safety, Privacy, and AI Accuracy",
     description: "Learn what to keep private, how to verify AI outputs, and when to trust AI — and when not to.",
+    audioUrl: m8Lesson1Audio,
     notes: `Why This Module Matters
 
 AI is powerful — but power without judgment creates risk.
@@ -2241,6 +2244,7 @@ In high-stakes situations, AI helps you prepare — humans decide.`,
   "m8-2": {
     title: "Ethics and Staying Relevant",
     description: "Learn to use AI responsibly and stay confident without chasing every new tool or trend.",
+    audioUrl: m8Lesson2Audio,
     notes: `Ethical Use of AI
 
 Using AI responsibly means:
