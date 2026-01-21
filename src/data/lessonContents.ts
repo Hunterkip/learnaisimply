@@ -1,9 +1,12 @@
 import { LessonContent } from "@/types/course";
 
+import welcome1Audio from "@/assets/audio/welcome-1-audio.mp3";
+
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
     title: "Before You Begin: A Warm Welcome & Mindset Reset",
     description: "Welcome to AI Simplified. This lesson sets the foundation for your learning journey with a calm, supportive mindset.",
+    audioUrl: welcome1Audio,
     notes: `Welcome.
 
 If you are here, it means you are curious, thoughtful, and willing to learn — and that already places you in a strong position.

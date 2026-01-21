@@ -23,6 +23,7 @@ export interface LessonContent {
   title: string;
   description: string;
   notes: string;
+  audioUrl?: string;
   examples?: { title: string; content: string }[];
   resources?: { title: string; url: string }[];
 }
