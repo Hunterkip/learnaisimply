@@ -17,6 +17,7 @@ import m7Lesson1Audio from "@/assets/audio/m7-1-audio.mp3";
 import m7Lesson2Audio from "@/assets/audio/m7-2-audio.mp3";
 import m8Lesson1Audio from "@/assets/audio/m8-1-audio.mp3";
 import m8Lesson2Audio from "@/assets/audio/m8-2-audio.mp3";
+import wrap2Audio from "@/assets/audio/wrap-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -2381,6 +2382,7 @@ Tech + Human = Superhumans`,
   "wrap-2": {
     title: "Your Next Steps",
     description: "Reflect on how you'll integrate AI into your life and develop a personal plan for continued growth.",
+    audioUrl: wrap2Audio,
     notes: `Your Personal AI Integration Plan
 
 You may find it helpful to reflect on the following questions:

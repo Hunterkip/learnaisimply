@@ -46,8 +46,8 @@ export function LessonContent({
       {/* Video Section */}
       {!hideMedia && <VideoPlayer className="mb-6" />}
 
-      {/* Audio Option */}
-      {!hideMedia && <AudioOption audioUrl={audioUrl} />}
+      {/* Audio Option - show even for hideMedia lessons if they have audio */}
+      {(!hideMedia || audioUrl) && <AudioOption audioUrl={audioUrl} />}
 
       {/* Lesson Header */}
       <div className="mt-8 mb-6">
