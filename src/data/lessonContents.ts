@@ -13,6 +13,8 @@ import m5Lesson1Audio from "@/assets/audio/m5-1-audio.mp3";
 import m5Lesson2Audio from "@/assets/audio/m5-2-audio.mp3";
 import m6Lesson1Audio from "@/assets/audio/m6-1-audio.mp3";
 import m6Lesson2Audio from "@/assets/audio/m6-2-audio.mp3";
+import m7Lesson1Audio from "@/assets/audio/m7-1-audio.mp3";
+import m7Lesson2Audio from "@/assets/audio/m7-2-audio.mp3";
 
 export const lessonContents: Record<string, LessonContent> = {
   "welcome-1": {
@@ -1918,6 +1920,7 @@ Continue when ready and move on to the next module.`,
   "m7-1": {
     title: "Health, Mind, and Responsible AI Use",
     description: "Learn how AI can support health and mental clarity — while understanding its important limitations.",
+    audioUrl: m7Lesson1Audio,
     notes: `Why This Module Matters
 
 Modern life places heavy demands on:
@@ -2043,6 +2046,7 @@ If distress feels serious or persistent, professional support is essential.`,
   "m7-2": {
     title: "Financial Clarity and Healthy Routines",
     description: "Learn how to use AI for financial organization and building balanced daily routines.",
+    audioUrl: m7Lesson2Audio,
     notes: `Real-Life Scenario 4: Financial Awareness and Organization
 
 Situation
