@@ -16,6 +16,7 @@ interface LessonContentProps {
   hasPrevious: boolean;
   hasNext: boolean;
   isCompleting?: boolean;
+  hideMedia?: boolean;
 }
 
 export function LessonContent({
@@ -30,6 +31,7 @@ export function LessonContent({
   hasPrevious,
   hasNext,
   isCompleting = false,
+  hideMedia = false,
 }: LessonContentProps) {
   const [activeTab, setActiveTab] = useState<"notes" | "examples" | "resources">("notes");
 
@@ -42,10 +44,10 @@ export function LessonContent({
   return (
     <div className="flex-1 min-w-0">
       {/* Video Section */}
-      <VideoPlayer className="mb-6" />
+      {!hideMedia && <VideoPlayer className="mb-6" />}
 
       {/* Audio Option */}
-      <AudioOption audioUrl={audioUrl} />
+      {!hideMedia && <AudioOption audioUrl={audioUrl} />}
 
       {/* Lesson Header */}
       <div className="mt-8 mb-6">
