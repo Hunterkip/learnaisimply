@@ -72,13 +72,9 @@ const Login = () => {
       }
 
       // Check if email is verified
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("email_verified_at")
-        .eq("id", (await supabase.auth.getSession()).data.session?.user.id || "")
-        .single();
-
-      if (!profile?.email_verified_at) {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.user.email_confirmed_at) {
         toast({
           title: "Email not verified",
           description: "Please verify your email to continue.",
