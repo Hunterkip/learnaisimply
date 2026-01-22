@@ -127,6 +127,19 @@ const Enroll = () => {
         return;
       }
 
+      // Check if email is verified
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("email_verified_at, has_access, plan, first_name, last_name")
+        .eq("id", session.user.id)
+        .single();
+
+      if (!profile?.email_verified_at) {
+        // Email not verified, redirect to verification page
+        navigate(`/email-verification?email=${encodeURIComponent(session.user.email || "")}`);
+        return;
+      }
+
       setUserEmail(session.user.email || "");
 
       // Update profile email if needed
@@ -136,12 +149,6 @@ const Enroll = () => {
           .update({ email: session.user.email })
           .eq("id", session.user.id);
       }
-
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("has_access, plan, first_name, last_name")
-        .eq("id", session.user.id)
-        .single();
 
       if (profile) {
         if (profile.has_access) {
