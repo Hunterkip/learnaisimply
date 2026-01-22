@@ -15,6 +15,7 @@ type PaymentMode = "paypal" | "mpesa";
 interface PaymentModeSelectorProps {
   plan: 'standard' | 'mastery';
   userEmail: string;
+  userName?: string;
   onPaypalPayment: () => void;
 }
 
@@ -26,6 +27,7 @@ const PRICING = {
 export function PaymentModeSelector({ 
   plan,
   userEmail,
+  userName,
   onPaypalPayment,
 }: PaymentModeSelectorProps) {
   const { toast } = useToast();
@@ -59,7 +61,7 @@ export function PaymentModeSelector({
         body: {
           phoneNumber: mpesaPhone,
           amount: pricing.kes,
-          accountReference: userEmail,
+          userEmail: userEmail,
           plan: plan,
         },
       });
@@ -248,6 +250,7 @@ export function PaymentModeSelector({
         paymentMethod={activePaymentMethod}
         phoneNumber={mpesaPhone}
         userEmail={userEmail}
+        userName={userName}
       />
     </div>
   );

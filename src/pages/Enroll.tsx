@@ -72,7 +72,10 @@ const Enroll = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [userLastName, setUserLastName] = useState<string>("");
   const [hasAccess, setHasAccess] = useState(false);
+  const [showUnlockAnimation, setShowUnlockAnimation] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -136,12 +139,20 @@ const Enroll = () => {
 
       const { data: profile } = await supabase
         .from("profiles")
-        .select("has_access, plan")
+        .select("has_access, plan, first_name, last_name")
         .eq("id", session.user.id)
         .single();
 
-      if (profile?.has_access) {
-        setHasAccess(true);
+      if (profile) {
+        if (profile.has_access) {
+          setHasAccess(true);
+        }
+        if (profile.first_name) {
+          setUserName(profile.first_name);
+        }
+        if (profile.last_name) {
+          setUserLastName(profile.last_name);
+        }
       }
 
       setIsLoading(false);
@@ -173,12 +184,19 @@ const Enroll = () => {
 
   // Get user initials for avatar
   const getUserInitials = () => {
+    if (userName && userLastName) {
+      return `${userName.charAt(0)}${userLastName.charAt(0)}`.toUpperCase();
+    }
+    if (userName) {
+      return userName.charAt(0).toUpperCase();
+    }
     if (!userEmail) return "U";
     return userEmail.charAt(0).toUpperCase();
   };
 
-  // Get display name (part before @)
+  // Get display name (last name or part before @)
   const getDisplayName = () => {
+    if (userLastName) return userLastName;
     if (!userEmail) return "User";
     return userEmail.split("@")[0];
   };
@@ -482,6 +500,7 @@ const Enroll = () => {
               <PaymentModeSelector
                 plan="standard"
                 userEmail={userEmail}
+                userName={userName || userLastName}
                 onPaypalPayment={handlePaypalPayment}
               />
             </div>

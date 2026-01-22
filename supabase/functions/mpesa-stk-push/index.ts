@@ -9,9 +9,12 @@ const corsHeaders = {
 interface STKPushRequest {
   phoneNumber: string;
   amount: number;
-  accountReference: string;
   plan: 'standard' | 'mastery';
+  userEmail: string;
 }
+
+// Fixed business account number
+const BUSINESS_ACCOUNT_NUMBER = "AISimplified";
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -31,9 +34,9 @@ serve(async (req) => {
       throw new Error('M-Pesa configuration is incomplete');
     }
 
-    const { phoneNumber, amount, accountReference, plan } = await req.json() as STKPushRequest;
+    const { phoneNumber, amount, plan, userEmail } = await req.json() as STKPushRequest;
 
-    console.log('STK Push request:', { phoneNumber, amount, accountReference, plan });
+    console.log('STK Push request:', { phoneNumber, amount, plan, userEmail });
 
     // Validate phone number - format to 254XXXXXXXXX
     let formattedPhone = phoneNumber.replace(/[\s\-\+]/g, '');
@@ -81,7 +84,7 @@ serve(async (req) => {
     // Generate password
     const password = btoa(`${shortcode}${passkey}${timestamp}`);
 
-    // Initiate STK Push
+    // Initiate STK Push with fixed business account number
     const stkPushPayload = {
       BusinessShortCode: shortcode,
       Password: password,
@@ -92,7 +95,7 @@ serve(async (req) => {
       PartyB: shortcode,
       PhoneNumber: formattedPhone,
       CallBackURL: callbackUrl,
-      AccountReference: accountReference,
+      AccountReference: BUSINESS_ACCOUNT_NUMBER, // Fixed account number
       TransactionDesc: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
     };
 
@@ -114,7 +117,7 @@ serve(async (req) => {
     console.log('STK Push response:', stkData);
 
     if (stkData.ResponseCode === '0') {
-      // Store pending transaction
+      // Store pending transaction with user email for later matching
       const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
       const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
       const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -126,7 +129,7 @@ serve(async (req) => {
           merchant_request_id: stkData.MerchantRequestID,
           phone_number: formattedPhone,
           amount: amount,
-          account_reference: accountReference,
+          account_reference: userEmail, // Store user email for matching
           plan: plan,
           payment_method: 'mpesa',
           status: 'pending',

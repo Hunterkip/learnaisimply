@@ -73,6 +73,24 @@ serve(async (req) => {
 
       console.log('Payment successful:', { mpesaReceiptNumber, transactionDate, amount, phoneNumber });
 
+      // Check for duplicate M-Pesa receipt number
+      if (mpesaReceiptNumber) {
+        const { data: existingTransaction } = await supabase
+          .from('payment_transactions')
+          .select('id')
+          .eq('mpesa_receipt_number', mpesaReceiptNumber.toString())
+          .eq('status', 'completed')
+          .single();
+
+        if (existingTransaction) {
+          console.error('Duplicate M-Pesa receipt number detected:', mpesaReceiptNumber);
+          return new Response(
+            JSON.stringify({ success: false, message: 'Duplicate transaction detected' }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+          );
+        }
+      }
+
       // Update transaction status
       const { error: updateTransError } = await supabase
         .from('payment_transactions')

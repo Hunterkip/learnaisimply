@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, CheckCircle, AlertCircle, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { UnlockAnimation } from "./UnlockAnimation";
 
 interface PaymentProcessingDialogProps {
   open: boolean;
@@ -13,6 +13,7 @@ interface PaymentProcessingDialogProps {
   paymentMethod: "mpesa" | "paypal";
   phoneNumber?: string;
   userEmail: string;
+  userName?: string;
 }
 
 type PaymentStatus = "processing" | "waiting" | "success" | "failed" | "manual";
@@ -23,13 +24,14 @@ export function PaymentProcessingDialog({
   paymentMethod,
   phoneNumber,
   userEmail,
+  userName,
 }: PaymentProcessingDialogProps) {
-  const navigate = useNavigate();
   const [status, setStatus] = useState<PaymentStatus>("processing");
   const [mpesaCode, setMpesaCode] = useState("");
   const [verifyPhone, setVerifyPhone] = useState(phoneNumber || "");
   const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState("");
+  const [showUnlockAnimation, setShowUnlockAnimation] = useState(false);
 
   // Poll for payment confirmation
   useEffect(() => {
@@ -62,6 +64,13 @@ export function PaymentProcessingDialog({
       return () => clearTimeout(timer);
     }
   }, [open, paymentMethod, status]);
+
+  // Show unlock animation when payment succeeds
+  useEffect(() => {
+    if (status === "success") {
+      setShowUnlockAnimation(true);
+    }
+  }, [status]);
 
   const handleManualVerification = async () => {
     if (!mpesaCode.trim() || !verifyPhone.trim()) {
@@ -104,14 +113,27 @@ export function PaymentProcessingDialog({
     }
   };
 
-  const handleGoToCourse = () => {
-    onOpenChange(false);
-    navigate("/course");
-  };
-
   const handleShowManual = () => {
     setStatus("manual");
   };
+
+  const handleUnlockAnimationClose = (isOpen: boolean) => {
+    setShowUnlockAnimation(isOpen);
+    if (!isOpen) {
+      onOpenChange(false);
+    }
+  };
+
+  // If showing unlock animation, render that instead
+  if (showUnlockAnimation) {
+    return (
+      <UnlockAnimation 
+        open={showUnlockAnimation}
+        onOpenChange={handleUnlockAnimationClose}
+        userName={userName}
+      />
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -242,35 +264,6 @@ export function PaymentProcessingDialog({
                 If your payment isn't found, please{" "}
                 <a href="/payment-help" className="text-primary underline">contact support</a>
               </p>
-            </div>
-          </>
-        )}
-
-        {status === "success" && (
-          <>
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2 text-accent">
-                <CheckCircle className="h-5 w-5" />
-                Payment Confirmed!
-              </DialogTitle>
-              <DialogDescription>
-                Your course access has been unlocked
-              </DialogDescription>
-            </DialogHeader>
-            <div className="py-6 text-center">
-              <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="h-8 w-8 text-accent" />
-              </div>
-              <p className="text-foreground mb-6">
-                Welcome to AI Simplified! You now have full access to all course materials.
-              </p>
-              <Button 
-                variant="continue" 
-                className="w-full"
-                onClick={handleGoToCourse}
-              >
-                Start Learning
-              </Button>
             </div>
           </>
         )}
