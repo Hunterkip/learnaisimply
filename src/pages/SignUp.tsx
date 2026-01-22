@@ -56,13 +56,10 @@ const SignUp = () => {
     }
 
     try {
-      const redirectUrl = `${window.location.origin}/enroll`;
-      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: redirectUrl,
           data: {
             first_name: firstName,
             last_name: lastName,
@@ -97,15 +94,19 @@ const SignUp = () => {
             first_name: firstName,
             last_name: lastName,
             has_access: false,
+            email_verified_at: null,
           });
       }
 
+      // Store email in localStorage for verification page
+      localStorage.setItem("signupEmail", email);
+
       toast({
         title: "Check your email",
-        description: "We've sent you a confirmation link. Please check your inbox.",
+        description: "We've sent you a verification code. Please check your inbox.",
       });
       
-      navigate("/enroll");
+      navigate(`/email-verification?email=${encodeURIComponent(email)}`);
     } catch (error) {
       toast({
         title: "Something went wrong",
