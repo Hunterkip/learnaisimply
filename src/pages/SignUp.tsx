@@ -94,7 +94,6 @@ const SignUp = () => {
             first_name: firstName,
             last_name: lastName,
             has_access: false,
-            email_verified_at: null,
           });
       }
 
