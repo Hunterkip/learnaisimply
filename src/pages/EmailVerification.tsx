@@ -59,11 +59,11 @@ const EmailVerification = () => {
         return;
       }
 
-      // Use the PKCE flow with verification code
+      // Verify the 6-digit OTP code sent to user's email
       const { data, error } = await supabase.auth.verifyOtp({
         email: email,
         token: verificationCode,
-        type: "email",
+        type: "signup",
       });
 
       if (error) {
