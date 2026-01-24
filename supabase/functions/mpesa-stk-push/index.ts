@@ -23,18 +23,25 @@ serve(async (req) => {
     const consumerKey = Deno.env.get('MPESA_CONSUMER_KEY');
     const consumerSecret = Deno.env.get('MPESA_CONSUMER_SECRET');
     const passkey = Deno.env.get('MPESA_PASSKEY');
-    const shortcode = Deno.env.get('MPESA_SHORTCODE');
-    const callbackUrl = Deno.env.get('MPESA_CALLBACK_URL');
     const tillNumber = Deno.env.get('MPESA_TILL_NUMBER');
+    
+    // Get callback URL - should point to the mpesa-callback edge function
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const callbackUrl = `${supabaseUrl}/functions/v1/mpesa-callback`;
 
-    if (!consumerKey || !consumerSecret || !passkey || !shortcode || !callbackUrl || !tillNumber) {
-      console.error('Missing M-Pesa configuration');
+    if (!consumerKey || !consumerSecret || !passkey || !tillNumber) {
+      console.error('Missing M-Pesa configuration:', {
+        hasConsumerKey: !!consumerKey,
+        hasConsumerSecret: !!consumerSecret,
+        hasPasskey: !!passkey,
+        hasTillNumber: !!tillNumber,
+      });
       throw new Error('M-Pesa configuration is incomplete');
     }
 
     const { phoneNumber, amount, plan, userEmail } = await req.json() as STKPushRequest;
 
-    console.log('STK Push request (Buy Goods):', { phoneNumber, amount, plan, userEmail });
+    console.log('STK Push request (Buy Goods - Production):', { phoneNumber, amount, plan, userEmail });
 
     // Validate phone number - format to 254XXXXXXXXX
     let formattedPhone = phoneNumber.replace(/[\s\-\+]/g, '');
@@ -46,12 +53,15 @@ serve(async (req) => {
 
     console.log('Formatted phone:', formattedPhone);
 
-    // Get OAuth token
+    // ========== PRODUCTION API ==========
+    const baseUrl = 'https://api.safaricom.co.ke';
+    
+    // Get OAuth token from PRODUCTION endpoint
     const auth = btoa(`${consumerKey}:${consumerSecret}`);
-    console.log('Fetching OAuth token...');
+    console.log('Fetching OAuth token from PRODUCTION...');
     
     const tokenResponse = await fetch(
-      'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+      `${baseUrl}/oauth/v1/generate?grant_type=client_credentials`,
       {
         method: 'GET',
         headers: {
@@ -68,7 +78,7 @@ serve(async (req) => {
 
     const tokenData = await tokenResponse.json();
     const accessToken = tokenData.access_token;
-    console.log('Access token obtained successfully');
+    console.log('Access token obtained successfully from PRODUCTION');
 
     // Generate timestamp
     const now = new Date();
@@ -79,17 +89,22 @@ serve(async (req) => {
       String(now.getMinutes()).padStart(2, '0') +
       String(now.getSeconds()).padStart(2, '0');
 
-    // Generate password
-    const password = btoa(`${shortcode}${passkey}${timestamp}`);
+    // For Buy Goods (Till Number):
+    // - BusinessShortCode = Till Number (the store/till number)
+    // - PartyB = Till Number
+    // - Password = base64(TillNumber + Passkey + Timestamp)
+    // - TransactionType = CustomerBuyGoodsOnline
+    
+    const password = btoa(`${tillNumber}${passkey}${timestamp}`);
 
     // Initiate STK Push for Buy Goods (CustomerBuyGoodsOnline)
     const stkPushPayload = {
-      BusinessShortCode: shortcode,
+      BusinessShortCode: tillNumber, // Till Number for Buy Goods
       Password: password,
       Timestamp: timestamp,
       TransactionType: 'CustomerBuyGoodsOnline', // Buy Goods transaction type
       Amount: amount,
-      PartyA: formattedPhone,
+      PartyA: formattedPhone, // Customer phone number
       PartyB: tillNumber, // Till Number for Buy Goods
       PhoneNumber: formattedPhone,
       CallBackURL: callbackUrl,
@@ -97,15 +112,16 @@ serve(async (req) => {
       TransactionDesc: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
     };
 
-    console.log('Initiating STK Push (Buy Goods) with payload:', { 
+    console.log('Initiating STK Push (Buy Goods - PRODUCTION) with payload:', { 
       ...stkPushPayload, 
       Password: '[REDACTED]',
-      BusinessShortCode: '[REDACTED]',
-      PartyB: '[REDACTED]'
+      BusinessShortCode: tillNumber,
+      PartyB: tillNumber,
+      CallBackURL: callbackUrl
     });
 
     const stkResponse = await fetch(
-      'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+      `${baseUrl}/mpesa/stkpush/v1/processrequest`,
       {
         method: 'POST',
         headers: {
@@ -121,7 +137,6 @@ serve(async (req) => {
 
     if (stkData.ResponseCode === '0') {
       // Store pending transaction with user email for later matching
-      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
       const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
       const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -157,10 +172,20 @@ serve(async (req) => {
       );
     } else {
       console.error('STK Push failed:', stkData);
+      
+      // Provide more helpful error messages
+      let errorMessage = stkData.errorMessage || 'Failed to initiate payment';
+      if (stkData.errorCode === '400.002.02') {
+        errorMessage = 'Invalid transaction type. Please contact support.';
+      } else if (stkData.errorCode === '404.001.04') {
+        errorMessage = 'Invalid phone number format.';
+      }
+      
       return new Response(
         JSON.stringify({
           success: false,
-          message: stkData.errorMessage || 'Failed to initiate payment',
+          message: errorMessage,
+          errorCode: stkData.errorCode,
         }),
         {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
