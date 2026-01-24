@@ -13,9 +13,6 @@ interface STKPushRequest {
   userEmail: string;
 }
 
-// KCB PayBill configuration
-const KCB_PAYBILL = "522533";
-
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -28,16 +25,16 @@ serve(async (req) => {
     const passkey = Deno.env.get('MPESA_PASSKEY');
     const shortcode = Deno.env.get('MPESA_SHORTCODE');
     const callbackUrl = Deno.env.get('MPESA_CALLBACK_URL');
-    const kcbAccountNumber = Deno.env.get('KCB_ACCOUNT_NUMBER');
+    const tillNumber = Deno.env.get('MPESA_TILL_NUMBER');
 
-    if (!consumerKey || !consumerSecret || !passkey || !shortcode || !callbackUrl || !kcbAccountNumber) {
-      console.error('Missing M-Pesa/KCB configuration');
-      throw new Error('M-Pesa/KCB configuration is incomplete');
+    if (!consumerKey || !consumerSecret || !passkey || !shortcode || !callbackUrl || !tillNumber) {
+      console.error('Missing M-Pesa configuration');
+      throw new Error('M-Pesa configuration is incomplete');
     }
 
     const { phoneNumber, amount, plan, userEmail } = await req.json() as STKPushRequest;
 
-    console.log('STK Push request:', { phoneNumber, amount, plan, userEmail });
+    console.log('STK Push request (Buy Goods):', { phoneNumber, amount, plan, userEmail });
 
     // Validate phone number - format to 254XXXXXXXXX
     let formattedPhone = phoneNumber.replace(/[\s\-\+]/g, '');
@@ -85,22 +82,27 @@ serve(async (req) => {
     // Generate password
     const password = btoa(`${shortcode}${passkey}${timestamp}`);
 
-    // Initiate STK Push to KCB PayBill 522533
+    // Initiate STK Push for Buy Goods (CustomerBuyGoodsOnline)
     const stkPushPayload = {
-      BusinessShortCode: shortcode, // M-Pesa shortcode for initiating
+      BusinessShortCode: shortcode,
       Password: password,
       Timestamp: timestamp,
-      TransactionType: 'CustomerPayBillOnline',
+      TransactionType: 'CustomerBuyGoodsOnline', // Buy Goods transaction type
       Amount: amount,
       PartyA: formattedPhone,
-      PartyB: KCB_PAYBILL, // KCB PayBill number
+      PartyB: tillNumber, // Till Number for Buy Goods
       PhoneNumber: formattedPhone,
       CallBackURL: callbackUrl,
-      AccountReference: kcbAccountNumber, // Your KCB account number
+      AccountReference: `AISIMPLY-${plan.toUpperCase()}`,
       TransactionDesc: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
     };
 
-    console.log('Initiating STK Push with payload:', { ...stkPushPayload, Password: '[REDACTED]' });
+    console.log('Initiating STK Push (Buy Goods) with payload:', { 
+      ...stkPushPayload, 
+      Password: '[REDACTED]',
+      BusinessShortCode: '[REDACTED]',
+      PartyB: '[REDACTED]'
+    });
 
     const stkResponse = await fetch(
       'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
