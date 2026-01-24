@@ -22,8 +22,10 @@ import {
   Search,
   RefreshCw,
   LogOut,
-  Shield
+  Shield,
+  Settings
 } from "lucide-react";
+import { PaymentSettingsPanel } from "@/components/admin/PaymentSettingsPanel";
 
 interface Profile {
   id: string;
@@ -53,7 +55,7 @@ export default function AdminDashboard() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<"users" | "transactions">("users");
+  const [activeTab, setActiveTab] = useState<"users" | "transactions" | "settings">("users");
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
   // Admin emails - you should move this to a database table in production
@@ -316,6 +318,13 @@ export default function AdminDashboard() {
               <CreditCard className="h-4 w-4 mr-2" />
               Transactions
             </Button>
+            <Button
+              variant={activeTab === "settings" ? "default" : "outline"}
+              onClick={() => setActiveTab("settings")}
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Settings
+            </Button>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
             <div className="relative flex-1 md:w-64">
@@ -471,6 +480,10 @@ export default function AdminDashboard() {
                 )}
               </TableBody>
             </Table>
+          )}
+          
+          {activeTab === "settings" && (
+            <PaymentSettingsPanel />
           )}
         </Card>
       </div>
