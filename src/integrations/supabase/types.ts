@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      payment_settings: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          is_enabled: boolean
+          payment_method: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_enabled?: boolean
+          payment_method: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_enabled?: boolean
+          payment_method?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       payment_transactions: {
         Row: {
           account_reference: string
