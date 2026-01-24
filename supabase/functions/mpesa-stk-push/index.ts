@@ -13,8 +13,8 @@ interface STKPushRequest {
   userEmail: string;
 }
 
-// Fixed business account number
-const BUSINESS_ACCOUNT_NUMBER = "AISimplified";
+// KCB PayBill configuration
+const KCB_PAYBILL = "522533";
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -28,10 +28,11 @@ serve(async (req) => {
     const passkey = Deno.env.get('MPESA_PASSKEY');
     const shortcode = Deno.env.get('MPESA_SHORTCODE');
     const callbackUrl = Deno.env.get('MPESA_CALLBACK_URL');
+    const kcbAccountNumber = Deno.env.get('KCB_ACCOUNT_NUMBER');
 
-    if (!consumerKey || !consumerSecret || !passkey || !shortcode || !callbackUrl) {
-      console.error('Missing M-Pesa configuration');
-      throw new Error('M-Pesa configuration is incomplete');
+    if (!consumerKey || !consumerSecret || !passkey || !shortcode || !callbackUrl || !kcbAccountNumber) {
+      console.error('Missing M-Pesa/KCB configuration');
+      throw new Error('M-Pesa/KCB configuration is incomplete');
     }
 
     const { phoneNumber, amount, plan, userEmail } = await req.json() as STKPushRequest;
@@ -84,18 +85,18 @@ serve(async (req) => {
     // Generate password
     const password = btoa(`${shortcode}${passkey}${timestamp}`);
 
-    // Initiate STK Push with fixed business account number
+    // Initiate STK Push to KCB PayBill 522533
     const stkPushPayload = {
-      BusinessShortCode: shortcode,
+      BusinessShortCode: shortcode, // M-Pesa shortcode for initiating
       Password: password,
       Timestamp: timestamp,
       TransactionType: 'CustomerPayBillOnline',
       Amount: amount,
       PartyA: formattedPhone,
-      PartyB: shortcode,
+      PartyB: KCB_PAYBILL, // KCB PayBill number
       PhoneNumber: formattedPhone,
       CallBackURL: callbackUrl,
-      AccountReference: BUSINESS_ACCOUNT_NUMBER, // Fixed account number
+      AccountReference: kcbAccountNumber, // Your KCB account number
       TransactionDesc: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
     };
 
