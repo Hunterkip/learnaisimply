@@ -103,8 +103,8 @@ export default function LandingPage() {
                 Full Course Access
               </h3>
               <div className="mb-6">
-                <span className="text-5xl font-bold text-primary">KES 2,500</span>
-                <p className="text-muted-foreground mt-1">≈ $20 USD</p>
+                <span className="text-5xl font-bold text-primary">KES 1</span>
+                <p className="text-muted-foreground mt-1">≈ $1 USD</p>
               </div>
               <ul className="space-y-4 mb-8 text-left">
                 {courseIncludes.map((feature, index) => (
