@@ -9,6 +9,8 @@ interface LessonContentProps {
   description: string;
   notes: string;
   audioUrl?: string;
+  videoUrl?: string;
+  posterUrl?: string;
   examples?: { title: string; content: string }[];
   resources?: { title: string; url: string }[];
   onPrevious: () => void;
@@ -24,6 +26,8 @@ export function LessonContent({
   description,
   notes,
   audioUrl,
+  videoUrl,
+  posterUrl,
   examples = [],
   resources = [],
   onPrevious,
@@ -44,7 +48,7 @@ export function LessonContent({
   return (
     <div className="flex-1 min-w-0">
       {/* Video Section */}
-      {!hideMedia && <VideoPlayer className="mb-6" />}
+      {!hideMedia && <VideoPlayer videoUrl={videoUrl} posterUrl={posterUrl} className="mb-6" />}
 
       {/* Audio Option - show even for hideMedia lessons if they have audio */}
       {(!hideMedia || audioUrl) && <AudioOption audioUrl={audioUrl} />}
