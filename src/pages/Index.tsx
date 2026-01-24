@@ -114,6 +114,8 @@ const Index = () => {
               description={currentLessonContent.description}
               notes={currentLessonContent.notes}
               audioUrl={currentLessonContent.audioUrl}
+              videoUrl={currentLessonContent.videoUrl}
+              posterUrl={currentLessonContent.posterUrl}
               examples={currentLessonContent.examples}
               resources={currentLessonContent.resources}
               onPrevious={handlePrevious}
