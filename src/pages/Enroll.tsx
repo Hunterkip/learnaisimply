@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
+import { useToast } from "@/hooks/use-toast";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -70,12 +71,12 @@ const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
 
 const Enroll = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [userLastName, setUserLastName] = useState<string>("");
   const [hasAccess, setHasAccess] = useState(false);
-  const [showUnlockAnimation, setShowUnlockAnimation] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -153,6 +154,11 @@ const Enroll = () => {
       if (profile) {
         if (profile.has_access) {
           setHasAccess(true);
+          // Redirect to dashboard directly instead of showing dialogue
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 500);
+          return;
         }
         if (profile.first_name) {
           setUserName(profile.first_name);
