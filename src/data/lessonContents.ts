@@ -1954,8 +1954,8 @@ Continue when ready and move on to the next module.`,
     title: "Health, Mind, and Responsible AI Use",
     description: "Learn how AI can support health and mental clarity — while understanding its important limitations.",
     audioUrl: m7Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.mp4",
-    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.jpg",
     notes: `Why This Module Matters
 
 Modern life places heavy demands on:
@@ -2082,8 +2082,8 @@ If distress feels serious or persistent, professional support is essential.`,
     title: "Financial Clarity and Healthy Routines",
     description: "Learn how to use AI for financial organization and building balanced daily routines.",
     audioUrl: m7Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.mp4",
-    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.jpg",
     notes: `Real-Life Scenario 4: Financial Awareness and Organization
 
 Situation
