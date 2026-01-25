@@ -24,8 +24,8 @@ export const lessonContents: Record<string, LessonContent> = {
     title: "Before You Begin: A Warm Welcome & Mindset Reset",
     description: "Welcome to AI Simplified. This lesson sets the foundation for your learning journey with a calm, supportive mindset.",
     audioUrl: welcome1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326424/ElevenLabs_2026-01-21T09_25_29_Adeline_-_Feminine_and_Conversational_pvc_sp100_s97_sb95_v3_edwene.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326424/ElevenLabs_2026-01-21T09_25_29_Adeline_-_Feminine_and_Conversational_pvc_sp100_s97_sb95_v3_edwene.jpg",
     notes: `Welcome.
 
 If you are here, it means you are curious, thoughtful, and willing to learn — and that already places you in a strong position.
