@@ -103,12 +103,30 @@ export default {
           from: { transform: "translateX(-100%)" },
           to: { transform: "translateX(0)" },
         },
+        orbit: {
+          "0%": {
+            transform: "rotate(0deg) translateX(calc(var(--radius) * 1px)) rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(360deg) translateX(calc(var(--radius) * 1px)) rotate(-360deg)",
+          },
+        },
+        ripple: {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.5",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
         "slide-in": "slide-in 0.3s ease-out",
+        orbit: "orbit calc(var(--duration) * 1s) linear infinite",
+        ripple: "ripple 2s ease-in-out infinite",
       },
     },
   },
