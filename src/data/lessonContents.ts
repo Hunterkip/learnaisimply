@@ -363,8 +363,8 @@ Tech + Human = Superhumans`,
     title: "What AI Really Is (and Isn't)",
     description: "Understand what AI actually is — and what it is not. Clear the confusion without technical jargon.",
     audioUrl: m1Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326175/Module_1_PRT_01_djiuoy.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326175/Module_1_PRT_01_djiuoy.jpg",
     notes: `Why This Module Matters
 
 Before using AI confidently, it helps to understand what AI actually is — and what it is not.
@@ -438,8 +438,8 @@ You will learn how to guide it properly later in the course.`,
     title: "AI as Your Thinking Assistant",
     description: "Learn the right way to think about AI and why your experience matters more than ever.",
     audioUrl: m1Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326159/Module_1_PRT_02_fwj9gd.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326159/Module_1_PRT_02_fwj9gd.jpg",
     notes: `The Right Way to Think About AI
 
 A helpful way to think about AI is this:
@@ -527,8 +527,8 @@ Continue when ready and move on to the next module.`,
     title: "The Art of Clear Prompting",
     description: "Learn how to communicate with AI effectively through clear, structured prompts.",
     audioUrl: m2Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326161/Module_2_PRT_01_gjskos.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326161/Module_2_PRT_01_gjskos.jpg",
     notes: `Why This Module Is the Most Important
 
 Most people believe AI gives "good" or "bad" answers on its own.
@@ -653,8 +653,8 @@ Notice how clarity improves direction.`,
     title: "Iteration & Refinement",
     description: "Master the art of improving AI responses through thoughtful iteration.",
     audioUrl: m2Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326165/Module_2_PRT_02_ocrlfy.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326165/Module_2_PRT_02_ocrlfy.jpg",
     notes: `Iteration: How Quality Is Really Achieved
 
 AI is not meant to get everything right on the first attempt.
@@ -771,8 +771,8 @@ Continue when ready and move on to the next module.`,
     title: "Writing Clear Emails and Messages",
     description: "Learn how to use AI to write professional emails and messages that sound human and clear.",
     audioUrl: m3Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326164/Module_3_PRT_01_hgjst5.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326164/Module_3_PRT_01_hgjst5.jpg",
     notes: `Why This Module Matters
 
 A large part of work and daily life depends on communication:
@@ -950,8 +950,8 @@ This step-by-step improvement is how quality is achieved.`,
     title: "Refining and Humanizing AI Output",
     description: "Learn how to improve existing writing, make AI output sound human, and know when NOT to use AI.",
     audioUrl: m3Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326158/Module_3_PRT_02_bof8s3.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326158/Module_3_PRT_02_bof8s3.jpg",
     notes: `Case Scenario 2: Improving Something You Already Wrote
 
 Situation
@@ -1111,8 +1111,8 @@ Continue when ready and move on to the next module.`,
     title: "Planning and Organizing with AI",
     description: "Learn how to use AI as a thinking and organizing assistant to reduce mental load.",
     audioUrl: m4Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326153/Module_4_PRT_01_uzhihp.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326153/Module_4_PRT_01_uzhihp.jpg",
     notes: `Why This Module Matters
 
 Mental fatigue often does not come from doing hard work — it comes from holding too much in your head at once.
@@ -1278,8 +1278,8 @@ AI gives structure — you decide pacing and priorities.`,
     title: "Research and Document Summarizing",
     description: "Learn how to use AI to research topics efficiently and summarize long documents.",
     audioUrl: m4Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326167/Module_4_PRT_02_mgkefp.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326167/Module_4_PRT_02_mgkefp.jpg",
     notes: `Case Scenario 3: Researching a Topic Clearly
 
 Situation
@@ -1432,8 +1432,8 @@ Continue when ready and move on to the next module.`,
     title: "AI Tools for Daily Life",
     description: "Discover how AI can support everyday life beyond work — from planning to personal organization.",
     audioUrl: m5Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326174/Module_5_PRT_01_ozelax.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326174/Module_5_PRT_01_ozelax.jpg",
     notes: `Why This Module Matters
 
 AI is not only for offices, reports, or formal work.
@@ -1595,8 +1595,8 @@ You choose what fits your taste, time, and budget.`,
     title: "Practical AI for Personal Decisions",
     description: "Learn how to use AI for learning, decision-making, and personal messages while maintaining control.",
     audioUrl: m5Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326171/Module_5_PRT_02_k6mxyk.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326171/Module_5_PRT_02_k6mxyk.jpg",
     notes: `Real-Life Scenario 3: Learning Something New
 
 Situation
@@ -1707,8 +1707,8 @@ Continue when ready and move on to the next module.`,
     title: "Creative AI Tools and Getting Started",
     description: "Discover how AI can help you visualize ideas and create supporting materials — no artistic skills required.",
     audioUrl: m6Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326163/Module_6_PRT_01_tyf2tw.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326163/Module_6_PRT_01_tyf2tw.jpg",
     notes: `Why This Module Matters
 
 Many people believe creativity belongs only to:
@@ -1846,8 +1846,8 @@ AI generates multiple image options. You choose what fits your message.`,
     title: "Voice, Video, and Creative Expression",
     description: "Learn how to use AI for scripts, voice, and video while maintaining authenticity and integrity.",
     audioUrl: m6Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326156/Module_6_PRT_02_aazvdp.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326156/Module_6_PRT_02_aazvdp.jpg",
     notes: `Real-Life Scenario 2: Turning an Idea into a Short Script
 
 Situation
@@ -1954,8 +1954,8 @@ Continue when ready and move on to the next module.`,
     title: "Health, Mind, and Responsible AI Use",
     description: "Learn how AI can support health and mental clarity — while understanding its important limitations.",
     audioUrl: m7Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326155/Module_7_PRT_01_iqj9fi.jpg",
     notes: `Why This Module Matters
 
 Modern life places heavy demands on:
@@ -2082,8 +2082,8 @@ If distress feels serious or persistent, professional support is essential.`,
     title: "Financial Clarity and Healthy Routines",
     description: "Learn how to use AI for financial organization and building balanced daily routines.",
     audioUrl: m7Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326166/Module_7_PRT_02_xclxej.jpg",
     notes: `Real-Life Scenario 4: Financial Awareness and Organization
 
 Situation
@@ -2189,8 +2189,8 @@ Continue when ready and move on to the final module.`,
     title: "Safety, Privacy, and AI Accuracy",
     description: "Learn what to keep private, how to verify AI outputs, and when to trust AI — and when not to.",
     audioUrl: m8Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.jpg",
     notes: `Why This Module Matters
 
 AI is powerful — but power without judgment creates risk.
@@ -2282,8 +2282,8 @@ In high-stakes situations, AI helps you prepare — humans decide.`,
     title: "Ethics and Staying Relevant",
     description: "Learn to use AI responsibly and stay confident without chasing every new tool or trend.",
     audioUrl: m8Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.mp4",
-    posterUrl: "https://res.cloudinary.com/deopcanic/video/upload/v1769270962/blackhole_filwrj.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.jpg",
     notes: `Ethical Use of AI
 
 Using AI responsibly means:
