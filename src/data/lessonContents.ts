@@ -2189,8 +2189,8 @@ Continue when ready and move on to the final module.`,
     title: "Safety, Privacy, and AI Accuracy",
     description: "Learn what to keep private, how to verify AI outputs, and when to trust AI — and when not to.",
     audioUrl: m8Lesson1Audio,
-    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.mp4",
-    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.jpg",
     notes: `Why This Module Matters
 
 AI is powerful — but power without judgment creates risk.
@@ -2282,8 +2282,8 @@ In high-stakes situations, AI helps you prepare — humans decide.`,
     title: "Ethics and Staying Relevant",
     description: "Learn to use AI responsibly and stay confident without chasing every new tool or trend.",
     audioUrl: m8Lesson2Audio,
-    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.mp4",
-    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326177/Module_8_PRT_02_kbunqx.jpg",
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326145/Module_8_PRT_01_xx6wik.jpg",
     notes: `Ethical Use of AI
 
 Using AI responsibly means:
