@@ -24,6 +24,8 @@ export interface LessonContent {
   description: string;
   notes: string;
   audioUrl?: string;
+  videoUrl?: string;
+  posterUrl?: string;
   examples?: { title: string; content: string }[];
   resources?: { title: string; url: string }[];
 }
