@@ -2421,6 +2421,8 @@ Tech + Human = Superhumans`,
     title: "Your Next Steps",
     description: "Reflect on how you'll integrate AI into your life and develop a personal plan for continued growth.",
     audioUrl: wrap2Audio,
+    videoUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326561/Wrap_up_shqrvs.mp4",
+    posterUrl: "https://res.cloudinary.com/dkcfndr6f/video/upload/v1769326561/Wrap_up_shqrvs.jpg",
     notes: `Your Personal AI Integration Plan
 
 You may find it helpful to reflect on the following questions:
