@@ -35,10 +35,10 @@ export function VideoPlayer({
     setIsPlaying(false);
     setCurrentTime(0);
     setDuration(0);
-    setIsLoading(false);
+    setIsLoading(true);
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      videoRef.current.load(); // Force reload with new source
     }
   }, [videoUrl]);
 
