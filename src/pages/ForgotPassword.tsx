@@ -70,7 +70,7 @@ const ForgotPassword = () => {
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Home
+          Back to Login
         </Link>
 
         {/* Main Card */}
