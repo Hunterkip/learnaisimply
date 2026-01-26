@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
 import { AnimatedHero } from "@/components/homepage/AnimatedHero";
+import { SignUpModal } from "@/components/SignUpModal";
+import { useState } from "react";
 
 const features = [
   {
@@ -36,6 +38,8 @@ const courseIncludes = [
 ];
 
 export default function LandingPage() {
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation Header */}
@@ -48,11 +52,13 @@ export default function LandingPage() {
                 Log In
               </Button>
             </Link>
-            <Link to="/sign-up">
-              <Button variant="continue" size="sm">
-                Enroll Now
-              </Button>
-            </Link>
+            <Button 
+              variant="continue" 
+              size="sm"
+              onClick={() => setIsSignUpModalOpen(true)}
+            >
+              Enroll Now
+            </Button>
           </div>
         </div>
       </header>
@@ -116,15 +122,14 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link to="/sign-up">
-                <Button 
-                  variant="continue"
-                  className="w-full h-14 text-lg"
-                >
-                  Get Started Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                variant="continue"
+                onClick={() => setIsSignUpModalOpen(true)}
+                className="w-full h-14 text-lg"
+              >
+                Get Started Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
           </div>
 
@@ -171,16 +176,15 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/sign-up">
-                <Button 
-                  size="lg" 
-                  variant="continue"
-                  className="w-full sm:w-auto text-lg px-8"
-                >
-                  Enroll Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                size="lg" 
+                variant="continue"
+                onClick={() => setIsSignUpModalOpen(true)}
+                className="w-full sm:w-auto text-lg px-8"
+              >
+                Enroll Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               <Link to="/log-in">
                 <Button 
                   size="lg" 
@@ -199,6 +203,12 @@ export default function LandingPage() {
       </section>
 
       <Footer />
+
+      {/* Sign Up Modal */}
+      <SignUpModal 
+        isOpen={isSignUpModalOpen}
+        onClose={() => setIsSignUpModalOpen(false)}
+      />
     </div>
   );
 }
