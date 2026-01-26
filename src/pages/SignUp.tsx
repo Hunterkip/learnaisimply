@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -118,7 +119,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12">
+    <div
+      className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at calc(var(--global-xp,0.5) * 100%) calc(var(--global-yp,0.5) * 100%), hsla(var(--global-hue,280) 80% 60% / 0.12), transparent 20%), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2))",
+        backgroundBlendMode: 'screen, normal',
+      }}
+    >
       <div className="w-full max-w-md">
         {/* Back to Home */}
         <Link 
@@ -130,7 +138,8 @@ const SignUp = () => {
         </Link>
 
         {/* Main Card */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-8 md:p-10">
+        <GlowCard glowColor="purple" customSize className="w-full max-w-md mx-auto">
+          <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8 w-full h-full">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
@@ -262,7 +271,8 @@ const SignUp = () => {
               You'll only pay when you choose to start the course.
             </p>
           </div>
-        </div>
+          </div>
+        </GlowCard>
 
         {/* Secondary Navigation */}
         <p className="text-center mt-6 text-muted-foreground">
