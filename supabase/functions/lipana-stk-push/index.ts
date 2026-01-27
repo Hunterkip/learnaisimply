@@ -9,7 +9,7 @@ const corsHeaders = {
 interface STKPushRequest {
   phoneNumber: string;
   amount: number;
-  plan: 'standard' | 'mastery';
+  plan?: 'standard';
   userEmail: string;
 }
 

@@ -7,8 +7,7 @@ const corsHeaders = {
 };
 
 const PRICING = {
-  standard: { kes: 10, usd: 20 },
-  mastery: { kes: 5000, usd: 50 },
+  standard: { kes: 2500 },
 };
 
 serve(async (req) => {

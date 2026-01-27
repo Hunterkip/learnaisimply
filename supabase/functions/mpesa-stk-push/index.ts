@@ -9,7 +9,7 @@ const corsHeaders = {
 interface STKPushRequest {
   phoneNumber: string;
   amount: number;
-  plan: 'standard' | 'mastery';
+  plan?: 'standard';
   userEmail: string;
 }
 
@@ -108,8 +108,8 @@ serve(async (req) => {
       PartyB: tillNumber, // Till Number for Buy Goods
       PhoneNumber: formattedPhone,
       CallBackURL: callbackUrl,
-      AccountReference: `AISIMPLY-${plan.toUpperCase()}`,
-      TransactionDesc: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
+      AccountReference: 'AISIMPLY-COURSE',
+      TransactionDesc: 'AI Simplified - Full Course Access',
     };
 
     console.log('Initiating STK Push (Buy Goods - PRODUCTION) with payload:', { 

@@ -7,13 +7,12 @@ const corsHeaders = {
 };
 
 interface CreateOrderRequest {
-  plan: 'standard' | 'mastery';
+  plan?: 'standard';
   userEmail: string;
 }
 
 const PRICING = {
   standard: 20,
-  mastery: 40,
 };
 
 async function getPayPalAccessToken(clientId: string, clientSecret: string): Promise<string> {
@@ -58,8 +57,8 @@ serve(async (req) => {
       throw new Error('PayPal configuration is incomplete');
     }
 
-    const { plan, userEmail } = await req.json() as CreateOrderRequest;
-    const amount = PRICING[plan];
+    const { plan = 'standard', userEmail } = await req.json() as CreateOrderRequest;
+    const amount = PRICING.standard;
 
     console.log('Creating PayPal order:', { plan, userEmail, amount });
 
@@ -72,9 +71,9 @@ serve(async (req) => {
       intent: 'CAPTURE',
       purchase_units: [
         {
-          reference_id: `AISIMPLY-${plan.toUpperCase()}-${Date.now()}`,
+          reference_id: `AISIMPLY-COURSE-${Date.now()}`,
           custom_id: userEmail,
-          description: `AI Simplified - ${plan === 'mastery' ? 'Mastery' : 'Standard'} Path`,
+          description: 'AI Simplified - Full Course Access',
           amount: {
             currency_code: 'USD',
             value: amount.toFixed(2),
