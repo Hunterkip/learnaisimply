@@ -15,7 +15,7 @@ async function getPayPalAccessToken(clientId: string, clientSecret: string): Pro
   const auth = btoa(`${clientId}:${clientSecret}`);
   
   const response = await fetch(
-    'https://api-m.sandbox.paypal.com/v1/oauth2/token',
+    'https://api-m.paypal.com/v1/oauth2/token',
     {
       method: 'POST',
       headers: {
@@ -67,7 +67,7 @@ serve(async (req) => {
 
     // Capture the order
     const captureResponse = await fetch(
-      `https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderId}/capture`,
+      `https://api-m.paypal.com/v2/checkout/orders/${orderId}/capture`,
       {
         method: 'POST',
         headers: {
