@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const PRICING = {
-  standard: { kes: 2500, usd: 20 },
+  standard: { kes: 10, usd: 20 },
   mastery: { kes: 5000, usd: 50 },
 };
 
