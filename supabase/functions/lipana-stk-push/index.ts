@@ -48,19 +48,48 @@ serve(async (req) => {
     console.log('Formatted phone:', formattedPhone);
 
     // Call Lipana API to initiate STK Push
-    const lipanaResponse = await fetch('https://api.lipana.dev/v1/api/transactions/push-stk', {
+    const lipanaUrl = 'https://api.lipana.dev/v1/api/transactions/push-stk';
+    console.log('Calling Lipana API:', lipanaUrl);
+    
+    const requestBody = {
+      phone: formattedPhone,
+      amount: amount,
+    };
+    console.log('Request body:', JSON.stringify(requestBody));
+    
+    const lipanaResponse = await fetch(lipanaUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': lipanaSecretKey,
       },
-      body: JSON.stringify({
-        phone: formattedPhone,
-        amount: amount,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
-    const lipanaData = await lipanaResponse.json();
+    // Get raw response text first to handle non-JSON responses
+    const responseText = await lipanaResponse.text();
+    console.log('Lipana raw response status:', lipanaResponse.status);
+    console.log('Lipana raw response:', responseText.substring(0, 500));
+
+    // Try to parse as JSON
+    let lipanaData;
+    try {
+      lipanaData = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Failed to parse Lipana response as JSON:', parseError);
+      console.error('Response was:', responseText.substring(0, 1000));
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: 'Payment service returned an invalid response. Please try again later.',
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 502,
+        }
+      );
+    }
+
     console.log('Lipana STK Push response:', lipanaData);
 
     if (!lipanaResponse.ok) {
