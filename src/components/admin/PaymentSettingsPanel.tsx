@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { CreditCard, Loader2, GripVertical } from "lucide-react";
-import { PayPalIcon, MpesaIcon } from "@/components/icons/PaymentIcons";
+import { PayPalIcon, MpesaIcon, PaystackIcon } from "@/components/icons/PaymentIcons";
 
 interface PaymentSetting {
   id: string;
@@ -118,6 +118,8 @@ export function PaymentSettingsPanel() {
         return <MpesaIcon className="h-5 w-5" />;
       case 'paypal':
         return <PayPalIcon className="h-5 w-5" />;
+      case 'paystack':
+        return <PaystackIcon className="h-5 w-5" />;
       default:
         return <CreditCard className="h-5 w-5" />;
     }
@@ -129,6 +131,8 @@ export function PaymentSettingsPanel() {
         return 'M-Pesa (Buy Goods)';
       case 'paypal':
         return 'PayPal';
+      case 'paystack':
+        return 'Paystack';
       default:
         return method.charAt(0).toUpperCase() + method.slice(1);
     }
@@ -162,7 +166,9 @@ export function PaymentSettingsPanel() {
                 <GripVertical className="h-4 w-4" />
               </div>
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                setting.payment_method === 'mpesa' ? 'bg-mpesa/10 text-mpesa' : 'bg-paypal/10 text-paypal'
+                setting.payment_method === 'mpesa' ? 'bg-mpesa/10 text-mpesa' : 
+                setting.payment_method === 'paystack' ? 'bg-paystack/10 text-paystack' :
+                'bg-paypal/10 text-paypal'
               }`}>
                 {getIcon(setting.payment_method)}
               </div>
