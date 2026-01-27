@@ -26,7 +26,7 @@ interface PaymentSetting {
 }
 
 const PRICING = {
-  standard: { usd: 20, kes: 2500 },
+  standard: { usd: 20, kes: 15 },
   mastery: { usd: 40, kes: 5000 },
 };
 
