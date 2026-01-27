@@ -7,11 +7,11 @@ import { ArrowRight, Lock, Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { PayPalIcon, MpesaIcon } from "@/components/icons/PaymentIcons";
+import { PayPalIcon, MpesaIcon, PaystackIcon } from "@/components/icons/PaymentIcons";
 import { PaymentProcessingDialog } from "./PaymentProcessingDialog";
 import { PayPalPopup } from "./PayPalPopup";
 
-type PaymentMode = "paypal" | "mpesa";
+type PaymentMode = "paypal" | "mpesa" | "paystack";
 
 interface PaymentModeSelectorProps {
   plan: "standard" | "mastery";
@@ -26,8 +26,8 @@ interface PaymentSetting {
 }
 
 const PRICING = {
-  standard: { usd: 1, kes: 15 },
-  mastery: { usd: 1, kes: 5000 },
+  standard: { usd: 20, kes: 2500, ngn: 15000 },
+  mastery: { usd: 50, kes: 5000, ngn: 37500 },
 };
 
 export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSelectorProps) {
@@ -101,7 +101,6 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
     setShowProcessingDialog(true);
 
     try {
-      // Use Lipana.dev for M-Pesa payments
       const { data, error } = await supabase.functions.invoke("lipana-stk-push", {
         body: {
           phoneNumber: mpesaPhone,
@@ -127,7 +126,6 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
         });
         setShowProcessingDialog(false);
       }
-      // If success, dialog stays open and handles the flow
     } catch (err) {
       console.error("STK Push error:", err);
       toast({
@@ -146,7 +144,6 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
     setActivePaymentMethod("paypal");
 
     try {
-      // Create PayPal order via edge function (secrets hidden)
       const { data, error } = await supabase.functions.invoke("paypal-create-order", {
         body: {
           plan: plan,
@@ -165,7 +162,6 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
         return;
       }
 
-      // Store order details and show popup
       setPaypalApprovalUrl(data.approvalUrl);
       setPaypalOrderId(data.orderId);
       setShowPayPalPopup(true);
@@ -181,6 +177,42 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
     }
   };
 
+  const handlePaystackClick = async () => {
+    setIsProcessing(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("paystack-initialize", {
+        body: {
+          plan: plan,
+          userEmail: userEmail,
+          userName: userName,
+        },
+      });
+
+      if (error || !data?.success) {
+        console.error("Paystack error:", error || data?.message);
+        toast({
+          title: "Payment Error",
+          description: data?.message || "Failed to initiate Paystack payment. Please try again.",
+          variant: "destructive",
+        });
+        setIsProcessing(false);
+        return;
+      }
+
+      // Redirect to Paystack checkout
+      window.location.href = data.authorizationUrl;
+    } catch (err) {
+      console.error("Paystack error:", err);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+      setIsProcessing(false);
+    }
+  };
+
   if (isLoadingSettings) {
     return (
       <div className="flex items-center justify-center py-8">
@@ -192,6 +224,7 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
   const enabledMethods = getEnabledPaymentMethods();
   const mpesaEnabled = isPaymentEnabled("mpesa");
   const paypalEnabled = isPaymentEnabled("paypal");
+  const paystackEnabled = isPaymentEnabled("paystack");
 
   if (enabledMethods.length === 0) {
     return (
@@ -206,7 +239,7 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
       <div className="text-center">
         <h3 className="text-xl font-semibold text-foreground mb-2">Choose Payment Method</h3>
         <p className="text-muted-foreground">
-          {plan === "mastery" ? "Mastery Path" : "Standard Path"} — KES {pricing.kes.toLocaleString()} / ${pricing.usd}
+          {plan === "mastery" ? "Mastery Path" : "Standard Path"}
         </p>
       </div>
 
@@ -217,37 +250,37 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
           enabledMethods.length === 1 ? "grid-cols-1 max-w-sm mx-auto" : "grid-cols-1 sm:grid-cols-2",
         )}
       >
-        {/* PayPal Option - shown based on display order */}
-        {paypalEnabled && (
+        {/* Paystack Option */}
+        {paystackEnabled && (
           <Card
             className={cn(
               "p-4 cursor-pointer transition-all border-2 overflow-hidden",
-              selectedMode === "paypal"
-                ? "border-paypal bg-paypal-light"
-                : "border-border hover:border-paypal/50 bg-card",
+              selectedMode === "paystack"
+                ? "border-paystack bg-paystack-light"
+                : "border-border hover:border-paystack/50 bg-card",
             )}
-            onClick={() => setSelectedMode("paypal")}
-            style={{ order: paymentSettings.find((s) => s.payment_method === "paypal")?.display_order || 2 }}
+            onClick={() => setSelectedMode("paystack")}
+            style={{ order: paymentSettings.find((s) => s.payment_method === "paystack")?.display_order || 1 }}
           >
             <div className="flex items-center gap-4">
               <div
                 className={cn(
                   "w-12 h-12 rounded-full flex items-center justify-center",
-                  selectedMode === "paypal" ? "bg-paypal text-white" : "bg-paypal/10",
+                  selectedMode === "paystack" ? "bg-paystack text-white" : "bg-paystack/10",
                 )}
               >
-                <PayPalIcon className="h-6 w-6" />
+                <PaystackIcon className="h-6 w-6" />
               </div>
               <div className="flex-1">
-                <h4 className="font-semibold text-foreground">PayPal</h4>
-                <p className="text-sm text-muted-foreground">Card or PayPal balance</p>
+                <h4 className="font-semibold text-foreground">Paystack</h4>
+                <p className="text-sm text-muted-foreground">Card, Bank, or Mobile Money</p>
               </div>
-              {selectedMode === "paypal" && <Check className="h-5 w-5 text-paypal" />}
+              {selectedMode === "paystack" && <Check className="h-5 w-5 text-paystack" />}
             </div>
           </Card>
         )}
 
-        {/* M-Pesa Option - shown based on display order */}
+        {/* M-Pesa Option */}
         {mpesaEnabled && (
           <Card
             className={cn(
@@ -255,7 +288,7 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
               selectedMode === "mpesa" ? "border-mpesa bg-mpesa-light" : "border-border hover:border-mpesa/50 bg-card",
             )}
             onClick={() => setSelectedMode("mpesa")}
-            style={{ order: paymentSettings.find((s) => s.payment_method === "mpesa")?.display_order || 1 }}
+            style={{ order: paymentSettings.find((s) => s.payment_method === "mpesa")?.display_order || 2 }}
           >
             <div className="flex items-center gap-4">
               <div
@@ -274,9 +307,66 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
             </div>
           </Card>
         )}
+
+        {/* PayPal Option */}
+        {paypalEnabled && (
+          <Card
+            className={cn(
+              "p-4 cursor-pointer transition-all border-2 overflow-hidden",
+              selectedMode === "paypal"
+                ? "border-paypal bg-paypal-light"
+                : "border-border hover:border-paypal/50 bg-card",
+            )}
+            onClick={() => setSelectedMode("paypal")}
+            style={{ order: paymentSettings.find((s) => s.payment_method === "paypal")?.display_order || 3 }}
+          >
+            <div className="flex items-center gap-4">
+              <div
+                className={cn(
+                  "w-12 h-12 rounded-full flex items-center justify-center",
+                  selectedMode === "paypal" ? "bg-paypal text-white" : "bg-paypal/10",
+                )}
+              >
+                <PayPalIcon className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-semibold text-foreground">PayPal</h4>
+                <p className="text-sm text-muted-foreground">Card or PayPal balance</p>
+              </div>
+              {selectedMode === "paypal" && <Check className="h-5 w-5 text-paypal" />}
+            </div>
+          </Card>
+        )}
       </div>
 
       {/* Payment Details */}
+      {selectedMode === "paystack" && paystackEnabled && (
+        <div className="bg-paystack/5 border border-paystack/20 rounded-xl p-6 space-y-4">
+          <div className="text-center space-y-2">
+            <p className="text-foreground">You'll be redirected to Paystack to complete your payment.</p>
+            <p className="text-sm text-muted-foreground">Supports Cards, Bank Transfer, and Mobile Money.</p>
+          </div>
+          <Button
+            size="lg"
+            className="w-full text-lg bg-paystack hover:bg-paystack/90 text-white"
+            onClick={handlePaystackClick}
+            disabled={isProcessing}
+          >
+            {isProcessing ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                Processing...
+              </>
+            ) : (
+              <>
+                Pay with Paystack — ₦{pricing.ngn.toLocaleString()}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </>
+            )}
+          </Button>
+        </div>
+      )}
+
       {selectedMode === "paypal" && paypalEnabled && (
         <div className="bg-paypal/5 border border-paypal/20 rounded-xl p-6 space-y-4">
           <div className="text-center space-y-2">

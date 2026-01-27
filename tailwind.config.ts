@@ -58,6 +58,10 @@ export default {
           DEFAULT: "hsl(var(--mpesa))",
           light: "hsl(var(--mpesa-light))",
         },
+        paystack: {
+          DEFAULT: "hsl(var(--paystack))",
+          light: "hsl(var(--paystack-light))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
