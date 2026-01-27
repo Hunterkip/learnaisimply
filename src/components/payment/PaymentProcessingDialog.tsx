@@ -82,7 +82,28 @@ export function PaymentProcessingDialog({
     setError("");
 
     try {
-      // Check payment_transactions for matching transaction (Lipana uses different receipt field)
+      // First check if this M-Pesa code has already been used (prevent duplicate payments)
+      const { data: existingTransaction } = await supabase
+        .from("payment_transactions")
+        .select("*")
+        .or(`mpesa_receipt_number.eq.${mpesaCode.toUpperCase().trim()},checkout_request_id.eq.${mpesaCode.toUpperCase().trim()}`)
+        .single();
+
+      // If code exists and is NOT from this user's email, it's been used already
+      if (existingTransaction && existingTransaction.account_reference !== userEmail) {
+        setError("This M-Pesa code has already been used. If this is your payment, please contact support.");
+        setIsVerifying(false);
+        return;
+      }
+
+      // If code exists and is from this user but already completed, it's expired
+      if (existingTransaction && existingTransaction.status === "completed" && existingTransaction.account_reference === userEmail) {
+        setError("This payment has already been processed. Your course access is active.");
+        setIsVerifying(false);
+        return;
+      }
+
+      // Check payment_transactions for matching completed transaction
       const { data: transaction, error: txError } = await supabase
         .from("payment_transactions")
         .select("*")
