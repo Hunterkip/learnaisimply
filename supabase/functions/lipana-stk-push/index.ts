@@ -48,7 +48,7 @@ serve(async (req) => {
     console.log('Formatted phone:', formattedPhone);
 
     // Call Lipana API to initiate STK Push
-    const lipanaUrl = 'https://api.lipana.dev/v1/api/transactions/push-stk';
+    const lipanaUrl = 'https://lipana.dev/api/v1/stk-push';
     console.log('Calling Lipana API:', lipanaUrl);
     
     const requestBody = {
