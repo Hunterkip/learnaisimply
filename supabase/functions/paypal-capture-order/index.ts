@@ -118,9 +118,6 @@ serve(async (req) => {
     if (searchEmail && status === 'COMPLETED') {
       console.log('Granting access to user:', searchEmail);
 
-      // Determine plan based on amount
-      const plan = parseFloat(amount || '0') >= 35 ? 'mastery' : 'standard';
-
       // Try to find user by email in profiles
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -133,7 +130,7 @@ serve(async (req) => {
           .from('profiles')
           .update({ 
             has_access: true,
-            plan: plan,
+            plan: 'standard',
           })
           .eq('id', profile.id);
 
@@ -155,7 +152,7 @@ serve(async (req) => {
               .from('profiles')
               .update({ 
                 has_access: true,
-                plan: plan,
+                plan: 'standard',
               })
               .eq('id', user.id);
 

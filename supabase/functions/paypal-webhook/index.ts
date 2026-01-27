@@ -168,7 +168,7 @@ serve(async (req) => {
           account_reference: payerEmail || customId || referenceId,
           payment_method: 'paypal',
           status: 'completed',
-          plan: parseFloat(amount || '0') >= 35 ? 'mastery' : 'standard',
+          plan: 'standard',
         });
 
       if (insertError) {
@@ -188,13 +188,11 @@ serve(async (req) => {
           .single();
 
         if (profile) {
-          const plan = parseFloat(amount || '0') >= 35 ? 'mastery' : 'standard';
-          
           const { error: updateError } = await supabase
             .from('profiles')
             .update({ 
               has_access: true,
-              plan: plan,
+              plan: 'standard',
               updated_at: new Date().toISOString(),
             })
             .eq('id', profile.id);
@@ -210,13 +208,11 @@ serve(async (req) => {
           const user = authUsers?.users?.find(u => u.email === searchEmail);
           
           if (user) {
-            const plan = parseFloat(amount || '0') >= 35 ? 'mastery' : 'standard';
-            
             const { error: updateError } = await supabase
               .from('profiles')
               .update({ 
                 has_access: true,
-                plan: plan,
+                plan: 'standard',
                 updated_at: new Date().toISOString(),
               })
               .eq('id', user.id);

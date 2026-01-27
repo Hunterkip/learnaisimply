@@ -392,19 +392,6 @@ export default function AdminDashboard() {
                         >
                           {profile.has_access ? "Revoke" : "Grant"}
                         </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => 
-                            updateUserPlan(
-                              profile.id, 
-                              profile.plan === "mastery" ? "standard" : "mastery"
-                            )
-                          }
-                          disabled={isUpdating === profile.id}
-                        >
-                          {profile.plan === "mastery" ? "→ Standard" : "→ Mastery"}
-                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>

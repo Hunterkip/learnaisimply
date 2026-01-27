@@ -14,7 +14,7 @@ import { PayPalPopup } from "./PayPalPopup";
 type PaymentMode = "paypal" | "mpesa" | "paystack";
 
 interface PaymentModeSelectorProps {
-  plan: "standard" | "mastery";
+  plan?: "standard";
   userEmail: string;
   userName?: string;
 }
@@ -26,11 +26,10 @@ interface PaymentSetting {
 }
 
 const PRICING = {
-  standard: { usd: 20, kes: 2500, ngn: 15000 },
-  mastery: { usd: 50, kes: 5000, ngn: 37500 },
+  standard: { usd: 20, kes: 2500 },
 };
 
-export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSelectorProps) {
+export function PaymentModeSelector({ plan = "standard", userEmail, userName }: PaymentModeSelectorProps) {
   const { toast } = useToast();
   const [selectedMode, setSelectedMode] = useState<PaymentMode | null>(null);
   const [mpesaPhone, setMpesaPhone] = useState("");
@@ -238,9 +237,7 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
     <div className="space-y-6">
       <div className="text-center">
         <h3 className="text-xl font-semibold text-foreground mb-2">Choose Payment Method</h3>
-        <p className="text-muted-foreground">
-          {plan === "mastery" ? "Mastery Path" : "Standard Path"}
-        </p>
+        <p className="text-muted-foreground">Full Course Access</p>
       </div>
 
       {/* Payment Options */}
@@ -359,7 +356,7 @@ export function PaymentModeSelector({ plan, userEmail, userName }: PaymentModeSe
               </>
             ) : (
               <>
-                Pay with Paystack — ₦{pricing.ngn.toLocaleString()}
+                Pay with Paystack — KES {pricing.kes.toLocaleString()}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </>
             )}
