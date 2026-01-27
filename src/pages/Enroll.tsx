@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
+import { ManualPaymentVerification } from "@/components/payment/ManualPaymentVerification";
 import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
 
@@ -203,6 +204,26 @@ const Enroll = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/");
+  };
+
+  const handlePaymentVerified = async () => {
+    // Refresh the page or check access status again
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("has_access")
+        .eq("id", session.user.id)
+        .single();
+
+      if (profile?.has_access) {
+        setHasAccess(true);
+        // Redirect to dashboard
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1500);
+      }
+    }
   };
 
   // Get user initials for avatar
@@ -518,7 +539,7 @@ const Enroll = () => {
       {/* Payment Section */}
       <section id="payment" className="bg-background py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
+          <div className="max-w-xl mx-auto space-y-6">
             <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
               <PaymentModeSelector
                 plan="standard"
@@ -527,7 +548,12 @@ const Enroll = () => {
               />
             </div>
 
-            <div className="mt-6 text-center">
+            <ManualPaymentVerification 
+              userEmail={userEmail}
+              onPaymentVerified={handlePaymentVerified}
+            />
+
+            <div className="text-center">
               <Link 
                 to="/payment-help" 
                 className="text-primary hover:underline text-base"
