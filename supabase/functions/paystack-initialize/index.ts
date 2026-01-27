@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const PRICING = {
-  standard: { kes: 2500 },
+  standard: { kes: 15 },
 };
 
 serve(async (req) => {
