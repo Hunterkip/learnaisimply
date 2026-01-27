@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
+import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
 
 const included = [
@@ -69,6 +70,7 @@ const typingTexts = [
 
 const Enroll = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState<string>("");
@@ -79,6 +81,8 @@ const Enroll = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
+  const [showPaystackVerification, setShowPaystackVerification] = useState(false);
+  const [paystackReference, setPaystackReference] = useState<string | null>(null);
 
   // Typing animation effect
   useEffect(() => {
@@ -116,6 +120,17 @@ const Enroll = () => {
     }, 530);
     return () => clearInterval(interval);
   }, []);
+
+  // Handle Paystack callback
+  useEffect(() => {
+    const paystackRef = searchParams.get("ref");
+    const isPaymentSuccess = searchParams.get("payment") === "success";
+
+    if (isPaymentSuccess && paystackRef) {
+      setPaystackReference(paystackRef);
+      setShowPaystackVerification(true);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -523,6 +538,15 @@ const Enroll = () => {
           </div>
         </div>
       </section>
+
+      {/* Paystack Verification Dialog */}
+      <PaystackVerificationDialog
+        open={showPaystackVerification}
+        onOpenChange={setShowPaystackVerification}
+        reference={paystackReference || undefined}
+        userEmail={userEmail}
+        userName={userName || userLastName}
+      />
     </div>
   );
 };
