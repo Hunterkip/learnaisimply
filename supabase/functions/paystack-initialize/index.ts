@@ -7,8 +7,8 @@ const corsHeaders = {
 };
 
 const PRICING = {
-  standard: { ngn: 15000, usd: 20 },
-  mastery: { ngn: 37500, usd: 50 },
+  standard: { kes: 2500, usd: 20 },
+  mastery: { kes: 5000, usd: 50 },
 };
 
 serve(async (req) => {
@@ -33,14 +33,14 @@ serve(async (req) => {
     }
 
     const pricing = PRICING[plan as keyof typeof PRICING] || PRICING.standard;
-    // Paystack expects amount in kobo (smallest currency unit)
-    const amountInKobo = pricing.ngn * 100;
+    // Paystack expects amount in smallest currency unit (cents for KES)
+    const amountInCents = pricing.kes * 100;
     
     console.log('Creating Paystack transaction:', {
       plan,
       userEmail,
-      amount: pricing.ngn,
-      amountInKobo,
+      amount: pricing.kes,
+      amountInCents,
     });
 
     // Generate unique reference
@@ -51,8 +51,8 @@ serve(async (req) => {
     
     const payload = {
       email: userEmail,
-      amount: amountInKobo,
-      currency: 'NGN',
+      amount: amountInCents,
+      currency: 'KES',
       reference,
       callback_url: `${origin}/enroll?payment=success&ref=${reference}`,
       metadata: {
@@ -70,6 +70,7 @@ serve(async (req) => {
 
     console.log('Paystack payload:', payload);
 
+    // Using Paystack LIVE API endpoint
     const response = await fetch('https://api.paystack.co/transaction/initialize', {
       method: 'POST',
       headers: {
@@ -97,7 +98,7 @@ serve(async (req) => {
 
     await supabase.from('payment_transactions').insert({
       account_reference: userEmail,
-      amount: pricing.ngn,
+      amount: pricing.kes,
       payment_method: 'paystack',
       status: 'pending',
       plan,
