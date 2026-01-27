@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { PayPalIcon, MpesaIcon } from "@/components/icons/PaymentIcons";
 import { PaymentProcessingDialog } from "./PaymentProcessingDialog";
+import { PayPalPopup } from "./PayPalPopup";
 
 type PaymentMode = "paypal" | "mpesa";
 
@@ -16,7 +17,6 @@ interface PaymentModeSelectorProps {
   plan: 'standard' | 'mastery';
   userEmail: string;
   userName?: string;
-  onPaypalPayment: () => void;
 }
 
 interface PaymentSetting {
@@ -34,7 +34,6 @@ export function PaymentModeSelector({
   plan,
   userEmail,
   userName,
-  onPaypalPayment,
 }: PaymentModeSelectorProps) {
   const { toast } = useToast();
   const [selectedMode, setSelectedMode] = useState<PaymentMode | null>(null);
@@ -45,6 +44,11 @@ export function PaymentModeSelector({
   const [activePaymentMethod, setActivePaymentMethod] = useState<"mpesa" | "paypal">("mpesa");
   const [paymentSettings, setPaymentSettings] = useState<PaymentSetting[]>([]);
   const [isLoadingSettings, setIsLoadingSettings] = useState(true);
+  
+  // PayPal popup state
+  const [showPayPalPopup, setShowPayPalPopup] = useState(false);
+  const [paypalApprovalUrl, setPaypalApprovalUrl] = useState("");
+  const [paypalOrderId, setPaypalOrderId] = useState("");
 
   const pricing = PRICING[plan];
 
@@ -165,9 +169,10 @@ export function PaymentModeSelector({
         return;
       }
 
-      // Open PayPal approval URL in new window
-      window.open(data.approvalUrl, "_blank", "noopener,noreferrer");
-      setShowProcessingDialog(true);
+      // Store order details and show popup
+      setPaypalApprovalUrl(data.approvalUrl);
+      setPaypalOrderId(data.orderId);
+      setShowPayPalPopup(true);
     } catch (err) {
       console.error('PayPal error:', err);
       toast({
@@ -369,12 +374,22 @@ export function PaymentModeSelector({
         <span>Secure payment processing</span>
       </div>
 
-      {/* Payment Processing Dialog */}
+      {/* Payment Processing Dialog for M-Pesa */}
       <PaymentProcessingDialog
         open={showProcessingDialog}
         onOpenChange={setShowProcessingDialog}
         paymentMethod={activePaymentMethod}
         phoneNumber={mpesaPhone}
+        userEmail={userEmail}
+        userName={userName}
+      />
+
+      {/* PayPal Popup Dialog */}
+      <PayPalPopup
+        open={showPayPalPopup}
+        onOpenChange={setShowPayPalPopup}
+        approvalUrl={paypalApprovalUrl}
+        orderId={paypalOrderId}
         userEmail={userEmail}
         userName={userName}
       />

@@ -66,8 +66,6 @@ const typingTexts = [
   "Create content effortlessly..."
 ];
 
-// PayPal payment link
-const PAYPAL_LINK = "https://www.paypal.com/ncp/payment/4ZXYM57QPZW94";
 
 const Enroll = () => {
   const navigate = useNavigate();
@@ -182,9 +180,6 @@ const Enroll = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handlePaypalPayment = () => {
-    window.location.href = PAYPAL_LINK;
-  };
 
   const handleAccessCourse = () => {
     navigate("/course");
@@ -514,7 +509,6 @@ const Enroll = () => {
                 plan="standard"
                 userEmail={userEmail}
                 userName={userName || userLastName}
-                onPaypalPayment={handlePaypalPayment}
               />
             </div>
 
