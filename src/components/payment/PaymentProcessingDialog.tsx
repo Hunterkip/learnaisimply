@@ -82,11 +82,11 @@ export function PaymentProcessingDialog({
     setError("");
 
     try {
-      // Check payment_transactions for matching transaction
+      // Check payment_transactions for matching transaction (Lipana uses different receipt field)
       const { data: transaction, error: txError } = await supabase
         .from("payment_transactions")
         .select("*")
-        .eq("mpesa_receipt_number", mpesaCode.toUpperCase().trim())
+        .or(`mpesa_receipt_number.eq.${mpesaCode.toUpperCase().trim()},checkout_request_id.eq.${mpesaCode.toUpperCase().trim()}`)
         .eq("status", "completed")
         .single();
 
