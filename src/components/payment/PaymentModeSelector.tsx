@@ -26,8 +26,8 @@ interface PaymentSetting {
 }
 
 const PRICING = {
-  standard: { usd: 20, kes: 15 },
-  mastery: { usd: 40, kes: 5000 },
+  standard: { usd: 1, kes: 15 },
+  mastery: { usd: 1, kes: 5000 },
 };
 
 export function PaymentModeSelector({ 
