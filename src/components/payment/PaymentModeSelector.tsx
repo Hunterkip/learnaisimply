@@ -101,7 +101,8 @@ export function PaymentModeSelector({
     setShowProcessingDialog(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('mpesa-stk-push', {
+      // Use Lipana.dev for M-Pesa payments
+      const { data, error } = await supabase.functions.invoke('lipana-stk-push', {
         body: {
           phoneNumber: mpesaPhone,
           amount: pricing.kes,
@@ -268,7 +269,7 @@ export function PaymentModeSelector({
               </div>
               <div className="flex-1">
                 <h4 className="font-semibold text-foreground">M-Pesa</h4>
-                <p className="text-sm text-muted-foreground">Buy Goods (Till)</p>
+                <p className="text-sm text-muted-foreground">Lipa na M-Pesa</p>
               </div>
               {selectedMode === "mpesa" && (
                 <Check className="h-5 w-5 text-mpesa" />
@@ -332,7 +333,7 @@ export function PaymentModeSelector({
                 <p className="text-sm text-destructive">{phoneError}</p>
               )}
               <p className="text-sm text-muted-foreground">
-                You'll receive a Buy Goods prompt to complete payment
+                You'll receive an M-Pesa STK Push prompt on your phone
               </p>
             </div>
           </div>
