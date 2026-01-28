@@ -140,11 +140,6 @@ const UserDashboard = () => {
         return;
       }
 
-      if (!profile?.has_access) {
-        navigate("/enroll");
-        return;
-      }
-
       setHasAccess(true);
       
       // Load completed lessons from localStorage
