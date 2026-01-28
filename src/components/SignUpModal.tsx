@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Eye, EyeOff, X } from "lucide-react";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -179,18 +180,19 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative bg-card rounded-2xl shadow-lg border border-border max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
-        {/* Close Button */}
-        <button
-          onClick={handleClose}
-          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-accent/10 transition-colors"
-          aria-label="Close modal"
-        >
-          <X className="h-5 w-5 text-muted-foreground hover:text-foreground" />
-        </button>
+      <GlowCard glowColor="purple" customSize className="relative w-full h-full max-w-2xl max-h-screen mx-4">
+        <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center">
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-accent/10 transition-colors z-10"
+            aria-label="Close modal"
+          >
+            <X className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+          </button>
 
-        {/* Content */}
-        <div className="p-8 md:p-10">
+          {/* Content */}
+          <div className="p-6 md:p-8 flex flex-col justify-center">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
@@ -322,8 +324,9 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
               You'll only pay when you choose to start the course.
             </p>
           </div>
+          </div>
         </div>
-      </div>
+      </GlowCard>
     </div>
   );
 }
