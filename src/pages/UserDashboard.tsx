@@ -20,6 +20,8 @@ const UserDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [hasAccess, setHasAccess] = useState(false);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   
@@ -118,13 +120,25 @@ const UserDashboard = () => {
       }
 
       setUserEmail(session.user.email || "");
-      setUserName(session.user.email?.split("@")[0] || "Learner");
 
       const { data: profile } = await supabase
         .from("profiles")
-        .select("has_access, plan")
+        .select("has_access, plan, first_name, last_name")
         .eq("id", session.user.id)
         .single();
+
+      if (profile?.first_name && profile?.last_name) {
+        setFirstName(profile.first_name);
+        setLastName(profile.last_name);
+        setUserName(`${profile.first_name} ${profile.last_name}`);
+      } else {
+        setUserName(session.user.email?.split("@")[0] || "Learner");
+      }
+
+      if (!profile?.has_access) {
+        navigate("/enroll");
+        return;
+      }
 
       if (!profile?.has_access) {
         navigate("/enroll");
