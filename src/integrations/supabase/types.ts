@@ -95,24 +95,6 @@ export type Database = {
         }
         Relationships: []
       }
-      paystack_callbacks: {
-        Row: {
-          created_at: string
-          id: string
-          url: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          url: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          url?: string
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           created_at: string
