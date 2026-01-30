@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const PRICING = {
-  standard: { kes: 15 },
+  standard: { kes: 2500 },
 };
 
 serve(async (req) => {
@@ -18,8 +18,50 @@ serve(async (req) => {
 
   try {
     console.log('Paystack initialize request received');
+
+    // ========== AUTHENTICATION CHECK ==========
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      console.error('Missing or invalid authorization header');
+      return new Response(
+        JSON.stringify({ success: false, message: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
     
-    const { plan, userEmail, userName } = await req.json();
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: claimsData, error: authError } = await supabaseAuth.auth.getUser(token);
+    
+    if (authError || !claimsData?.user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ success: false, message: 'Invalid authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const authenticatedUser = claimsData.user;
+    console.log('Authenticated user:', authenticatedUser.email);
+
+    // ========== END AUTHENTICATION CHECK ==========
+    
+    const { plan = 'standard', userEmail, userName } = await req.json();
+
+    // Verify email matches authenticated user
+    if (authenticatedUser.email !== userEmail) {
+      console.error('Email mismatch:', { provided: userEmail, authenticated: authenticatedUser.email });
+      return new Response(
+        JSON.stringify({ success: false, message: 'Email mismatch with authenticated user' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     
     const paystackSecretKey = Deno.env.get('PAYSTACK_SECRET_KEY');
     
@@ -91,7 +133,6 @@ serve(async (req) => {
     }
 
     // Store pending transaction in database
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
