@@ -58,9 +58,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"users" | "transactions" | "settings">("users");
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
-  // Admin emails - you should move this to a database table in production
-  const ADMIN_EMAILS = ["admin@example.com"];
-
   useEffect(() => {
     const checkAdmin = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -70,9 +67,22 @@ export default function AdminDashboard() {
         return;
       }
 
-      // Check if user is admin (simple email check - use proper role system in production)
-      const userEmail = session.user.email;
-      if (userEmail && ADMIN_EMAILS.includes(userEmail)) {
+      // Check if user has admin role in user_roles table
+      const { data: userRole, error: roleError } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      if (roleError) {
+        console.error('Error checking admin role:', roleError);
+        setIsAdmin(false);
+        setIsLoading(false);
+        return;
+      }
+
+      if (userRole) {
         setIsAdmin(true);
         fetchData();
       } else {
