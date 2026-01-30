@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { GlowCard } from "@/components/ui/spotlight-card";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -150,10 +151,25 @@ const SignUp = () => {
             </p>
           </div>
 
+          {/* Google Sign Up Button */}
+          <GoogleAuthButton mode="signup" className="mb-4" />
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">
+                Or continue with email
+              </span>
+            </div>
+          </div>
+
           {/* Form */}
           <form onSubmit={handleSignUp} className="space-y-5">
             {/* Name Fields */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName" className="text-foreground text-base">
                   First Name
