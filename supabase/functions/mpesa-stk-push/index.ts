@@ -6,9 +6,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Server-side pricing - never trust client-supplied amounts
+const PRICING = {
+  standard: { kes: 2500 },
+};
+
 interface STKPushRequest {
   phoneNumber: string;
-  amount: number;
   plan?: 'standard';
   userEmail: string;
 }
@@ -20,13 +24,45 @@ serve(async (req) => {
   }
 
   try {
+    // ========== AUTHENTICATION CHECK ==========
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      console.error('Missing or invalid authorization header');
+      return new Response(
+        JSON.stringify({ success: false, message: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: claimsData, error: authError } = await supabaseAuth.auth.getUser(token);
+    
+    if (authError || !claimsData?.user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ success: false, message: 'Invalid authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const authenticatedUser = claimsData.user;
+    console.log('Authenticated user:', authenticatedUser.email);
+
+    // ========== END AUTHENTICATION CHECK ==========
+
     const consumerKey = Deno.env.get('MPESA_CONSUMER_KEY');
     const consumerSecret = Deno.env.get('MPESA_CONSUMER_SECRET');
     const passkey = Deno.env.get('MPESA_PASSKEY');
     const tillNumber = Deno.env.get('MPESA_TILL_NUMBER');
     
     // Get callback URL - should point to the mpesa-callback edge function
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const callbackUrl = `${supabaseUrl}/functions/v1/mpesa-callback`;
 
     if (!consumerKey || !consumerSecret || !passkey || !tillNumber) {
@@ -39,7 +75,20 @@ serve(async (req) => {
       throw new Error('M-Pesa configuration is incomplete');
     }
 
-    const { phoneNumber, amount, plan, userEmail } = await req.json() as STKPushRequest;
+    const { phoneNumber, plan = 'standard', userEmail } = await req.json() as STKPushRequest;
+
+    // Verify email matches authenticated user
+    if (authenticatedUser.email !== userEmail) {
+      console.error('Email mismatch:', { provided: userEmail, authenticated: authenticatedUser.email });
+      return new Response(
+        JSON.stringify({ success: false, message: 'Email mismatch with authenticated user' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Use server-side pricing - IGNORE any client-supplied amount
+    const pricing = PRICING[plan as keyof typeof PRICING] || PRICING.standard;
+    const amount = pricing.kes;
 
     console.log('STK Push request (Buy Goods - Production):', { phoneNumber, amount, plan, userEmail });
 

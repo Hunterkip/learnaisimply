@@ -49,6 +49,39 @@ serve(async (req) => {
   console.log('PayPal create order request received');
 
   try {
+    // ========== AUTHENTICATION CHECK ==========
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      console.error('Missing or invalid authorization header');
+      return new Response(
+        JSON.stringify({ success: false, message: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+    
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: claimsData, error: authError } = await supabaseAuth.auth.getUser(token);
+    
+    if (authError || !claimsData?.user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ success: false, message: 'Invalid authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const authenticatedUser = claimsData.user;
+    console.log('Authenticated user:', authenticatedUser.email);
+
+    // ========== END AUTHENTICATION CHECK ==========
+
     const clientId = Deno.env.get('PAYPAL_CLIENT_ID');
     const clientSecret = Deno.env.get('PAYPAL_CLIENT_SECRET');
 
@@ -58,6 +91,16 @@ serve(async (req) => {
     }
 
     const { plan = 'standard', userEmail } = await req.json() as CreateOrderRequest;
+
+    // Verify email matches authenticated user
+    if (authenticatedUser.email !== userEmail) {
+      console.error('Email mismatch:', { provided: userEmail, authenticated: authenticatedUser.email });
+      return new Response(
+        JSON.stringify({ success: false, message: 'Email mismatch with authenticated user' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const amount = PRICING.standard;
 
     console.log('Creating PayPal order:', { plan, userEmail, amount });
@@ -119,7 +162,6 @@ serve(async (req) => {
     }
 
     // Store pending transaction
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
