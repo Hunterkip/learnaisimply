@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 import { z } from "zod";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -124,6 +125,21 @@ const Login = () => {
             <p className="text-muted-foreground text-base">
               Log in to continue your learning journey.
             </p>
+          </div>
+
+          {/* Google Sign In Button */}
+          <GoogleAuthButton mode="signin" className="mb-4" />
+
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">
+                Or continue with email
+              </span>
+            </div>
           </div>
 
           {/* Form */}

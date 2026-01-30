@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
 import { ManualPaymentVerification } from "@/components/payment/ManualPaymentVerification";
@@ -295,26 +295,26 @@ const Enroll = () => {
   return (
     <div className="min-h-screen">
       {/* Top Welcome Bar with Avatar and Logout */}
-      <div className="bg-foreground/95 text-background py-3 px-4">
+      <div className="bg-foreground/95 text-background py-2 sm:py-3 px-3 sm:px-4">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-8 w-8 border-2 border-accent/50">
-              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-medium">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Avatar className="h-7 w-7 sm:h-8 sm:w-8 border-2 border-accent/50">
+              <AvatarFallback className="bg-accent text-accent-foreground text-xs sm:text-sm font-medium">
                 {getUserInitials()}
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm">
-              Welcome back, <span className="font-medium">{getDisplayName()}</span>
+            <span className="text-xs sm:text-sm truncate max-w-[150px] sm:max-w-none">
+              Welcome, <span className="font-medium">{getDisplayName()}</span>
             </span>
           </div>
           <Button 
             variant="ghost" 
             size="sm"
             onClick={handleLogout}
-            className="text-background/80 hover:text-background hover:bg-background/10"
+            className="text-background/80 hover:text-background hover:bg-background/10 text-xs sm:text-sm px-2 sm:px-3"
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            Log out
+            <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <span className="hidden xs:inline">Log out</span>
           </Button>
         </div>
       </div>
@@ -323,46 +323,46 @@ const Enroll = () => {
       <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/80 text-primary-foreground relative overflow-hidden">
         {/* Animated gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-accent/5 animate-pulse" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/15 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-accent/15 rounded-full blur-3xl" />
         
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 py-10 sm:py-14 md:py-20 lg:py-24 relative z-10">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
-            <div className="space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight drop-shadow-sm">
+            <div className="space-y-4 sm:space-y-6 text-center md:text-left">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight drop-shadow-sm">
                 AI Simplified
               </h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 font-medium">
+              <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 font-medium">
                 For Everyday People and Business
               </p>
               
               {/* AI Typing Effect Container */}
-              <div className="bg-foreground/10 backdrop-blur-md rounded-xl p-5 border border-primary-foreground/20 shadow-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-success/80"></div>
+              <div className="bg-foreground/10 backdrop-blur-md rounded-xl p-4 sm:p-5 border border-primary-foreground/20 shadow-lg">
+                <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-destructive/80"></div>
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400/80"></div>
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-success/80"></div>
                   <span className="ml-2 text-xs text-primary-foreground/60">AI Assistant</span>
                 </div>
-                <div className="font-mono text-lg text-primary-foreground/90 min-h-[1.75rem]">
+                <div className="font-mono text-base sm:text-lg text-primary-foreground/90 min-h-[1.5rem] sm:min-h-[1.75rem]">
                   <span className="text-accent">→</span> {displayedText}
                   <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>|</span>
                 </div>
               </div>
 
-              <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-primary-foreground/80 leading-relaxed max-w-xl mx-auto md:mx-0">
                 Learn to use AI confidently — without coding, hype, or overwhelm.
               </p>
-              <p className="text-primary-foreground/60 text-sm">
+              <p className="text-primary-foreground/60 text-xs sm:text-sm">
                 One-time payment • Lifetime access • No subscriptions
               </p>
             </div>
 
-            {/* Right Side - AI Journey Preview */}
+            {/* Right Side - AI Journey Preview - Hidden on mobile */}
             <div className="hidden md:flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="bg-foreground/10 backdrop-blur-md rounded-2xl p-8 border border-primary-foreground/20 shadow-xl">
+                <div className="bg-foreground/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 border border-primary-foreground/20 shadow-xl">
                   <div className="text-center mb-6">
                     <span className="text-sm text-primary-foreground/60 uppercase tracking-wider">Your AI Journey</span>
                   </div>
@@ -396,49 +396,51 @@ const Enroll = () => {
       </section>
 
       {/* Locked Course Preview Section */}
-      <section className="bg-muted py-16 md:py-20">
+      <section className="bg-muted py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full mb-4">
-                <Lock className="h-4 w-4" />
-                <span className="text-sm font-medium">Course Preview</span>
+            <div className="text-center mb-6 sm:mb-10">
+              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-3 sm:mb-4">
+                <Lock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span className="text-xs sm:text-sm font-medium">Course Preview</span>
               </div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">
                 What's Inside
               </h2>
             </div>
             
             {/* Blurred Course Content */}
             <div className="relative">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 filter blur-sm select-none pointer-events-none">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 filter blur-sm select-none pointer-events-none">
                 {courseModules.map((module) => (
                   <div 
                     key={module.number}
-                    className="flex items-center gap-4 p-4 bg-background rounded-xl shadow-sm"
+                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-background rounded-xl shadow-sm"
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                      <span className="text-accent font-semibold">{module.number}</span>
+                    <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                      <span className="text-accent font-semibold text-sm sm:text-base">{module.number}</span>
                     </div>
-                    <span className="text-foreground font-medium">{module.title}</span>
+                    <span className="text-foreground font-medium text-sm sm:text-base">{module.title}</span>
                   </div>
                 ))}
               </div>
               
               {/* Lock Overlay */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-muted/80 via-transparent to-muted/80">
-                <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border text-center max-w-sm">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Lock className="h-8 w-8 text-primary" />
+                <div className="bg-card/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-xl border border-border text-center max-w-[280px] sm:max-w-sm mx-4">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
                     Unlock Full Course
                   </h3>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-muted-foreground text-sm sm:text-base mb-3 sm:mb-4">
                     Complete your enrollment to access all 9 modules
                   </p>
                   <Button 
                     variant="continue" 
+                    size="sm"
+                    className="sm:text-base"
                     onClick={() => document.getElementById("payment")?.scrollIntoView({ behavior: "smooth" })}
                   >
                     Enroll Now
@@ -451,37 +453,37 @@ const Enroll = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="bg-background py-12 border-b border-border">
+      <section className="bg-background py-8 sm:py-10 md:py-12 border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="max-w-md mx-auto">
-            <div className="bg-card rounded-2xl shadow-sm border border-border p-6 text-center">
-              <h2 className="text-xl font-semibold text-foreground mb-2">
+          <div className="max-w-sm sm:max-w-md mx-auto">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 text-center">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">
                 Full Course Access
               </h2>
-              <p className="text-muted-foreground mb-4">One-time payment • Lifetime access</p>
-              <div className="text-4xl font-bold text-primary mb-1">KES 1</div>
-              <div className="text-muted-foreground">≈ $1 USD</div>
+              <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
+              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">KES 2,500</div>
+              <div className="text-muted-foreground text-sm">≈ $20 USD</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Trust Section */}
-      <section className="bg-secondary py-16 md:py-20">
+      <section className="bg-secondary py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {trustItems.map((item, index) => (
               <div 
                 key={index}
-                className="flex flex-col items-center text-center p-6 bg-background rounded-xl shadow-sm"
+                className="flex flex-col items-center text-center p-4 sm:p-6 bg-background rounded-xl shadow-sm"
               >
-                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <item.icon className="h-7 w-7 text-accent" />
+                <div className="w-10 h-10 sm:w-12 md:w-14 sm:h-12 md:h-14 rounded-full bg-accent/10 flex items-center justify-center mb-3 sm:mb-4">
+                  <item.icon className="h-5 w-5 sm:h-6 md:h-7 sm:w-6 md:w-7 text-accent" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
+                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground mb-1 sm:mb-2">
                   {item.title}
                 </h3>
-                <p className="text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {item.description}
                 </p>
               </div>
@@ -491,20 +493,20 @@ const Enroll = () => {
       </section>
 
       {/* What You'll Learn Section */}
-      <section className="bg-background py-16 md:py-20">
+      <section className="bg-background py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground text-center mb-6 sm:mb-8">
               What You'll Learn
             </h2>
-            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
-              <ul className="space-y-4">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-6 md:p-8">
+              <ul className="space-y-3 sm:space-y-4">
                 {learningOutcomes.map((item, index) => (
-                  <li key={index} className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-                      <Check className="h-4 w-4 text-accent" />
+                  <li key={index} className="flex items-start sm:items-center gap-3 sm:gap-4">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent/20 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
                     </div>
-                    <span className="text-foreground text-lg">{item}</span>
+                    <span className="text-foreground text-sm sm:text-base md:text-lg">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -514,20 +516,20 @@ const Enroll = () => {
       </section>
 
       {/* What's Included Section */}
-      <section className="bg-secondary py-16 md:py-20">
+      <section className="bg-secondary py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground text-center mb-6 sm:mb-8">
               What's Included
             </h2>
-            <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
-              <ul className="space-y-4">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-6 md:p-8">
+              <ul className="space-y-3 sm:space-y-4">
                 {included.map((item, index) => (
-                  <li key={index} className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-                      <Check className="h-4 w-4 text-accent" />
+                  <li key={index} className="flex items-start sm:items-center gap-3 sm:gap-4">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent/20 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
                     </div>
-                    <span className="text-foreground text-lg">{item}</span>
+                    <span className="text-foreground text-sm sm:text-base md:text-lg">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -537,10 +539,10 @@ const Enroll = () => {
       </section>
 
       {/* Payment Section */}
-      <section id="payment" className="bg-background py-16 md:py-20">
+      <section id="payment" className="bg-background py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto space-y-6">
-            <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
+          <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto space-y-4 sm:space-y-6">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 md:p-8">
               <PaymentModeSelector
                 plan="standard"
                 userEmail={userEmail}
@@ -556,7 +558,7 @@ const Enroll = () => {
             <div className="text-center">
               <Link 
                 to="/payment-help" 
-                className="text-primary hover:underline text-base"
+                className="text-primary hover:underline text-sm sm:text-base"
               >
                 Having trouble with payment? Click here for help.
               </Link>
