@@ -104,25 +104,25 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-secondary flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
+      <div className="w-full max-w-sm sm:max-w-md">
         {/* Back to Home */}
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-4 sm:mb-6 transition-colors text-sm"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home
         </Link>
 
         {/* Main Card */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-8 md:p-10">
+        <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-8 md:p-10">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2 sm:mb-3">
               Welcome Back
             </h1>
-            <p className="text-muted-foreground text-base">
+            <p className="text-muted-foreground text-sm sm:text-base">
               Log in to continue your learning journey.
             </p>
           </div>
@@ -145,7 +145,7 @@ const Login = () => {
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground text-base">
+              <Label htmlFor="email" className="text-foreground text-sm sm:text-base">
                 Email address
               </Label>
               <Input
@@ -154,7 +154,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="h-12 text-base"
+                className="h-11 sm:h-12 text-sm sm:text-base"
                 required
                 disabled={isLoading}
               />
@@ -162,12 +162,12 @@ const Login = () => {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-foreground text-base">
+                <Label htmlFor="password" className="text-foreground text-sm sm:text-base">
                   Password
                 </Label>
                 <Link 
                   to="/forgot-password" 
-                  className="text-sm text-primary hover:underline"
+                  className="text-xs sm:text-sm text-primary hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -178,7 +178,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-12 text-base"
+                className="h-11 sm:h-12 text-sm sm:text-base"
                 required
                 disabled={isLoading}
               />
@@ -186,7 +186,7 @@ const Login = () => {
 
             <Button
               type="submit"
-              className="w-full h-14 text-lg font-medium"
+              className="w-full h-12 sm:h-14 text-base sm:text-lg font-medium"
               disabled={isLoading}
             >
               {isLoading ? "Logging in..." : "Log In"}
@@ -195,7 +195,7 @@ const Login = () => {
         </div>
 
         {/* Secondary Navigation */}
-        <p className="text-center mt-6 text-muted-foreground">
+        <p className="text-center mt-5 sm:mt-6 text-muted-foreground text-sm">
           Don't have an account?{" "}
           <Link 
             to="/sign-up" 
