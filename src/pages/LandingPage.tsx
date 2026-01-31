@@ -171,21 +171,23 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation Header */}
-      <header className="bg-primary text-primary-foreground py-4 sticky top-0 z-50">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <div className="text-xl font-semibold">AI Simplified</div>
-          <div className="flex items-center gap-4">
+      <header className="bg-primary text-primary-foreground py-3 sm:py-4 sticky top-0 z-50">
+        <div className="container mx-auto px-3 sm:px-4 flex items-center justify-between">
+          <div className="text-lg sm:text-xl font-semibold">AI Simplified</div>
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link to="/log-in">
-              <Button variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10 text-sm sm:text-base px-2 sm:px-4">
                 Log In
               </Button>
             </Link>
             <Button 
               variant="continue" 
               size="sm"
+              className="text-sm sm:text-base px-3 sm:px-4"
               onClick={() => setIsSignUpModalOpen(true)}
             >
-              Enroll Now
+              <span className="hidden xs:inline">Enroll Now</span>
+              <span className="xs:hidden">Enroll</span>
             </Button>
           </div>
         </div>
@@ -201,21 +203,21 @@ export default function LandingPage() {
       />
 
       {/* Features Strip */}
-      <section className="bg-background py-12 md:py-16 border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="bg-background py-8 sm:py-12 md:py-16 border-b border-border">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {features.map((feature, index) => (
               <div 
                 key={index}
                 className="flex flex-col items-center text-center"
               >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
-                  <feature.icon className="h-6 w-6 text-primary" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2 sm:mb-3">
+                  <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <h3 className="text-base font-semibold text-primary mb-1">
+                <h3 className="text-sm sm:text-base font-semibold text-primary mb-0.5 sm:mb-1">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {feature.description}
                 </p>
               </div>
@@ -225,69 +227,70 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="bg-secondary py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+      <section id="pricing" className="bg-secondary py-12 sm:py-16 md:py-24">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2 sm:mb-4">
               Simple, One-Time Pricing
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm sm:text-lg">
               Full access. No subscriptions. Learn forever.
             </p>
           </div>
 
-          <div className="max-w-md mx-auto">
+          <div className="max-w-sm sm:max-w-md mx-auto">
             {/* Single Pricing Card */}
-            <div className="bg-card rounded-2xl shadow-lg border-2 border-primary p-8 text-center">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-lg border-2 border-primary p-5 sm:p-8 text-center">
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
                 Full Course Access
               </h3>
-              <div className="mb-6">
-                <span className="text-5xl font-bold text-primary">2,500 KES | 19.38 USD</span>
+              <div className="mb-4 sm:mb-6">
+                <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">2,500 KES</span>
+                <span className="text-lg sm:text-xl md:text-2xl font-bold text-primary"> | $20</span>
               </div>
-              <ul className="space-y-4 mb-8 text-left">
+              <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 text-left">
                 {courseIncludes.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="h-4 w-4 text-accent" />
+                  <li key={index} className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
                     </div>
-                    <span className="text-foreground">{feature}</span>
+                    <span className="text-foreground text-sm sm:text-base">{feature}</span>
                   </li>
                 ))}
               </ul>
               <Button 
                 variant="continue"
                 onClick={() => setIsSignUpModalOpen(true)}
-                className="w-full h-14 text-lg"
+                className="w-full h-12 sm:h-14 text-base sm:text-lg"
               >
                 Get Started Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </div>
           </div>
 
-          <p className="text-center text-muted-foreground mt-8 text-sm">
+          <p className="text-center text-muted-foreground mt-6 sm:mt-8 text-xs sm:text-sm">
             Already enrolled? <Link to="/log-in" className="text-primary hover:underline">Sign in</Link> to continue your learning journey.
           </p>
         </div>
       </section>
 
       {/* Who Is This For Section */}
-      <section className="bg-background py-16 md:py-20">
-        <div className="container mx-auto px-4">
+      <section className="bg-background py-10 sm:py-14 md:py-20">
+        <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-4 sm:mb-6">
               Who Is This Course For?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
               This course is designed for professionals, business owners, teams, and everyday individuals 
               who want to use AI practically in work and daily life — without needing a technical background.
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {["Business Owners", "Professionals", "Teams", "Everyday Individuals"].map((audience) => (
                 <span 
                   key={audience}
-                  className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 text-accent rounded-full text-xs sm:text-sm font-medium"
                 >
                   {audience}
                 </span>
@@ -298,37 +301,37 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary py-16 md:py-20">
-        <div className="container mx-auto px-4">
+      <section className="bg-primary py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-lg mx-auto text-center text-primary-foreground">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3 sm:mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-primary-foreground/80 text-lg mb-8">
+            <p className="text-primary-foreground/80 text-sm sm:text-lg mb-6 sm:mb-8">
               Join thousands of learners who are already using AI confidently.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button 
                 size="lg" 
                 variant="continue"
                 onClick={() => setIsSignUpModalOpen(true)}
-                className="w-full sm:w-auto text-lg px-8"
+                className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8"
               >
                 Enroll Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
-              <Link to="/log-in">
+              <Link to="/log-in" className="w-full sm:w-auto">
                 <Button 
                   size="lg" 
-                  className="w-full sm:w-auto text-lg px-8 bg-transparent border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
+                  className="w-full text-base sm:text-lg px-6 sm:px-8 bg-transparent border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
                 >
                   Sign In
                 </Button>
               </Link>
             </div>
 
-            <p className="text-primary-foreground/60 text-sm mt-6">
+            <p className="text-primary-foreground/60 text-xs sm:text-sm mt-5 sm:mt-6">
               One-time payment • Lifetime access • No subscriptions
             </p>
           </div>

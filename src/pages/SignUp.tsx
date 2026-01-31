@@ -121,18 +121,18 @@ const SignUp = () => {
 
   return (
     <div
-      className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12"
+      className="min-h-screen bg-secondary flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
       style={{
         backgroundImage:
           "radial-gradient(circle at calc(var(--global-xp,0.5) * 100%) calc(var(--global-yp,0.5) * 100%), hsla(var(--global-hue,280) 80% 60% / 0.12), transparent 20%), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2))",
         backgroundBlendMode: 'screen, normal',
       }}
     >
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-sm sm:max-w-md">
         {/* Back to Home */}
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-4 sm:mb-6 transition-colors text-sm"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home
@@ -140,13 +140,13 @@ const SignUp = () => {
 
         {/* Main Card */}
         <GlowCard glowColor="purple" customSize className="w-full max-w-md mx-auto">
-          <div className="bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8 w-full h-full">
+          <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-6 md:p-8 w-full h-full">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
+          <div className="text-center mb-5 sm:mb-8">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2 sm:mb-3">
               Create Your Account
             </h1>
-            <p className="text-muted-foreground text-base">
+            <p className="text-muted-foreground text-sm sm:text-base">
               Learn at your own pace. No technical background required.
             </p>
           </div>
@@ -169,9 +169,9 @@ const SignUp = () => {
           {/* Form */}
           <form onSubmit={handleSignUp} className="space-y-5">
             {/* Name Fields */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-foreground text-base">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="firstName" className="text-foreground text-sm sm:text-base">
                   First Name
                 </Label>
                 <Input
@@ -180,13 +180,13 @@ const SignUp = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
-                  className="h-12 text-base"
+                  className="h-11 sm:h-12 text-sm sm:text-base"
                   required
                   disabled={isLoading}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-foreground text-base">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="lastName" className="text-foreground text-sm sm:text-base">
                   Last Name
                 </Label>
                 <Input
@@ -195,15 +195,15 @@ const SignUp = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
-                  className="h-12 text-base"
+                  className="h-11 sm:h-12 text-sm sm:text-base"
                   required
                   disabled={isLoading}
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground text-base">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="email" className="text-foreground text-sm sm:text-base">
                 Email address
               </Label>
               <Input
@@ -212,14 +212,14 @@ const SignUp = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="h-12 text-base"
+                className="h-11 sm:h-12 text-sm sm:text-base"
                 required
                 disabled={isLoading}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-foreground text-base">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="password" className="text-foreground text-sm sm:text-base">
                 Create a password
               </Label>
               <div className="relative">
@@ -229,7 +229,7 @@ const SignUp = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-12 text-base pr-10"
+                  className="h-11 sm:h-12 text-sm sm:text-base pr-10"
                   required
                   disabled={isLoading}
                 />
@@ -238,16 +238,16 @@ const SignUp = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showPassword ? <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" /> : <Eye className="h-4 w-4 sm:h-5 sm:w-5" />}
                 </button>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 At least 6 characters
               </p>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-foreground text-base">
+            <div className="space-y-1.5 sm:space-y-2">
+              <Label htmlFor="confirmPassword" className="text-foreground text-sm sm:text-base">
                 Confirm password
               </Label>
               <div className="relative">
@@ -257,7 +257,7 @@ const SignUp = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-12 text-base pr-10"
+                  className="h-11 sm:h-12 text-sm sm:text-base pr-10"
                   required
                   disabled={isLoading}
                 />
@@ -266,14 +266,14 @@ const SignUp = () => {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showConfirmPassword ? <EyeOff className="h-4 w-4 sm:h-5 sm:w-5" /> : <Eye className="h-4 w-4 sm:h-5 sm:w-5" />}
                 </button>
               </div>
             </div>
 
             <Button
               type="submit"
-              className="w-full h-14 text-lg font-medium"
+              className="w-full h-12 sm:h-14 text-base sm:text-lg font-medium"
               disabled={isLoading}
             >
               {isLoading ? "Creating account..." : "Create My Account"}
@@ -281,8 +281,8 @@ const SignUp = () => {
           </form>
 
           {/* Reassurance */}
-          <div className="mt-6 pt-6 border-t border-border">
-            <p className="text-center text-sm text-muted-foreground">
+          <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border">
+            <p className="text-center text-xs sm:text-sm text-muted-foreground">
               You won't be charged at this stage.<br />
               You'll only pay when you choose to start the course.
             </p>
@@ -291,7 +291,7 @@ const SignUp = () => {
         </GlowCard>
 
         {/* Secondary Navigation */}
-        <p className="text-center mt-6 text-muted-foreground">
+        <p className="text-center mt-5 sm:mt-6 text-muted-foreground text-sm">
           Already have an account?{" "}
           <Link 
             to="/log-in" 
