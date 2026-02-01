@@ -23,8 +23,10 @@ import {
   RefreshCw,
   LogOut,
   Shield,
-  Settings
+  Settings,
+  Ticket
 } from "lucide-react";
+import { PromoCodeManager } from "@/components/admin/PromoCodeManager";
 import { PaymentSettingsPanel } from "@/components/admin/PaymentSettingsPanel";
 
 interface Profile {
@@ -55,7 +57,7 @@ export default function AdminDashboard() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<"users" | "transactions" | "settings">("users");
+  const [activeTab, setActiveTab] = useState<"users" | "transactions" | "promos" | "settings">("users");
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
   useEffect(() => {
@@ -329,6 +331,20 @@ export default function AdminDashboard() {
               Transactions
             </Button>
             <Button
+              variant={activeTab === "transactions" ? "default" : "outline"}
+              onClick={() => setActiveTab("transactions")}
+            >
+              <CreditCard className="h-4 w-4 mr-2" />
+              Transactions
+            </Button>
+            <Button
+              variant={activeTab === "promos" ? "default" : "outline"}
+              onClick={() => setActiveTab("promos")}
+            >
+              <Ticket className="h-4 w-4 mr-2" />
+              Promo Codes
+            </Button>
+            <Button
               variant={activeTab === "settings" ? "default" : "outline"}
               onClick={() => setActiveTab("settings")}
             >
@@ -354,7 +370,7 @@ export default function AdminDashboard() {
 
         {/* Data Tables */}
         <Card className="overflow-hidden">
-          {activeTab === "users" ? (
+          {activeTab === "users" && (
             <Table>
               <TableHeader>
                 <TableRow>
@@ -378,7 +394,7 @@ export default function AdminDashboard() {
                     </TableCell>
                     <TableCell>
                       {profile.has_access ? (
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                           <CheckCircle className="h-3 w-3 mr-1" />
                           Active
                         </Badge>
@@ -415,7 +431,9 @@ export default function AdminDashboard() {
                 )}
               </TableBody>
             </Table>
-          ) : (
+          )}
+          
+          {activeTab === "transactions" && (
             <Table>
               <TableHeader>
                 <TableRow>
@@ -449,10 +467,10 @@ export default function AdminDashboard() {
                       <Badge
                         className={
                           transaction.status === "completed"
-                            ? "bg-green-100 text-green-800"
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
                             : transaction.status === "pending"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-red-100 text-red-800"
+                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                            : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                         }
                       >
                         {transaction.status}
@@ -479,9 +497,9 @@ export default function AdminDashboard() {
             </Table>
           )}
           
-          {activeTab === "settings" && (
-            <PaymentSettingsPanel />
-          )}
+          {activeTab === "promos" && <PromoCodeManager />}
+          
+          {activeTab === "settings" && <PaymentSettingsPanel />}
         </Card>
       </div>
     </div>

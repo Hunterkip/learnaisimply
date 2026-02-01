@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PaystackPaymentButton } from "./PaystackPaymentButton";
+import { PromoCodeInput } from "./PromoCodeInput";
 
 interface PaymentModeSelectorProps {
   plan?: "standard";
@@ -9,15 +10,51 @@ interface PaymentModeSelectorProps {
   userName?: string;
 }
 
-const PRICING = {
+const DEFAULT_PRICING = {
   standard: { usd: 20, kes: 2500 },
 };
 
 export function PaymentModeSelector({ plan = "standard", userEmail, userName }: PaymentModeSelectorProps) {
   const [isLoadingSettings, setIsLoadingSettings] = useState(true);
   const [paystackEnabled, setPaystackEnabled] = useState(true);
+  const [hasEligiblePromo, setHasEligiblePromo] = useState(false);
+  const [appliedPromo, setAppliedPromo] = useState<{
+    code: string;
+    discountPercentage: number;
+    originalAmount: number;
+    discountedAmount: number;
+    thankYouMessage: string | null;
+  } | null>(null);
 
-  const pricing = PRICING[plan];
+  // Get effective pricing (with or without promo)
+  const pricing = appliedPromo 
+    ? { usd: Math.round(appliedPromo.discountedAmount / 125), kes: appliedPromo.discountedAmount }
+    : DEFAULT_PRICING[plan];
+
+  // Check if user has an eligible promo code
+  useEffect(() => {
+    const checkPromoEligibility = async () => {
+      if (!userEmail) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from("promo_codes")
+          .select("id")
+          .eq("email", userEmail.toLowerCase())
+          .eq("status", "pending")
+          .gt("expires_at", new Date().toISOString())
+          .limit(1);
+
+        if (!error && data && data.length > 0) {
+          setHasEligiblePromo(true);
+        }
+      } catch (err) {
+        console.error("Error checking promo eligibility:", err);
+      }
+    };
+
+    checkPromoEligibility();
+  }, [userEmail]);
 
   // Fetch payment settings from admin
   useEffect(() => {
@@ -44,6 +81,10 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
     fetchPaymentSettings();
   }, []);
 
+  const handlePromoApplied = (promoData: typeof appliedPromo) => {
+    setAppliedPromo(promoData);
+  };
+
   if (isLoadingSettings) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -61,17 +102,26 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-6">
       <div className="text-center mb-6">
         <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">Complete Your Enrollment</h3>
         <p className="text-muted-foreground text-sm md:text-base">Full Course Access • Lifetime Learning</p>
       </div>
+
+      {/* Promo Code Input - only show if user has eligible promo OR they've already applied one */}
+      {(hasEligiblePromo || appliedPromo) && (
+        <PromoCodeInput 
+          userEmail={userEmail} 
+          onPromoApplied={handlePromoApplied} 
+        />
+      )}
 
       <PaystackPaymentButton 
         plan={plan}
         userEmail={userEmail}
         userName={userName}
         pricing={pricing}
+        promoCode={appliedPromo?.code}
       />
     </div>
   );

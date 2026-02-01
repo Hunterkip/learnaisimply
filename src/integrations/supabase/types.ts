@@ -134,6 +134,54 @@ export type Database = {
         }
         Relationships: []
       }
+      promo_codes: {
+        Row: {
+          code: string
+          created_at: string
+          discount_amount: number
+          discount_percentage: number
+          discounted_amount: number
+          email: string
+          expires_at: string
+          id: string
+          original_amount: number
+          status: string
+          thank_you_message: string | null
+          used_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          discount_amount?: number
+          discount_percentage?: number
+          discounted_amount?: number
+          email: string
+          expires_at: string
+          id?: string
+          original_amount?: number
+          status?: string
+          thank_you_message?: string | null
+          used_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          discount_amount?: number
+          discount_percentage?: number
+          discounted_amount?: number
+          email?: string
+          expires_at?: string
+          id?: string
+          original_amount?: number
+          status?: string
+          thank_you_message?: string | null
+          used_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

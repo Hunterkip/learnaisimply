@@ -65,6 +65,7 @@ serve(async (req) => {
 
     const plan = data.data.metadata?.plan || 'standard';
     const email = userEmail || data.data.customer?.email;
+    const promoCode = data.data.metadata?.promo_code;
 
     // Update transaction
     await supabase
@@ -92,11 +93,31 @@ serve(async (req) => {
       console.log('User access granted via verification for:', email);
     }
 
+    // Mark promo code as used if one was applied
+    if (promoCode) {
+      console.log('Marking promo code as used:', promoCode);
+      const { error: promoError } = await supabase
+        .from('promo_codes')
+        .update({
+          status: 'used',
+          used_at: new Date().toISOString(),
+        })
+        .eq('code', promoCode)
+        .eq('email', email.toLowerCase());
+
+      if (promoError) {
+        console.error('Error updating promo code:', promoError);
+      } else {
+        console.log('Promo code marked as used');
+      }
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
         message: 'Payment verified successfully',
         plan,
+        promoCodeUsed: !!promoCode,
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
