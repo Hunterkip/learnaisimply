@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Loader2, Lock, CreditCard } from "lucide-react";
+import { ArrowRight, Loader2, Lock, CreditCard, Gift } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -9,16 +9,21 @@ interface PaystackPaymentButtonProps {
   userEmail: string;
   userName?: string;
   pricing: { usd: number; kes: number };
+  promoCode?: string;
 }
 
 export function PaystackPaymentButton({ 
   plan = "standard", 
   userEmail, 
   userName,
-  pricing 
+  pricing,
+  promoCode
 }: PaystackPaymentButtonProps) {
   const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const isDiscounted = promoCode !== undefined;
+  const originalPrice = 2500;
 
   const handlePaystackClick = async () => {
     setIsProcessing(true);
@@ -29,6 +34,7 @@ export function PaystackPaymentButton({
           plan: plan,
           userEmail: userEmail,
           userName: userName,
+          promoCode: promoCode,
         },
       });
 
@@ -73,12 +79,34 @@ export function PaystackPaymentButton({
 
         {/* Price Display */}
         <div className="bg-card rounded-xl p-4 text-center border border-border">
-          <div className="text-3xl md:text-4xl font-bold text-foreground">
-            KES {pricing.kes.toLocaleString()}
-          </div>
-          <div className="text-sm text-muted-foreground mt-1">
-            ≈ ${pricing.usd} USD • One-time payment
-          </div>
+          {isDiscounted ? (
+            <>
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <Gift className="h-5 w-5 text-green-600" />
+                <span className="text-sm font-medium text-green-600">30% Discount Applied!</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-xl text-muted-foreground line-through">
+                  KES {originalPrice.toLocaleString()}
+                </span>
+                <span className="text-3xl md:text-4xl font-bold text-green-600">
+                  KES {pricing.kes.toLocaleString()}
+                </span>
+              </div>
+              <div className="text-sm text-muted-foreground mt-1">
+                ≈ ${pricing.usd} USD • One-time payment
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">
+                KES {pricing.kes.toLocaleString()}
+              </div>
+              <div className="text-sm text-muted-foreground mt-1">
+                ≈ ${pricing.usd} USD • One-time payment
+              </div>
+            </>
+          )}
         </div>
 
         {/* Pay Button */}
@@ -95,7 +123,7 @@ export function PaystackPaymentButton({
             </>
           ) : (
             <>
-              Pay Now
+              Pay KES {pricing.kes.toLocaleString()}
               <ArrowRight className="ml-2 h-5 w-5" />
             </>
           )}

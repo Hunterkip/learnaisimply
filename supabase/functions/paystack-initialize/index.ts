@@ -6,7 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const PRICING = {
+const DEFAULT_PRICING = {
   standard: { kes: 2500 },
 };
 
@@ -52,7 +52,7 @@ serve(async (req) => {
 
     // ========== END AUTHENTICATION CHECK ==========
     
-    const { plan = 'standard', userEmail, userName } = await req.json();
+    const { plan = 'standard', userEmail, userName, promoCode } = await req.json();
 
     // Verify email matches authenticated user
     if (authenticatedUser.email !== userEmail) {
@@ -73,15 +73,66 @@ serve(async (req) => {
       );
     }
 
-    const pricing = PRICING[plan as keyof typeof PRICING] || PRICING.standard;
+    // Initialize Supabase with service role for database operations
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // ========== PROMO CODE VALIDATION ==========
+    let finalAmount = DEFAULT_PRICING[plan as keyof typeof DEFAULT_PRICING]?.kes || DEFAULT_PRICING.standard.kes;
+    let validPromoCode: string | null = null;
+    let discountPercentage = 0;
+
+    if (promoCode) {
+      console.log('Validating promo code:', promoCode);
+      
+      const { data: promo, error: promoError } = await supabase
+        .from('promo_codes')
+        .select('*')
+        .eq('code', promoCode.toUpperCase())
+        .eq('email', userEmail.toLowerCase())
+        .single();
+
+      if (promoError || !promo) {
+        console.error('Promo code not found:', promoError);
+        return new Response(
+          JSON.stringify({ success: false, message: 'Invalid promo code' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Check if already used
+      if (promo.status === 'used') {
+        return new Response(
+          JSON.stringify({ success: false, message: 'Promo code already used' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Check if expired
+      if (new Date(promo.expires_at) < new Date()) {
+        return new Response(
+          JSON.stringify({ success: false, message: 'Promo code has expired' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Apply discount
+      finalAmount = promo.discounted_amount;
+      validPromoCode = promo.code;
+      discountPercentage = promo.discount_percentage;
+      console.log('Promo code validated. Discounted amount:', finalAmount);
+    }
+
     // Paystack expects amount in smallest currency unit (cents for KES)
-    const amountInCents = pricing.kes * 100;
+    const amountInCents = finalAmount * 100;
     
     console.log('Creating Paystack transaction:', {
       plan,
       userEmail,
-      amount: pricing.kes,
+      amount: finalAmount,
       amountInCents,
+      promoCode: validPromoCode,
+      discountPercentage,
     });
 
     // Generate unique reference
@@ -99,12 +150,20 @@ serve(async (req) => {
       metadata: {
         plan,
         user_name: userName || '',
+        promo_code: validPromoCode,
+        discount_percentage: discountPercentage,
+        original_amount: DEFAULT_PRICING.standard.kes,
         custom_fields: [
           {
             display_name: "Plan",
             variable_name: "plan",
             value: plan
-          }
+          },
+          ...(validPromoCode ? [{
+            display_name: "Promo Code",
+            variable_name: "promo_code",
+            value: validPromoCode
+          }] : [])
         ]
       }
     };
@@ -133,12 +192,9 @@ serve(async (req) => {
     }
 
     // Store pending transaction in database
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
     await supabase.from('payment_transactions').insert({
       account_reference: userEmail,
-      amount: pricing.kes,
+      amount: finalAmount,
       payment_method: 'paystack',
       status: 'pending',
       plan,
