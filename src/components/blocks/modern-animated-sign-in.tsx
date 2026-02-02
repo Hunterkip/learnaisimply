@@ -9,6 +9,9 @@ import {
   useRef,
   forwardRef,
 } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 import {
   motion,
   useAnimation,
@@ -335,6 +338,7 @@ type AnimatedFormProps = {
   fieldPerRow?: number;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   googleLogin?: string;
+  googleRedirectTo?: string;
   goTo?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -352,8 +356,11 @@ const AnimatedForm = memo(function AnimatedForm({
   fieldPerRow = 1,
   onSubmit,
   googleLogin,
+  googleRedirectTo,
   goTo,
 }: AnimatedFormProps) {
+  const { toast } = useToast();
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [errors, setErrors] = useState<Errors>({});
 
@@ -417,20 +424,55 @@ const AnimatedForm = memo(function AnimatedForm({
             width='unset'
           >
             <button
-              className='g-button group/btn bg-transparent w-full rounded-md border h-10 font-medium outline-hidden hover:cursor-pointer'
+              className='g-button group/btn bg-transparent w-full rounded-md border h-10 font-medium outline-hidden hover:cursor-pointer flex items-center justify-center'
               type='button'
-              onClick={() => console.log('Google login clicked')}
+              onClick={async () => {
+                try {
+                  setIsGoogleLoading(true);
+                  const redirectTo = googleRedirectTo ?? `${window.location.origin}/enroll`;
+                  const { error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                      redirectTo,
+                      queryParams: { access_type: 'offline', prompt: 'consent' },
+                    },
+                  });
+
+                  if (error) {
+                    console.error('Google auth error:', error);
+                    toast({
+                      title: 'Authentication Error',
+                      description: error.message || 'Failed to sign in with Google. Please try again.',
+                      variant: 'destructive',
+                    });
+                    setIsGoogleLoading(false);
+                  }
+                } catch (err) {
+                  console.error('Google auth error:', err);
+                  toast({
+                    title: 'Error',
+                    description: 'An unexpected error occurred. Please try again.',
+                    variant: 'destructive',
+                  });
+                  setIsGoogleLoading(false);
+                }
+              }}
+              disabled={isGoogleLoading}
             >
               <span className='flex items-center justify-center w-full h-full gap-3'>
-                <img
-                  src='https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'
-                  width={26}
-                  height={26}
-                  alt='Google Icon'
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
+                {isGoogleLoading ? (
+                  <Loader2 className='h-5 w-5 animate-spin' />
+                ) : (
+                  <img
+                    src='https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png'
+                    width={26}
+                    height={26}
+                    alt='Google Icon'
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                )}
                 {googleLogin}
               </span>
 
@@ -577,12 +619,14 @@ interface AuthTabsProps {
   };
   goTo: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  googleRedirectTo?: string;
 }
 
 const AuthTabs = memo(function AuthTabs({
   formFields,
   goTo,
   handleSubmit,
+  googleRedirectTo,
 }: AuthTabsProps) {
   return (
     <div className='flex max-lg:justify-center w-full md:w-auto'>
@@ -594,6 +638,7 @@ const AuthTabs = memo(function AuthTabs({
           onSubmit={handleSubmit}
           goTo={goTo}
           googleLogin='Login with Google'
+          googleRedirectTo={googleRedirectTo}
         />
       </div>
     </div>
