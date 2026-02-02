@@ -11,7 +11,7 @@ interface PaymentModeSelectorProps {
 }
 
 const DEFAULT_PRICING = {
-  standard: { usd: 20, kes: 2500 },
+  standard: { usd: 19.38, kes: 2500 },
 };
 
 export function PaymentModeSelector({ plan = "standard", userEmail, userName }: PaymentModeSelectorProps) {
@@ -27,15 +27,15 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
   } | null>(null);
 
   // Get effective pricing (with or without promo)
-  const pricing = appliedPromo 
-    ? { usd: Math.round(appliedPromo.discountedAmount / 125), kes: appliedPromo.discountedAmount }
+  const pricing = appliedPromo
+    ? { usd: Math.round(appliedPromo.discountedAmount / 128.99), kes: appliedPromo.discountedAmount }
     : DEFAULT_PRICING[plan];
 
   // Check if user has an eligible promo code
   useEffect(() => {
     const checkPromoEligibility = async () => {
       if (!userEmail) return;
-      
+
       try {
         const { data, error } = await supabase
           .from("promo_codes")
@@ -110,13 +110,10 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
       {/* Promo Code Input - only show if user has eligible promo OR they've already applied one */}
       {(hasEligiblePromo || appliedPromo) && (
-        <PromoCodeInput 
-          userEmail={userEmail} 
-          onPromoApplied={handlePromoApplied} 
-        />
+        <PromoCodeInput userEmail={userEmail} onPromoApplied={handlePromoApplied} />
       )}
 
-      <PaystackPaymentButton 
+      <PaystackPaymentButton
         plan={plan}
         userEmail={userEmail}
         userName={userName}
