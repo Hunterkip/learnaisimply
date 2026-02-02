@@ -133,68 +133,100 @@ const Enroll = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    let mounted = true;
+    const redirectTo = searchParams.get("redirect_to") ?? "/";
+
     const checkAuth = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      try {
+        const {
+          data: { session },
+          error: sessionError,
+        } = await supabase.auth.getSession();
 
-      if (!session) {
-        navigate("/log-in");
-        return;
-      }
+        if (sessionError) throw sessionError;
 
-      // Check if email is verified
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("has_access, plan, first_name, last_name")
-        .eq("id", session.user.id)
-        .single();
-
-      if (!session.user.email_confirmed_at) {
-        // Email not verified, redirect to verification page
-        navigate(`/email-verification?email=${encodeURIComponent(session.user.email || "")}`);
-        return;
-      }
-
-      setUserEmail(session.user.email || "");
-
-      // Update profile email if needed
-      if (session.user.email) {
-        await supabase.from("profiles").update({ email: session.user.email }).eq("id", session.user.id);
-      }
-
-      if (profile) {
-        if (profile.has_access) {
-          setHasAccess(true);
-          // Redirect to dashboard directly instead of showing dialogue
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 500);
+        if (!session) {
+          navigate("/log-in");
           return;
         }
-        if (profile.first_name) {
-          setUserName(profile.first_name);
-        }
-        if (profile.last_name) {
-          setUserLastName(profile.last_name);
-        }
-      }
 
-      setIsLoading(false);
+        // Ensure email is verified
+        if (!session.user.email_confirmed_at) {
+          navigate(`/email-verification?email=${encodeURIComponent(session.user.email ?? "")}`);
+          return;
+        }
+
+        setUserEmail(session.user.email ?? "");
+
+        // Fetch profile (graceful if not present)
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("has_access, plan, first_name, last_name, email")
+          .eq("id", session.user.id)
+          .single();
+
+        if (profileError && (profileError as any).code !== "PGRST116") {
+          // Log and inform user; continue where possible
+          console.error("Profile fetch error:", profileError);
+          toast({
+            title: "Profile error",
+            description: "We couldn't load your profile. Please try again.",
+            variant: "destructive",
+          });
+        }
+
+        // Sync email only if different
+        if (session.user.email && profile?.email !== session.user.email) {
+          try {
+            await supabase
+              .from("profiles")
+              .update({ email: session.user.email, updated_at: new Date().toISOString() })
+              .eq("id", session.user.id)
+              .select();
+          } catch (err) {
+            console.warn("Failed to update profile email:", err);
+          }
+        }
+
+        // If user already has access, redirect to dashboard
+        if (profile?.has_access) {
+          setHasAccess(true);
+          // small UX delay before redirect
+          setTimeout(() => navigate("/dashboard"), 300);
+          return;
+        }
+
+        if (profile?.first_name) setUserName(profile.first_name);
+        if (profile?.last_name) setUserLastName(profile.last_name);
+
+        if (mounted) setIsLoading(false);
+      } catch (err) {
+        console.error("Enroll check failed:", err);
+        toast({
+          title: "Authentication error",
+          description: "An error occurred finalizing sign-in. Please try again.",
+          variant: "destructive",
+        });
+        navigate("/log-in");
+      }
     };
 
     checkAuth();
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session) {
-        navigate("/log-in");
-      }
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) navigate("/log-in");
     });
 
-    return () => subscription.unsubscribe();
-  }, [navigate]);
+    return () => {
+      mounted = false;
+      // listener may be undefined depending on supabase client typing
+      try {
+        listener?.subscription?.unsubscribe?.();
+      } catch (e) {
+        // ignore
+      }
+    };
+  }, [navigate, searchParams, toast]);
 
   const handleAccessCourse = () => {
     navigate("/course");
@@ -206,20 +238,28 @@ const Enroll = () => {
   };
 
   const handlePaymentVerified = async () => {
-    // Refresh the page or check access status again
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session) {
-      const { data: profile } = await supabase.from("profiles").select("has_access").eq("id", session.user.id).single();
+    // Re-check access status
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) return;
 
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("has_access")
+        .eq("id", session.user.id)
+        .single();
+      if (error) {
+        console.warn("Error fetching profile after payment:", error);
+        return;
+      }
       if (profile?.has_access) {
         setHasAccess(true);
-        // Redirect to dashboard
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1500);
+        setTimeout(() => navigate("/dashboard"), 1500);
       }
+    } catch (err) {
+      console.error("Error verifying payment flow:", err);
     }
   };
 
