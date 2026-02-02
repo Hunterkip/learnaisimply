@@ -143,6 +143,7 @@ export default function SignIn() {
     password: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [googleRedirectTo, setGoogleRedirectTo] = useState<string | undefined>(undefined);
 
   // Check if user is already logged in
   useEffect(() => {
@@ -165,6 +166,30 @@ export default function SignIn() {
     };
     checkSession();
   }, [navigate]);
+
+  // Fetch Google redirect/callback URL from payment_settings table
+  useEffect(() => {
+    const fetchRedirect = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('payment_settings')
+          .select('payment_method')
+          .single();
+
+        if (!error && data?.payment_method) {
+          setGoogleRedirectTo(`${window.location.origin}/enroll`);
+          return;
+        }
+      } catch (err) {
+        console.error('Failed to fetch google redirect from settings', err);
+      }
+
+      // Fallback
+      setGoogleRedirectTo(`${window.location.origin}/enroll`);
+    };
+
+    fetchRedirect();
+  }, []);
 
   const goToForgotPassword = (
     event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
@@ -308,6 +333,7 @@ export default function SignIn() {
           formFields={formFields}
           goTo={goToForgotPassword}
           handleSubmit={handleSubmit}
+          googleRedirectTo={googleRedirectTo}
         />
       </span>
     </section>
