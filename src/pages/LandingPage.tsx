@@ -289,7 +289,7 @@ export default function LandingPage() {
               <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">Full Course Access</h3>
               <div className="mb-4 sm:mb-6">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
-                  <strong>KES 2500 | 19.38 USD</strong>
+                  <strong>KES 2,500 | 19.38 USD</strong>
                 </span>
               </div>
               <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 text-left">
