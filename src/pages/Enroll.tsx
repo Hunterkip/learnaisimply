@@ -15,30 +15,30 @@ const included = [
   "Video + audio lessons",
   "Written lesson notes",
   "Lifetime access",
-  "No subscriptions"
+  "No subscriptions",
 ];
 
 const trustItems = [
   {
     icon: Code2,
     title: "No coding required",
-    description: "Everything is explained in plain language"
+    description: "Everything is explained in plain language",
   },
   {
     icon: Clock,
     title: "Learn at your own pace",
-    description: "Take your time with each lesson"
+    description: "Take your time with each lesson",
   },
   {
     icon: Video,
     title: "Video + audio lessons",
-    description: "Watch, listen, or read — your choice"
+    description: "Watch, listen, or read — your choice",
   },
   {
     icon: Lightbulb,
     title: "Practical examples",
-    description: "Real-life situations you'll recognize"
-  }
+    description: "Real-life situations you'll recognize",
+  },
 ];
 
 const learningOutcomes = [
@@ -46,7 +46,7 @@ const learningOutcomes = [
   "How to write clearer emails and documents",
   "How to plan, organize, and research with AI",
   "How to use AI for everyday life tasks",
-  "How to use AI responsibly and safely"
+  "How to use AI responsibly and safely",
 ];
 
 const courseModules = [
@@ -58,16 +58,15 @@ const courseModules = [
   { number: 5, title: "AI for Everyday Life" },
   { number: 6, title: "Creative AI" },
   { number: 7, title: "Wellbeing & Ethics" },
-  { number: 8, title: "Course Wrap-Up" }
+  { number: 8, title: "Course Wrap-Up" },
 ];
 
 const typingTexts = [
   "Write emails that connect...",
   "Research topics in seconds...",
   "Plan your day smarter...",
-  "Create content effortlessly..."
+  "Create content effortlessly...",
 ];
-
 
 const Enroll = () => {
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ const Enroll = () => {
   // Typing animation effect
   useEffect(() => {
     const text = typingTexts[currentTextIndex];
-    
+
     if (isTyping) {
       if (displayedText.length < text.length) {
         const timeout = setTimeout(() => {
@@ -135,8 +134,10 @@ const Enroll = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (!session) {
         navigate("/log-in");
         return;
@@ -159,10 +160,7 @@ const Enroll = () => {
 
       // Update profile email if needed
       if (session.user.email) {
-        await supabase
-          .from("profiles")
-          .update({ email: session.user.email })
-          .eq("id", session.user.id);
+        await supabase.from("profiles").update({ email: session.user.email }).eq("id", session.user.id);
       }
 
       if (profile) {
@@ -187,7 +185,9 @@ const Enroll = () => {
 
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
         navigate("/log-in");
       }
@@ -195,7 +195,6 @@ const Enroll = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
-
 
   const handleAccessCourse = () => {
     navigate("/course");
@@ -208,13 +207,11 @@ const Enroll = () => {
 
   const handlePaymentVerified = async () => {
     // Refresh the page or check access status again
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (session) {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("has_access")
-        .eq("id", session.user.id)
-        .single();
+      const { data: profile } = await supabase.from("profiles").select("has_access").eq("id", session.user.id).single();
 
       if (profile?.has_access) {
         setHasAccess(true);
@@ -262,28 +259,17 @@ const Enroll = () => {
               <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BookOpen className="h-8 w-8 text-accent" />
               </div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-                You're All Set!
-              </h1>
+              <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">You're All Set!</h1>
               <p className="text-muted-foreground text-base">
                 You have full access to the course. Start learning whenever you're ready.
               </p>
             </div>
 
-            <Button 
-              size="lg" 
-              variant="continue"
-              onClick={handleAccessCourse}
-              className="w-full text-lg py-6 mb-4"
-            >
+            <Button size="lg" variant="continue" onClick={handleAccessCourse} className="w-full text-lg py-6 mb-4">
               Go to Course
             </Button>
 
-            <Button 
-              variant="ghost" 
-              onClick={handleLogout}
-              className="w-full text-muted-foreground"
-            >
+            <Button variant="ghost" onClick={handleLogout} className="w-full text-muted-foreground">
               Log out
             </Button>
           </div>
@@ -307,8 +293,8 @@ const Enroll = () => {
               Welcome, <span className="font-medium">{getDisplayName()}</span>
             </span>
           </div>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="sm"
             onClick={handleLogout}
             className="text-background/80 hover:text-background hover:bg-background/10 text-xs sm:text-sm px-2 sm:px-3"
@@ -325,7 +311,7 @@ const Enroll = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-accent/5 animate-pulse" />
         <div className="absolute top-0 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-accent/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-accent/15 rounded-full blur-3xl" />
-        
+
         <div className="container mx-auto px-4 py-10 sm:py-14 md:py-20 lg:py-24 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Side - Text Content */}
@@ -336,7 +322,7 @@ const Enroll = () => {
               <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 font-medium">
                 For Everyday People and Business
               </p>
-              
+
               {/* AI Typing Effect Container */}
               <div className="bg-foreground/10 backdrop-blur-md rounded-xl p-4 sm:p-5 border border-primary-foreground/20 shadow-lg">
                 <div className="flex items-center gap-2 mb-2 sm:mb-3">
@@ -347,7 +333,7 @@ const Enroll = () => {
                 </div>
                 <div className="font-mono text-base sm:text-lg text-primary-foreground/90 min-h-[1.5rem] sm:min-h-[1.75rem]">
                   <span className="text-accent">→</span> {displayedText}
-                  <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>|</span>
+                  <span className={`${showCursor ? "opacity-100" : "opacity-0"} transition-opacity`}>|</span>
                 </div>
               </div>
 
@@ -366,23 +352,18 @@ const Enroll = () => {
                   <div className="text-center mb-6">
                     <span className="text-sm text-primary-foreground/60 uppercase tracking-wider">Your AI Journey</span>
                   </div>
-                  
+
                   <div className="space-y-4">
                     {[
                       { icon: Sparkles, label: "Curious Beginner" },
                       { icon: Brain, label: "Understanding AI" },
-                      { icon: Zap, label: "Confident User" }
+                      { icon: Zap, label: "Confident User" },
                     ].map((stage, index) => (
-                      <div 
-                        key={index}
-                        className="flex items-center gap-4 p-3 rounded-lg bg-primary-foreground/10"
-                      >
+                      <div key={index} className="flex items-center gap-4 p-3 rounded-lg bg-primary-foreground/10">
                         <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary-foreground/20">
                           <stage.icon className="h-5 w-5" />
                         </div>
-                        <span className="font-medium text-primary-foreground/80">
-                          {stage.label}
-                        </span>
+                        <span className="font-medium text-primary-foreground/80">{stage.label}</span>
                       </div>
                     ))}
                   </div>
@@ -404,16 +385,14 @@ const Enroll = () => {
                 <Lock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span className="text-xs sm:text-sm font-medium">Course Preview</span>
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">
-                What's Inside
-              </h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground">What's Inside</h2>
             </div>
-            
+
             {/* Blurred Course Content */}
             <div className="relative">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 filter blur-sm select-none pointer-events-none">
                 {courseModules.map((module) => (
-                  <div 
+                  <div
                     key={module.number}
                     className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-background rounded-xl shadow-sm"
                   >
@@ -424,21 +403,19 @@ const Enroll = () => {
                   </div>
                 ))}
               </div>
-              
+
               {/* Lock Overlay */}
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-muted/80 via-transparent to-muted/80">
                 <div className="bg-card/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-xl border border-border text-center max-w-[280px] sm:max-w-sm mx-4">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
-                    Unlock Full Course
-                  </h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">Unlock Full Course</h3>
                   <p className="text-muted-foreground text-sm sm:text-base mb-3 sm:mb-4">
                     Complete your enrollment to access all 9 modules
                   </p>
-                  <Button 
-                    variant="continue" 
+                  <Button
+                    variant="continue"
                     size="sm"
                     className="sm:text-base"
                     onClick={() => document.getElementById("payment")?.scrollIntoView({ behavior: "smooth" })}
@@ -457,12 +434,11 @@ const Enroll = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-sm sm:max-w-md mx-auto">
             <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 text-center">
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">
-                Full Course Access
-              </h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">Full Course Access</h2>
               <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">KES 2,500</div>
-              <div className="text-muted-foreground text-sm">≈ $19.38 USD</div>
+              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">
+                <strong>KES 2,500 | 19.38 USD</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -473,7 +449,7 @@ const Enroll = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {trustItems.map((item, index) => (
-              <div 
+              <div
                 key={index}
                 className="flex flex-col items-center text-center p-4 sm:p-6 bg-background rounded-xl shadow-sm"
               >
@@ -483,9 +459,7 @@ const Enroll = () => {
                 <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground mb-1 sm:mb-2">
                   {item.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  {item.description}
-                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>
@@ -543,23 +517,13 @@ const Enroll = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto space-y-4 sm:space-y-6">
             <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 md:p-8">
-              <PaymentModeSelector
-                plan="standard"
-                userEmail={userEmail}
-                userName={userName || userLastName}
-              />
+              <PaymentModeSelector plan="standard" userEmail={userEmail} userName={userName || userLastName} />
             </div>
 
-            <ManualPaymentVerification 
-              userEmail={userEmail}
-              onPaymentVerified={handlePaymentVerified}
-            />
+            <ManualPaymentVerification userEmail={userEmail} onPaymentVerified={handlePaymentVerified} />
 
             <div className="text-center">
-              <Link 
-                to="/payment-help" 
-                className="text-primary hover:underline text-sm sm:text-base"
-              >
+              <Link to="/payment-help" className="text-primary hover:underline text-sm sm:text-base">
                 Having trouble with payment? Click here for help.
               </Link>
             </div>
