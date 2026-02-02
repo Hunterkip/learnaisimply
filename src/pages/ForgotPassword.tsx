@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,17 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
 
-  const handleResetPassword = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Cooldown timer for resend
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [resendCooldown]);
+
+  const sendResetEmail = async () => {
     setIsLoading(true);
 
     const result = emailSchema.safeParse(email);
@@ -46,6 +54,7 @@ const ForgotPassword = () => {
       }
 
       setIsEmailSent(true);
+      setResendCooldown(60); // 60 second cooldown
       toast({
         title: "Check your email",
         description: "We've sent you a password reset link.",
@@ -59,6 +68,22 @@ const ForgotPassword = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendResetEmail();
+  };
+
+  const handleResendEmail = async () => {
+    if (resendCooldown > 0) return;
+    await sendResetEmail();
+  };
+
+  const handleTryAnotherEmail = () => {
+    setIsEmailSent(false);
+    setEmail("");
+    setResendCooldown(0);
   };
 
   return (
@@ -89,15 +114,25 @@ const ForgotPassword = () => {
                 Click the link in the email to reset your password.
               </p>
               <p className="text-sm text-muted-foreground mb-6">
-                Didn't receive the email? Check your spam folder or try again.
+                Didn't receive the email? Check your spam folder or resend.
               </p>
-              <Button
-                variant="outline"
-                onClick={() => setIsEmailSent(false)}
-                className="w-full"
-              >
-                Try Another Email
-              </Button>
+              <div className="space-y-3">
+                <Button
+                  variant="default"
+                  onClick={handleResendEmail}
+                  disabled={resendCooldown > 0 || isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? "Sending..." : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Reset Link"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleTryAnotherEmail}
+                  className="w-full"
+                >
+                  Try Another Email
+                </Button>
+              </div>
             </div>
           ) : (
             /* Form State */
