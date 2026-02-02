@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
+import React, { useEffect, useRef, ReactNode, forwardRef } from 'react';
 
 interface GlowCardProps {
   children: ReactNode;
@@ -24,7 +24,7 @@ const sizeMap = {
   lg: 'w-80 h-96'
 };
 
-const GlowCard: React.FC<GlowCardProps> = ({ 
+const GlowCard = forwardRef<HTMLDivElement, GlowCardProps>(({
   children, 
   className = '', 
   glowColor = 'blue',
@@ -207,6 +207,8 @@ const GlowCard: React.FC<GlowCardProps> = ({
       </div>
     </>
   );
-};
+});
+
+GlowCard.displayName = 'GlowCard';
 
 export { GlowCard };

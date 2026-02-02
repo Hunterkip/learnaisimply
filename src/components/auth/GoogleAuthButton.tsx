@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -9,7 +9,7 @@ interface GoogleAuthButtonProps {
   className?: string;
 }
 
-export function GoogleAuthButton({ mode, className }: GoogleAuthButtonProps) {
+export const GoogleAuthButton = forwardRef<HTMLButtonElement, GoogleAuthButtonProps>(({ mode, className }, ref) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +53,7 @@ export function GoogleAuthButton({ mode, className }: GoogleAuthButtonProps) {
 
   return (
     <Button
+      ref={ref}
       type="button"
       variant="outline"
       className={`w-full h-12 text-base font-medium ${className}`}
@@ -74,4 +75,6 @@ export function GoogleAuthButton({ mode, className }: GoogleAuthButtonProps) {
       )}
     </Button>
   );
-}
+});
+
+GoogleAuthButton.displayName = 'GoogleAuthButton';

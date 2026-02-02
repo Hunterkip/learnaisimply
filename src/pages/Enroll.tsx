@@ -462,7 +462,7 @@ const Enroll = () => {
               </h2>
               <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
               <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">KES 2,500</div>
-              <div className="text-muted-foreground text-sm">≈ $20 USD</div>
+              <div className="text-muted-foreground text-sm">≈ $19.38 USD</div>
             </div>
           </div>
         </div>
