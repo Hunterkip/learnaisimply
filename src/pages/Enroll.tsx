@@ -437,7 +437,7 @@ const Enroll = () => {
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">Full Course Access</h2>
               <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
               <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">
-                <strong>KES 2,500 | 19.38 USD</strong>
+                <strong>KES 2,500</strong>
               </div>
             </div>
           </div>
