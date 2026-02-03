@@ -5,13 +5,11 @@ import { useToast } from "@/hooks/use-toast";
 import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
 import { z } from "zod";
 
-// Types for form handling
 type FormData = {
   email: string;
   password: string;
 };
 
-// Zod schema for input validation
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1, "Please enter your password"),
@@ -32,15 +30,10 @@ export default function SignIn() {
     setFormData((prev) => ({ ...prev, [name]: event.target.value }));
   };
 
-  /**
-   * Main Submit Handler
-   * Performs real-time checks for existence and provider logic
-   */
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
-    // 1. Basic Format Validation (Client-side)
     const validation = loginSchema.safeParse(formData);
     if (!validation.success) {
       toast({
@@ -55,36 +48,32 @@ export default function SignIn() {
     const cleanEmail = formData.email.trim().toLowerCase();
 
     try {
-      // 2. REAL-TIME CHECK: Does the email exist and what is the provider?
-      const { data: profile, error: profileError } = await supabase
+      const { data: profile } = await supabase
         .from("profiles")
         .select("auth_provider")
         .eq("email", cleanEmail)
         .maybeSingle();
 
-      // Case: Email not found in the database
       if (!profile) {
         toast({
           title: "Account not found",
-          description: "This email is not registered. Please check the spelling or create a new account.",
+          description: "This email is not registered. Please check the spelling.",
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      // Case: Email exists but signed up via Google
       if (profile.auth_provider === "google") {
         toast({
           title: "Google Login Required",
-          description: "You created this account using Google. Please click the 'Sign in with Google' button below.",
+          description: "This account uses Google. Please click the Google button below.",
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      // 3. PROCEED: Manual Password Sign In
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email: cleanEmail,
         password: formData.password,
@@ -93,22 +82,19 @@ export default function SignIn() {
       if (signInError) {
         toast({
           title: "Login failed",
-          description: "Incorrect password. Please try again or reset your password.",
+          description: "Incorrect password.",
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      // 4. SESSION & VERIFICATION CHECK
       const { data: { session } } = await supabase.auth.getSession();
-      
       if (!session?.user.email_confirmed_at) {
         navigate(`/email-verification?email=${encodeURIComponent(cleanEmail)}`);
         return;
       }
 
-      // 5. REDIRECTION BASED ON ACCESS
       const { data: userProfile } = await supabase
         .from("profiles")
         .select("has_access")
@@ -116,28 +102,51 @@ export default function SignIn() {
         .single();
 
       toast({ title: "Welcome back!", description: "Successfully logged in." });
-      
-      if (userProfile?.has_access) {
-        navigate("/dashboard");
-      } else {
-        navigate("/enroll");
-      }
+      navigate(userProfile?.has_access ? "/dashboard" : "/enroll");
 
     } catch (error) {
-      console.error("SignIn Error:", error);
-      toast({ title: "Error", description: "Something went wrong. Please try again later.", variant: "destructive" });
+      toast({ title: "Error", description: "Something went wrong.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
   };
 
-  /**
-   * Google OAuth Handler with Manual Account Guard
-   */
   const handleGoogleClick = async () => {
-    // Optional: If email is typed, prevent manual users from using Google OAuth
     if (formData.email) {
       const { data: profile } = await supabase
         .from("profiles")
         .select("auth_provider")
         .eq("email", formData.email.trim().toLowerCase())
+        .maybeSingle();
+
+      if (profile?.auth_provider === "manual") {
+        toast({
+          title: "Manual Account Detected",
+          description: "Please sign in using your email and password.",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: googleRedirectTo },
+    });
+  };
+
+  const formFields = {
+    header: "Welcome back",
+    subHeader: "Sign in to your account",
+    fields: [
+      {
+        label: "Email",
+        required: true,
+        type: "email" as const,
+        placeholder: "Enter your email address",
+        onChange: (e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, "email"),
+      },
+      {
+        label: "Password",
+        required: true,
+        type: "password" as const
