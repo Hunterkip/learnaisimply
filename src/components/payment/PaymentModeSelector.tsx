@@ -17,7 +17,6 @@ const DEFAULT_PRICING = {
 export function PaymentModeSelector({ plan = "standard", userEmail, userName }: PaymentModeSelectorProps) {
   const [isLoadingSettings, setIsLoadingSettings] = useState(true);
   const [paystackEnabled, setPaystackEnabled] = useState(true);
-  const [hasEligiblePromo, setHasEligiblePromo] = useState(false);
   const [appliedPromo, setAppliedPromo] = useState<{
     code: string;
     discountPercentage: number;
@@ -30,31 +29,6 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
   const pricing = appliedPromo
     ? { usd: Math.round(appliedPromo.discountedAmount / 128.99), kes: appliedPromo.discountedAmount }
     : DEFAULT_PRICING[plan];
-
-  // Check if user has an eligible promo code
-  useEffect(() => {
-    const checkPromoEligibility = async () => {
-      if (!userEmail) return;
-
-      try {
-        const { data, error } = await supabase
-          .from("promo_codes")
-          .select("id")
-          .eq("email", userEmail.toLowerCase())
-          .eq("status", "pending")
-          .gt("expires_at", new Date().toISOString())
-          .limit(1);
-
-        if (!error && data && data.length > 0) {
-          setHasEligiblePromo(true);
-        }
-      } catch (err) {
-        console.error("Error checking promo eligibility:", err);
-      }
-    };
-
-    checkPromoEligibility();
-  }, [userEmail]);
 
   // Fetch payment settings from admin
   useEffect(() => {
@@ -108,10 +82,8 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
         <p className="text-muted-foreground text-sm md:text-base">Full Course Access • Lifetime Learning</p>
       </div>
 
-      {/* Promo Code Input - only show if user has eligible promo OR they've already applied one */}
-      {(hasEligiblePromo || appliedPromo) && (
-        <PromoCodeInput userEmail={userEmail} onPromoApplied={handlePromoApplied} />
-      )}
+      {/* Promo Code Input - always visible for all users */}
+      <PromoCodeInput userEmail={userEmail} onPromoApplied={handlePromoApplied} />
 
       <PaystackPaymentButton
         plan={plan}

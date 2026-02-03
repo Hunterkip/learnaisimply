@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
-import { ManualPaymentVerification } from "@/components/payment/ManualPaymentVerification";
+
 import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
 
@@ -560,7 +560,7 @@ const Enroll = () => {
               <PaymentModeSelector plan="standard" userEmail={userEmail} userName={userName || userLastName} />
             </div>
 
-            <ManualPaymentVerification userEmail={userEmail} onPaymentVerified={handlePaymentVerified} />
+            
 
             <div className="text-center">
               <Link to="/payment-help" className="text-primary hover:underline text-sm sm:text-base">
