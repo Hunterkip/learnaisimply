@@ -3,7 +3,8 @@ import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { PaystackPaymentButton } from "./PaystackPaymentButton";
 import { PromoCodeInput } from "./PromoCodeInput";
-import { useNavigate } from "react-router-dom"; // Assuming you use react-router
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface PaymentModeSelectorProps {
   plan?: "standard";
@@ -47,7 +48,7 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
         if (!error) setPaystackEnabled(data?.is_enabled ?? true);
       } catch (err) {
-        console.error("Error:", err);
+        console.error("Error fetching settings:", err);
       } finally {
         setIsLoadingSettings(false);
       }
@@ -55,17 +56,31 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
     fetchPaymentSettings();
   }, []);
 
-  // AUTOMATIC REDIRECT FOR 100% DISCOUNT
+  // HANDLE 100% DISCOUNT ENROLLMENT
   const handleFreeEnrollment = async () => {
+    if (!appliedPromo) return;
+
     setIsProcessing(true);
     try {
-      // Add your logic here to grant course access in Supabase
-      // e.g., await supabase.from('enrollments').insert({ email: userEmail, plan: 'standard' })
+      // 1. Mark the promo code as 'used' so it expires immediately
+      const { error: promoError } = await supabase
+        .from("promo_codes")
+        .update({ status: "used", used_at: new Date().toISOString() })
+        .eq("code", appliedPromo.code)
+        .eq("email", userEmail);
 
-      // Redirect to success page or course dashboard
-      navigate("/dashboard?status=success");
-    } catch (error) {
+      if (promoError) throw promoError;
+
+      // 2. Grant course access (Optional: Add a record to an 'enrollments' table if you have one)
+      // await supabase.from('enrollments').insert({ email: userEmail, plan: 'standard', status: 'completed' });
+
+      toast.success("Enrollment successful! Redirecting to your course...");
+
+      // 3. Redirect to /course
+      navigate("/course");
+    } catch (error: any) {
       console.error("Enrollment failed:", error);
+      toast.error("Failed to complete enrollment. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -88,14 +103,14 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
       <PromoCodeInput userEmail={userEmail} onPromoApplied={setAppliedPromo} />
 
-      {/* Logic Switch: If Price is 0, show "Claim Access", otherwise show Paystack */}
+      {/* Logic: If KES 0, show Claim button. Otherwise, show Paystack button */}
       {pricing.kes === 0 ? (
         <button
           onClick={handleFreeEnrollment}
           disabled={isProcessing}
-          className="w-full bg-primary text-white py-4 rounded-lg font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2"
+          className="w-full bg-[#1A365D] text-white py-4 rounded-lg font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2"
         >
-          {isProcessing ? <Loader2 className="animate-spin" /> : "Claim Full Access Now →"}
+          {isProcessing ? <Loader2 className="animate-spin h-5 w-5" /> : "Claim Full Access Now →"}
         </button>
       ) : (
         <PaystackPaymentButton
