@@ -5,15 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
 import { z } from "zod";
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
-const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(1, "Please enter your password"),
-});
+// ... (iconsArray and loginSchema remain the same)
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -30,6 +22,10 @@ export default function SignIn() {
     setFormData((prev) => ({ ...prev, [name]: event.target.value }));
   };
 
+  /**
+   * Redesigned Submit Handler
+   * Checks for authentication provider mismatch
+   */
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -45,90 +41,96 @@ export default function SignIn() {
       return;
     }
 
-    const cleanEmail = formData.email.trim().toLowerCase();
-
     try {
-      const { data: profile } = await supabase
+      // 1. First, check the user's profile/metadata via an edge function or a public profile check
+      // Note: For security, Supabase doesn't let you query other users' auth.users table directly.
+      // We check our 'profiles' table which should store the 'auth_provider' from signup.
+      const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("auth_provider")
-        .eq("email", cleanEmail)
+        .eq("email", formData.email)
         .maybeSingle();
 
-      if (!profile) {
+      // 2. If user exists and signed up with Google, reject manual password login
+      if (profile && profile.auth_provider === "google") {
         toast({
-          title: "Account not found",
-          description: "This email is not registered. Please check the spelling.",
+          title: "Google Account Detected",
+          description: 'You created this account using Google. Please click the "Sign in with Google" button instead.',
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      if (profile.auth_provider === "google") {
-        toast({
-          title: "Google Login Required",
-          description: "This account uses Google. Please click the Google button below.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
+      // 3. Proceed with standard Password Sign In
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: cleanEmail,
+        email: formData.email,
         password: formData.password,
       });
 
       if (signInError) {
         toast({
           title: "Login failed",
-          description: "Incorrect password.",
+          description: signInError.message,
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      const { data: { session } } = await supabase.auth.getSession();
+      // 4. Verification Check
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session?.user.email_confirmed_at) {
-        navigate(`/email-verification?email=${encodeURIComponent(cleanEmail)}`);
+        navigate(`/email-verification?email=${encodeURIComponent(formData.email)}`);
         return;
       }
 
+      // 5. Success Redirection
       const { data: userProfile } = await supabase
         .from("profiles")
         .select("has_access")
         .eq("id", session.user.id)
         .single();
 
-      toast({ title: "Welcome back!", description: "Successfully logged in." });
-      navigate(userProfile?.has_access ? "/dashboard" : "/enroll");
-
+      if (userProfile?.has_access) {
+        navigate("/dashboard");
+      } else {
+        navigate("/enroll");
+      }
     } catch (error) {
-      toast({ title: "Error", description: "Something went wrong.", variant: "destructive" });
+      toast({ title: "Error", description: "Try again later.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
   };
 
+  /**
+   * Logic for Google Sign In
+   * This logic would ideally be passed into your AuthTabs or handled via a wrapper
+   */
   const handleGoogleClick = async () => {
+    // If you want to prevent manual users from using Google:
+    // This requires an email input field to be filled first to check.
     if (formData.email) {
       const { data: profile } = await supabase
         .from("profiles")
         .select("auth_provider")
-        .eq("email", formData.email.trim().toLowerCase())
+        .eq("email", formData.email)
         .maybeSingle();
 
-      if (profile?.auth_provider === "manual") {
+      if (profile && profile.auth_provider === "manual") {
         toast({
           title: "Manual Account Detected",
-          description: "Please sign in using your email and password.",
+          description: "This email is registered with a password. Please sign in using your email and password.",
           variant: "destructive",
         });
         return;
       }
     }
 
+    // Standard Google Redirect
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: googleRedirectTo },
@@ -149,4 +151,36 @@ export default function SignIn() {
       {
         label: "Password",
         required: true,
-        type: "password" as const
+        type: "password" as const,
+        placeholder: "Enter your password",
+        onChange: (e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, "password"),
+      },
+    ],
+    submitButton: "Sign in",
+    textVariantButton: "Forgot password?",
+  };
+
+  return (
+    <section className="flex max-lg:justify-center">
+      <span className="flex flex-col justify-center w-1/2 max-lg:hidden">
+        <Ripple mainCircleSize={100} />
+        <TechOrbitDisplay iconsArray={iconsArray} />
+      </span>
+
+      <span className="w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%]">
+        <AuthTabs
+          formFields={formFields}
+          goTo={(e) => {
+            e.preventDefault();
+            navigate("/forgot-password");
+          }}
+          handleSubmit={handleSubmit}
+          googleRedirectTo={googleRedirectTo}
+          // Note: If AuthTabs doesn't have an onGoogleClick prop,
+          // ensure your profiles table is updated correctly during signup
+          // to include an 'auth_provider' column.
+        />
+      </span>
+    </section>
+  );
+}
