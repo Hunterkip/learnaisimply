@@ -148,12 +148,18 @@ export function VideoPlayer({
   return (
     <div className={cn("space-y-4", className)}>
       {/* Video Container */}
-      <div className="relative bg-black rounded-xl overflow-hidden aspect-video">
+      <div 
+        className="relative bg-black rounded-xl overflow-hidden aspect-video"
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <video
           ref={videoRef}
           className="w-full h-full object-contain"
           poster={posterUrl}
           playsInline
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
           onLoadStart={handleLoadStart}
           onCanPlay={handleCanPlay}
           onLoadedMetadata={handleLoadedMetadata}
@@ -317,8 +323,17 @@ export function AudioOption({ audioUrl }: AudioOptionProps) {
   }
 
   return (
-    <div className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl">
-      <audio ref={audioRef} src={audioUrl} onEnded={handleAudioEnded} />
+    <div 
+      className="flex items-center gap-4 p-4 bg-secondary/50 rounded-xl"
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      <audio 
+        ref={audioRef} 
+        src={audioUrl} 
+        onEnded={handleAudioEnded}
+        controlsList="nodownload"
+        onContextMenu={(e) => e.preventDefault()}
+      />
       <Button variant="audio" className="gap-2" onClick={toggleAudio}>
         {isPlaying ? <Pause className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
         {isPlaying ? "Pause Audio" : "Listen to Audio Version"}

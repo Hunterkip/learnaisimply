@@ -6,8 +6,11 @@ import { CourseCompletion } from "@/components/course/CourseCompletion";
 import { courseModules, initialProgress } from "@/data/courseData";
 import { lessonContents, defaultLessonContent } from "@/data/lessonContents";
 import { toast } from "@/hooks/use-toast";
+import { useContentProtection } from "@/hooks/useContentProtection";
 
 const Index = () => {
+  // Disable right-click and download shortcuts on course pages
+  useContentProtection();
   const [completedLessons, setCompletedLessons] = useState<string[]>(
     initialProgress.completedLessons
   );

@@ -95,6 +95,42 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount: number
+          consumed_at: string | null
+          consumed_by_user: string | null
+          created_at: string
+          customer_email: string | null
+          id: string
+          reference: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          consumed_at?: string | null
+          consumed_by_user?: string | null
+          created_at?: string
+          customer_email?: string | null
+          id?: string
+          reference: string
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          consumed_at?: string | null
+          consumed_by_user?: string | null
+          created_at?: string
+          customer_email?: string | null
+          id?: string
+          reference?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           auth_provider: string | null
@@ -151,7 +187,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
-          code: string
+          code?: string
           created_at?: string
           discount_amount?: number
           discount_percentage?: number
@@ -182,6 +218,30 @@ export type Database = {
         }
         Relationships: []
       }
+      user_courses: {
+        Row: {
+          course_id: string
+          granted_at: string
+          granted_by_payment_id: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          granted_at?: string
+          granted_by_payment_id?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          granted_at?: string
+          granted_by_payment_id?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -203,16 +263,49 @@ export type Database = {
         }
         Relationships: []
       }
+      waitlist: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          notified: boolean | null
+          notified_at: string | null
+          signed_up_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          notified?: boolean | null
+          notified_at?: string | null
+          signed_up_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          notified?: boolean | null
+          notified_at?: string | null
+          signed_up_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      custom_password_check: { Args: { input_data: Json }; Returns: Json }
+      generate_promo_code: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      validate_grant_payment: {
+        Args: { p_payment_id: string; p_user_id: string }
         Returns: boolean
       }
     }

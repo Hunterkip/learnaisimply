@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
@@ -24,6 +25,8 @@ import {
   XCircle,
   Loader2,
   Download,
+  Calendar,
+  Copy,
 } from "lucide-react";
 
 interface PromoCode {
@@ -47,6 +50,7 @@ export function PromoCodeManager() {
   const [isUploading, setIsUploading] = useState(false);
   const [promoCodes, setPromoCodes] = useState<PromoCode[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [expiryDays, setExpiryDays] = useState(14); // Default 2 weeks
   const [uploadResults, setUploadResults] = useState<{
     success: number;
     failed: number;
@@ -137,9 +141,9 @@ export function PromoCodeManager() {
         return;
       }
 
-      // Calculate expiry (2 weeks from now)
+      // Calculate expiry based on admin-set days
       const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 14);
+      expiresAt.setDate(expiresAt.getDate() + expiryDays);
 
       let successCount = 0;
       let failedCount = 0;
@@ -148,7 +152,8 @@ export function PromoCodeManager() {
       // Insert promo codes for each email
       for (const email of emails) {
         const code = generatePromoCode();
-        const thankYouMessage = `Thank you for your interest in AI Simplified! 🎉 Use code ${code} to get 30% off your enrollment. This code expires in 2 weeks.`;
+        const expiryText = expiryDays === 1 ? "1 day" : `${expiryDays} days`;
+        const thankYouMessage = `Thank you for your interest in AI Simplified! 🎉 Use code ${code} to get 30% off your enrollment. This code expires in ${expiryText}.`;
 
         const { error } = await supabase.from("promo_codes").insert({
           email,
@@ -219,7 +224,7 @@ export function PromoCodeManager() {
     
     if (status === "used") {
       return (
-        <Badge className="bg-green-100 text-green-800">
+        <Badge variant="outline" className="bg-success/10 text-success border-success/20">
           <CheckCircle className="h-3 w-3 mr-1" />
           Used
         </Badge>
@@ -227,14 +232,14 @@ export function PromoCodeManager() {
     }
     if (isExpired) {
       return (
-        <Badge className="bg-red-100 text-red-800">
+        <Badge variant="outline" className="bg-destructive/10 text-destructive border-destructive/20">
           <XCircle className="h-3 w-3 mr-1" />
           Expired
         </Badge>
       );
     }
     return (
-      <Badge className="bg-yellow-100 text-yellow-800">
+      <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
         <Clock className="h-3 w-3 mr-1" />
         Pending
       </Badge>
@@ -264,15 +269,15 @@ export function PromoCodeManager() {
           <div className="text-sm text-muted-foreground">Total Codes</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
+          <div className="text-2xl font-bold text-accent">{stats.pending}</div>
           <div className="text-sm text-muted-foreground">Pending</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-green-600">{stats.used}</div>
+          <div className="text-2xl font-bold text-success">{stats.used}</div>
           <div className="text-sm text-muted-foreground">Used</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-red-600">{stats.expired}</div>
+          <div className="text-2xl font-bold text-destructive">{stats.expired}</div>
           <div className="text-sm text-muted-foreground">Expired</div>
         </Card>
       </div>
@@ -286,10 +291,26 @@ export function PromoCodeManager() {
               Promo Code Manager
             </h3>
             <p className="text-sm text-muted-foreground">
-              Upload a CSV with emails to generate 30% discount codes (valid for 2 weeks)
+              Upload a CSV with emails to generate 30% discount codes
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 items-end">
+            {/* Expiry Days Input */}
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="expiryDays" className="text-xs text-muted-foreground flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                Valid for (days)
+              </Label>
+              <Input
+                id="expiryDays"
+                type="number"
+                min={1}
+                max={365}
+                value={expiryDays}
+                onChange={(e) => setExpiryDays(Math.max(1, Math.min(365, parseInt(e.target.value) || 14)))}
+                className="w-20 h-9"
+              />
+            </div>
             <Button variant="outline" size="sm" onClick={downloadSampleCSV}>
               <Download className="h-4 w-4 mr-2" />
               Sample CSV
@@ -321,11 +342,11 @@ export function PromoCodeManager() {
         {uploadResults && (
           <div className="bg-muted rounded-lg p-4 mb-4">
             <div className="flex items-center gap-4 mb-2">
-              <span className="text-green-600 font-medium">
+              <span className="text-success font-medium">
                 ✓ {uploadResults.success} created
               </span>
               {uploadResults.failed > 0 && (
-                <span className="text-red-600 font-medium">
+                <span className="text-destructive font-medium">
                   ✗ {uploadResults.failed} failed
                 </span>
               )}
@@ -381,12 +402,28 @@ export function PromoCodeManager() {
               <TableRow key={pc.id}>
                 <TableCell className="font-medium">{pc.email}</TableCell>
                 <TableCell>
-                  <code className="bg-muted px-2 py-1 rounded text-sm font-mono">
-                    {pc.code}
-                  </code>
+                  <div className="flex items-center gap-2">
+                    <code className="bg-muted px-2 py-1 rounded text-sm font-mono">
+                      {pc.code}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7"
+                      onClick={() => {
+                        navigator.clipboard.writeText(pc.code);
+                        toast({
+                          title: "Copied!",
+                          description: `Code ${pc.code} copied to clipboard`,
+                        });
+                      }}
+                    >
+                      <Copy className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-green-600 font-medium">
+                  <span className="text-accent font-medium">
                     {pc.discount_percentage}% off
                   </span>
                   <span className="text-muted-foreground text-sm ml-1">
