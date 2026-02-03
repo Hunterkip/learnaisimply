@@ -5,7 +5,17 @@ import { useToast } from "@/hooks/use-toast";
 import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
 import { z } from "zod";
 
-// ... (iconsArray and loginSchema remain the same)
+// Types for form handling
+type FormData = {
+  email: string;
+  password: string;
+};
+
+// Zod schema for input validation
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Please enter your password"),
+});
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -23,13 +33,14 @@ export default function SignIn() {
   };
 
   /**
-   * Redesigned Submit Handler
-   * Checks for authentication provider mismatch
+   * Main Submit Handler
+   * Performs real-time checks for existence and provider logic
    */
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
 
+    // 1. Basic Format Validation (Client-side)
     const validation = loginSchema.safeParse(formData);
     if (!validation.success) {
       toast({
@@ -41,146 +52,92 @@ export default function SignIn() {
       return;
     }
 
+    const cleanEmail = formData.email.trim().toLowerCase();
+
     try {
-      // 1. First, check the user's profile/metadata via an edge function or a public profile check
-      // Note: For security, Supabase doesn't let you query other users' auth.users table directly.
-      // We check our 'profiles' table which should store the 'auth_provider' from signup.
+      // 2. REAL-TIME CHECK: Does the email exist and what is the provider?
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("auth_provider")
-        .eq("email", formData.email)
+        .eq("email", cleanEmail)
         .maybeSingle();
 
-      // 2. If user exists and signed up with Google, reject manual password login
-      if (profile && profile.auth_provider === "google") {
+      // Case: Email not found in the database
+      if (!profile) {
         toast({
-          title: "Google Account Detected",
-          description: 'You created this account using Google. Please click the "Sign in with Google" button instead.',
+          title: "Account not found",
+          description: "This email is not registered. Please check the spelling or create a new account.",
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      // 3. Proceed with standard Password Sign In
+      // Case: Email exists but signed up via Google
+      if (profile.auth_provider === "google") {
+        toast({
+          title: "Google Login Required",
+          description: "You created this account using Google. Please click the 'Sign in with Google' button below.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // 3. PROCEED: Manual Password Sign In
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: formData.email,
+        email: cleanEmail,
         password: formData.password,
       });
 
       if (signInError) {
         toast({
           title: "Login failed",
-          description: signInError.message,
+          description: "Incorrect password. Please try again or reset your password.",
           variant: "destructive",
         });
         setIsLoading(false);
         return;
       }
 
-      // 4. Verification Check
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      // 4. SESSION & VERIFICATION CHECK
+      const { data: { session } } = await supabase.auth.getSession();
+      
       if (!session?.user.email_confirmed_at) {
-        navigate(`/email-verification?email=${encodeURIComponent(formData.email)}`);
+        navigate(`/email-verification?email=${encodeURIComponent(cleanEmail)}`);
         return;
       }
 
-      // 5. Success Redirection
+      // 5. REDIRECTION BASED ON ACCESS
       const { data: userProfile } = await supabase
         .from("profiles")
         .select("has_access")
         .eq("id", session.user.id)
         .single();
 
+      toast({ title: "Welcome back!", description: "Successfully logged in." });
+      
       if (userProfile?.has_access) {
         navigate("/dashboard");
       } else {
         navigate("/enroll");
       }
+
     } catch (error) {
-      toast({ title: "Error", description: "Try again later.", variant: "destructive" });
+      console.error("SignIn Error:", error);
+      toast({ title: "Error", description: "Something went wrong. Please try again later.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
   };
 
   /**
-   * Logic for Google Sign In
-   * This logic would ideally be passed into your AuthTabs or handled via a wrapper
+   * Google OAuth Handler with Manual Account Guard
    */
   const handleGoogleClick = async () => {
-    // If you want to prevent manual users from using Google:
-    // This requires an email input field to be filled first to check.
+    // Optional: If email is typed, prevent manual users from using Google OAuth
     if (formData.email) {
       const { data: profile } = await supabase
         .from("profiles")
         .select("auth_provider")
-        .eq("email", formData.email)
-        .maybeSingle();
-
-      if (profile && profile.auth_provider === "manual") {
-        toast({
-          title: "Manual Account Detected",
-          description: "This email is registered with a password. Please sign in using your email and password.",
-          variant: "destructive",
-        });
-        return;
-      }
-    }
-
-    // Standard Google Redirect
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: googleRedirectTo },
-    });
-  };
-
-  const formFields = {
-    header: "Welcome back",
-    subHeader: "Sign in to your account",
-    fields: [
-      {
-        label: "Email",
-        required: true,
-        type: "email" as const,
-        placeholder: "Enter your email address",
-        onChange: (e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, "email"),
-      },
-      {
-        label: "Password",
-        required: true,
-        type: "password" as const,
-        placeholder: "Enter your password",
-        onChange: (e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, "password"),
-      },
-    ],
-    submitButton: "Sign in",
-    textVariantButton: "Forgot password?",
-  };
-
-  return (
-    <section className="flex max-lg:justify-center">
-      <span className="flex flex-col justify-center w-1/2 max-lg:hidden">
-        <Ripple mainCircleSize={100} />
-        <TechOrbitDisplay iconsArray={iconsArray} />
-      </span>
-
-      <span className="w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%]">
-        <AuthTabs
-          formFields={formFields}
-          goTo={(e) => {
-            e.preventDefault();
-            navigate("/forgot-password");
-          }}
-          handleSubmit={handleSubmit}
-          googleRedirectTo={googleRedirectTo}
-          // Note: If AuthTabs doesn't have an onGoogleClick prop,
-          // ensure your profiles table is updated correctly during signup
-          // to include an 'auth_provider' column.
-        />
-      </span>
-    </section>
-  );
-}
+        .eq("email", formData.email.trim().toLowerCase())
