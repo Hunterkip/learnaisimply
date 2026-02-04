@@ -11,7 +11,7 @@ const EmailVerification = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
-  
+
   const [email, setEmail] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ const EmailVerification = () => {
     // Get email from localStorage or search params
     const storedEmail = localStorage.getItem("signupEmail");
     const paramEmail = searchParams.get("email");
-    
+
     if (storedEmail) {
       setEmail(storedEmail);
     } else if (paramEmail) {
@@ -59,7 +59,7 @@ const EmailVerification = () => {
         return;
       }
 
-      // Verify the 6-digit OTP code sent to user's email
+      // Verify the 8-digit OTP code sent to user's email
       const { data, error } = await supabase.auth.verifyOtp({
         email: email,
         token: verificationCode,
@@ -79,7 +79,7 @@ const EmailVerification = () => {
       if (data.user) {
         // Email is already verified by Supabase auth system
         setIsVerified(true);
-        
+
         toast({
           title: "Email verified!",
           description: "Your email has been successfully verified. Redirecting to enrollment...",
@@ -145,15 +145,11 @@ const EmailVerification = () => {
             <div className="flex justify-center mb-6">
               <CheckCircle className="h-16 w-16 text-green-500" />
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              Email Verified!
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">Email Verified!</h1>
             <p className="text-muted-foreground text-base mb-6">
               Your email has been successfully verified. You're all set to start learning!
             </p>
-            <p className="text-sm text-muted-foreground">
-              Redirecting you to the course enrollment page...
-            </p>
+            <p className="text-sm text-muted-foreground">Redirecting you to the course enrollment page...</p>
           </div>
         </div>
       </div>
@@ -169,11 +165,10 @@ const EmailVerification = () => {
             <div className="flex justify-center mb-4">
               <Mail className="h-12 w-12 text-primary" />
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              Verify Your Email
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">Verify Your Email</h1>
             <p className="text-muted-foreground text-base">
-              We've sent a verification code to<br />
+              We've sent a verification code to
+              <br />
               <span className="font-medium text-foreground">{email}</span>
             </p>
           </div>
@@ -189,9 +184,9 @@ const EmailVerification = () => {
                 type="text"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
-                placeholder="Enter 6-digit code"
+                placeholder="Enter 8-digit code"
                 className="h-12 text-base text-center tracking-widest"
-                maxLength={6}
+                maxLength={8}
                 required
                 disabled={isLoading}
               />
@@ -200,20 +195,14 @@ const EmailVerification = () => {
               </p>
             </div>
 
-            <Button
-              type="submit"
-              className="w-full h-14 text-lg font-medium"
-              disabled={isLoading || !verificationCode}
-            >
+            <Button type="submit" className="w-full h-14 text-lg font-medium" disabled={isLoading || !verificationCode}>
               {isLoading ? "Verifying..." : "Verify Email"}
             </Button>
           </form>
 
           {/* Resend Section */}
           <div className="mt-6 pt-6 border-t border-border text-center">
-            <p className="text-sm text-muted-foreground mb-4">
-              Didn't receive the code?
-            </p>
+            <p className="text-sm text-muted-foreground mb-4">Didn't receive the code?</p>
             <Button
               type="button"
               variant="outline"
@@ -221,18 +210,15 @@ const EmailVerification = () => {
               onClick={handleResendCode}
               disabled={isResending || resendCountdown > 0}
             >
-              {resendCountdown > 0
-                ? `Resend in ${resendCountdown}s`
-                : isResending
-                ? "Sending..."
-                : "Resend Code"}
+              {resendCountdown > 0 ? `Resend in ${resendCountdown}s` : isResending ? "Sending..." : "Resend Code"}
             </Button>
           </div>
 
           {/* Additional Info */}
           <div className="mt-6 p-4 bg-secondary rounded-lg">
             <p className="text-xs text-muted-foreground text-center">
-              The verification code expires in 24 hours. If you experience any issues, please try requesting a new code.
+              The verification code expires in 15 minutes. If you experience any issues, please try requesting a new
+              code.
             </p>
           </div>
         </div>
