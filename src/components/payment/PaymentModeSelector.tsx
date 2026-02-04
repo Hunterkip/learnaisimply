@@ -62,7 +62,15 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
     setIsProcessing(true);
     try {
-      // 1. Mark the promo code as 'used' so it expires immediately
+      // 1. Get current user session
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) {
+        toast.error("Please log in to continue.");
+        navigate("/log-in");
+        return;
+      }
+
+      // 2. Mark the promo code as 'used' so it expires immediately
       const { error: promoError } = await supabase
         .from("promo_codes")
         .update({ status: "used", used_at: new Date().toISOString() })
@@ -71,13 +79,18 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
       if (promoError) throw promoError;
 
-      // 2. Grant course access (Optional: Add a record to an 'enrollments' table if you have one)
-      // await supabase.from('enrollments').insert({ email: userEmail, plan: 'standard', status: 'completed' });
+      // 3. Grant course access by updating has_access in profiles
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update({ has_access: true, plan: "standard" })
+        .eq("id", session.user.id);
 
-      toast.success("Enrollment successful! Redirecting to your course...");
+      if (profileError) throw profileError;
 
-      // 3. Redirect to /course
-      navigate("/course");
+      toast.success("🎉 100% Discount Applied! Welcome to the course!");
+
+      // 4. Redirect to dashboard
+      navigate("/dashboard");
     } catch (error: any) {
       console.error("Enrollment failed:", error);
       toast.error("Failed to complete enrollment. Please try again.");
