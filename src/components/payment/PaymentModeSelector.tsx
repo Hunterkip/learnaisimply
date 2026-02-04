@@ -122,14 +122,14 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
       {/* 100% Discount - Show Congratulations Message */}
       {isFreeEnrollment ? (
         <div className="space-y-4">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-2 border-green-300 dark:border-green-700 rounded-xl p-6 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+          <div className="bg-success/10 border-2 border-success/30 rounded-xl p-6 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-success/20 flex items-center justify-center">
               <span className="text-3xl">🎉</span>
             </div>
-            <h4 className="text-xl font-bold text-green-700 dark:text-green-300 mb-2">
+            <h4 className="text-xl font-bold text-success mb-2">
               Congratulations!
             </h4>
-            <p className="text-green-600 dark:text-green-400 mb-1">
+            <p className="text-success/80 mb-1">
               Your 100% discount has been applied!
             </p>
             <p className="text-sm text-muted-foreground">
@@ -139,7 +139,7 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
           <button
             onClick={handleFreeEnrollment}
             disabled={isProcessing}
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
+            className="w-full bg-success hover:bg-success/90 text-success-foreground py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
           >
             {isProcessing ? <Loader2 className="animate-spin h-5 w-5" /> : "🚀 Proceed to Dashboard"}
           </button>
@@ -147,11 +147,11 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
       ) : appliedPromo ? (
         /* Partial Discount - Show remaining amount message */
         <div className="space-y-4">
-          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-700 rounded-xl p-4 text-center">
-            <p className="text-amber-700 dark:text-amber-300 font-medium">
+          <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-center">
+            <p className="text-accent font-medium">
               🎁 {appliedPromo.discountPercentage}% discount applied!
             </p>
-            <p className="text-sm text-amber-600 dark:text-amber-400 mt-1">
+            <p className="text-sm text-accent/80 mt-1">
               Pay only <span className="font-bold">KES {pricing.kes.toLocaleString()}</span> (was KES {appliedPromo.originalAmount.toLocaleString()})
             </p>
           </div>
@@ -161,6 +161,8 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
             userName={userName}
             pricing={pricing}
             promoCode={appliedPromo.code}
+            discountPercentage={appliedPromo.discountPercentage}
+            originalAmount={appliedPromo.originalAmount}
           />
         </div>
       ) : (

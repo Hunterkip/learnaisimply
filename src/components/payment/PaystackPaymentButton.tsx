@@ -10,6 +10,8 @@ interface PaystackPaymentButtonProps {
   userName?: string;
   pricing: { usd: number; kes: number };
   promoCode?: string;
+  discountPercentage?: number;
+  originalAmount?: number;
 }
 
 export function PaystackPaymentButton({ 
@@ -17,13 +19,14 @@ export function PaystackPaymentButton({
   userEmail, 
   userName,
   pricing,
-  promoCode
+  promoCode,
+  discountPercentage = 0,
+  originalAmount = 2500
 }: PaystackPaymentButtonProps) {
   const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const isDiscounted = promoCode !== undefined;
-  const originalPrice = 2500;
+  const isDiscounted = promoCode !== undefined && discountPercentage > 0;
 
   const handlePaystackClick = async () => {
     setIsProcessing(true);
@@ -82,14 +85,14 @@ export function PaystackPaymentButton({
           {isDiscounted ? (
             <>
               <div className="flex items-center justify-center gap-2 mb-1">
-                <Gift className="h-5 w-5 text-green-600" />
-                <span className="text-sm font-medium text-green-600">30% Discount Applied!</span>
+                <Gift className="h-5 w-5 text-success" />
+                <span className="text-sm font-medium text-success">{discountPercentage}% Discount Applied!</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <span className="text-xl text-muted-foreground line-through">
-                  KES {originalPrice.toLocaleString()}
+                  KES {originalAmount.toLocaleString()}
                 </span>
-                <span className="text-3xl md:text-4xl font-bold text-green-600">
+                <span className="text-3xl md:text-4xl font-bold text-success">
                   KES {pricing.kes.toLocaleString()}
                 </span>
               </div>
