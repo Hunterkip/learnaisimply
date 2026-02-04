@@ -107,6 +107,9 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
     );
   }
 
+  // Check if 100% discount applied
+  const isFreeEnrollment = appliedPromo && appliedPromo.discountPercentage === 100;
+
   return (
     <div className="w-full space-y-6">
       <div className="text-center mb-6">
@@ -116,22 +119,58 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
 
       <PromoCodeInput userEmail={userEmail} onPromoApplied={setAppliedPromo} />
 
-      {/* Logic: If KES 0, show Claim button. Otherwise, show Paystack button */}
-      {pricing.kes === 0 ? (
-        <button
-          onClick={handleFreeEnrollment}
-          disabled={isProcessing}
-          className="w-full bg-[#1A365D] text-white py-4 rounded-lg font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2"
-        >
-          {isProcessing ? <Loader2 className="animate-spin h-5 w-5" /> : "Claim Full Access Now →"}
-        </button>
+      {/* 100% Discount - Show Congratulations Message */}
+      {isFreeEnrollment ? (
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-2 border-green-300 dark:border-green-700 rounded-xl p-6 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+              <span className="text-3xl">🎉</span>
+            </div>
+            <h4 className="text-xl font-bold text-green-700 dark:text-green-300 mb-2">
+              Congratulations!
+            </h4>
+            <p className="text-green-600 dark:text-green-400 mb-1">
+              Your 100% discount has been applied!
+            </p>
+            <p className="text-sm text-muted-foreground">
+              You have full access to the course — no payment required.
+            </p>
+          </div>
+          <button
+            onClick={handleFreeEnrollment}
+            disabled={isProcessing}
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
+          >
+            {isProcessing ? <Loader2 className="animate-spin h-5 w-5" /> : "🚀 Proceed to Dashboard"}
+          </button>
+        </div>
+      ) : appliedPromo ? (
+        /* Partial Discount - Show remaining amount message */
+        <div className="space-y-4">
+          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-700 rounded-xl p-4 text-center">
+            <p className="text-amber-700 dark:text-amber-300 font-medium">
+              🎁 {appliedPromo.discountPercentage}% discount applied!
+            </p>
+            <p className="text-sm text-amber-600 dark:text-amber-400 mt-1">
+              Pay only <span className="font-bold">KES {pricing.kes.toLocaleString()}</span> (was KES {appliedPromo.originalAmount.toLocaleString()})
+            </p>
+          </div>
+          <PaystackPaymentButton
+            plan={plan}
+            userEmail={userEmail}
+            userName={userName}
+            pricing={pricing}
+            promoCode={appliedPromo.code}
+          />
+        </div>
       ) : (
+        /* No Discount - Standard payment */
         <PaystackPaymentButton
           plan={plan}
           userEmail={userEmail}
           userName={userName}
           pricing={pricing}
-          promoCode={appliedPromo?.code}
+          promoCode={undefined}
         />
       )}
     </div>
