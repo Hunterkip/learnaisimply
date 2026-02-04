@@ -93,10 +93,18 @@ export function PromoCodeInput({ userEmail, onPromoApplied }: PromoCodeInputProp
       setAppliedPromo(promoData);
       onPromoApplied(promoData);
 
-      toast({
-        title: "Promo Code Applied! 🎉",
-        description: `You get ${promo.discount_percentage}% off! Pay only KES ${promo.discounted_amount.toLocaleString()}`,
-      });
+      // Show appropriate message based on discount percentage
+      if (promo.discount_percentage === 100) {
+        toast({
+          title: "🎉 100% Discount Applied!",
+          description: "Congratulations! You have full free access. Click proceed to continue.",
+        });
+      } else {
+        toast({
+          title: "Promo Code Applied! 🎉",
+          description: `You get ${promo.discount_percentage}% off! Pay only KES ${promo.discounted_amount.toLocaleString()}`,
+        });
+      }
     } catch (error) {
       console.error("Error validating promo code:", error);
       toast({
