@@ -14,9 +14,41 @@ serve(async (req) => {
 
   try {
     console.log('Paystack verify request received');
+
+    // ========== AUTHENTICATION CHECK ==========
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      console.error('Missing or invalid authorization header');
+      return new Response(
+        JSON.stringify({ success: false, message: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
     
-    const { reference, userEmail } = await req.json();
+    const supabaseAuth = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    const { data: claimsData, error: authError } = await supabaseAuth.auth.getUser(token);
     
+    if (authError || !claimsData?.user) {
+      console.error('Authentication failed:', authError);
+      return new Response(
+        JSON.stringify({ success: false, message: 'Invalid authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const authenticatedUser = claimsData.user;
+    console.log('Authenticated user:', authenticatedUser.email);
+    // ========== END AUTHENTICATION CHECK ==========
+
+    const { reference } = await req.json();
+
     if (!reference) {
       console.error('Missing reference in request');
       return new Response(
@@ -34,6 +66,57 @@ serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    // Initialize Supabase with service role for database operations
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // ========== TRANSACTION OWNERSHIP VERIFICATION ==========
+    const { data: existingTransaction, error: txLookupError } = await supabase
+      .from('payment_transactions')
+      .select('account_reference, status')
+      .eq('checkout_request_id', reference)
+      .single();
+
+    if (txLookupError || !existingTransaction) {
+      console.error('Transaction not found:', txLookupError);
+      return new Response(
+        JSON.stringify({ success: false, message: 'Transaction not found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Verify the transaction belongs to the authenticated user
+    if (existingTransaction.account_reference.toLowerCase() !== authenticatedUser.email?.toLowerCase()) {
+      console.error('Transaction ownership mismatch:', {
+        transactionEmail: existingTransaction.account_reference,
+        authenticatedEmail: authenticatedUser.email
+      });
+      return new Response(
+        JSON.stringify({ success: false, message: 'Transaction does not belong to user' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Prevent double-processing
+    if (existingTransaction.status === 'completed') {
+      console.log('Transaction already completed, checking user access');
+      // Still grant access if somehow missed
+      const { error: ensureAccessError } = await supabase
+        .from('profiles')
+        .update({ has_access: true })
+        .eq('email', authenticatedUser.email);
+      
+      if (ensureAccessError) {
+        console.error('Error ensuring access:', ensureAccessError);
+      }
+      
+      return new Response(
+        JSON.stringify({ success: true, message: 'Payment already verified', alreadyProcessed: true }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    // ========== END TRANSACTION OWNERSHIP VERIFICATION ==========
 
     console.log('Verifying Paystack transaction:', reference);
 
@@ -61,64 +144,43 @@ serve(async (req) => {
       );
     }
 
-    // Payment verified successfully - grant access
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    // ========== VERIFY PAYSTACK EMAIL MATCHES AUTHENTICATED USER ==========
+    const paystackEmail = data.data.customer?.email?.toLowerCase();
+    if (paystackEmail && paystackEmail !== authenticatedUser.email?.toLowerCase()) {
+      console.error('Paystack email mismatch:', {
+        paystackEmail,
+        authenticatedEmail: authenticatedUser.email
+      });
+      return new Response(
+        JSON.stringify({ success: false, message: 'Payment email does not match account' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    // ========== END PAYSTACK EMAIL VERIFICATION ==========
 
     const plan = data.data.metadata?.plan || 'standard';
-    const email = userEmail || data.data.customer?.email;
+    const email = authenticatedUser.email;
     const promoCode = data.data.metadata?.promo_code;
     const amountPaid = data.data.amount / 100; // Convert from kobo/cents
 
     console.log('Payment details:', { email, plan, amountPaid, promoCode, reference });
 
-    // Update or insert transaction record
-    const { data: existingTx } = await supabase
+    // Update transaction record (already verified it exists)
+    const { error: txError } = await supabase
       .from('payment_transactions')
-      .select('id')
-      .eq('checkout_request_id', reference)
-      .single();
+      .update({
+        status: 'completed',
+        paypal_transaction_id: data.data.reference,
+        transaction_date: data.data.paid_at,
+        result_desc: 'Payment verified and completed',
+        amount: amountPaid,
+      })
+      .eq('checkout_request_id', reference);
 
-    if (existingTx) {
-      // Update existing transaction
-      const { error: txError } = await supabase
-        .from('payment_transactions')
-        .update({
-          status: 'completed',
-          paypal_transaction_id: reference,
-          transaction_date: data.data.paid_at,
-          result_desc: 'Payment verified and completed via callback',
-          amount: amountPaid,
-        })
-        .eq('checkout_request_id', reference);
-
-      if (txError) {
-        console.error('Error updating transaction:', txError);
-      } else {
-        console.log('Transaction updated successfully');
-      }
+    if (txError) {
+      console.error('Error updating transaction:', txError);
     } else {
-      // Insert new transaction if not found (safety net)
-      const { error: insertError } = await supabase
-        .from('payment_transactions')
-        .insert({
-          account_reference: email,
-          amount: amountPaid,
-          payment_method: 'paystack',
-          status: 'completed',
-          plan: plan,
-          checkout_request_id: reference,
-          paypal_transaction_id: reference,
-          transaction_date: data.data.paid_at,
-          result_desc: 'Payment verified via callback (new record)',
-        });
-
-      if (insertError) {
-        console.error('Error inserting transaction:', insertError);
-      } else {
-        console.log('Transaction inserted successfully');
-      }
+      console.log('Transaction updated successfully');
     }
 
     // Grant user access by email
@@ -167,7 +229,7 @@ serve(async (req) => {
           used_at: new Date().toISOString(),
         })
         .eq('code', promoCode)
-        .eq('email', email.toLowerCase());
+        .eq('email', email!.toLowerCase());
 
       if (promoError) {
         console.error('Error updating promo code:', promoError);
