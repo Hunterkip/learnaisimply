@@ -17,7 +17,8 @@ export const GoogleAuthButton = forwardRef<HTMLButtonElement, GoogleAuthButtonPr
     setIsLoading(true);
     
     try {
-      const redirectUrl = `${window.location.origin}/enroll`;
+      // Redirect to AuthCallback for proper email existence checks
+      const redirectUrl = `${window.location.origin}/auth/callback`;
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",

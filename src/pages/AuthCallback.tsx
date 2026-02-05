@@ -23,63 +23,61 @@ export default function AuthCallback() {
       }
 
       const user = data.session.user;
-      const userEmail = user.email;
+      const userEmail = user.email?.toLowerCase() || "";
 
-      // Get profile
-      const { data: profile, error: profileError } = await supabase
+      // Check if this email already exists in profiles with a different auth provider
+      const { data: existingProfile, error: profileError } = await supabase
         .from("profiles")
-        .select("has_access, auth_provider, first_name, last_name")
-        .eq("id", user.id)
-        .single();
+        .select("id, has_access, auth_provider, first_name, last_name")
+        .eq("email", userEmail)
+        .maybeSingle();
 
-      if (profileError || !profile) {
-        // Profile doesn't exist - this is a new Google user
-        // Check if the email already exists with a different provider (manual)
-        const { data: existingProfile } = await supabase
-          .from("profiles")
-          .select("auth_provider")
-          .eq("email", userEmail?.toLowerCase() || "")
-          .single();
-
-        if (existingProfile && existingProfile.auth_provider === "manual") {
-          // Email exists with manual provider - sign out and show error
-          await supabase.auth.signOut();
-          toast({
-            title: "Email already registered",
-            description: "This email is registered with a password. Please log in using your email and password instead.",
-            variant: "destructive",
-          });
-          navigate("/log-in");
-          return;
-        }
-
-        // Otherwise continue - profile will be created by trigger
-        navigate("/enroll");
-        return;
-      }
-
-      // 🚨 Enforce provider rules - manual account trying to use Google
-      if (profile.auth_provider === "manual") {
+      // Case 1: Email exists with manual (password) provider - block Google login
+      if (existingProfile && existingProfile.auth_provider === "manual" && existingProfile.id !== user.id) {
         await supabase.auth.signOut();
         toast({
-          title: "Manual account detected",
-          description: "Please log in using your email and password.",
+          title: "Email already registered",
+          description: "This email is registered with a password. Please log in using your email and password instead.",
           variant: "destructive",
         });
         navigate("/log-in");
         return;
       }
 
-      // ✅ Correct routing based on access
-      if (profile.has_access) {
-        toast({
-          title: `Welcome back${profile.first_name ? `, ${profile.first_name}` : ""}!`,
-          description: "Redirecting to your dashboard...",
-        });
-        navigate("/dashboard");
-      } else {
-        navigate("/enroll");
+      // Case 2: Profile exists and matches current user (returning Google user)
+      if (existingProfile && existingProfile.id === user.id) {
+        if (existingProfile.auth_provider === "manual") {
+          // This shouldn't happen but handle gracefully
+          await supabase.auth.signOut();
+          toast({
+            title: "Please use password login",
+            description: "Your account uses email and password authentication.",
+            variant: "destructive",
+          });
+          navigate("/log-in");
+          return;
+        }
+
+        // Welcome back existing Google user
+        if (existingProfile.has_access) {
+          toast({
+            title: `Welcome back${existingProfile.first_name ? `, ${existingProfile.first_name}` : ""}!`,
+            description: "Redirecting to your dashboard...",
+          });
+          navigate("/dashboard");
+        } else {
+          navigate("/enroll");
+        }
+        return;
       }
+
+      // Case 3: No profile exists - new Google user, profile will be created by trigger
+      // The handle_new_user trigger will create the profile automatically
+      toast({
+        title: "Account created successfully!",
+        description: "Welcome! Let's get you enrolled.",
+      });
+      navigate("/enroll");
     };
 
     processOAuth();
