@@ -37,10 +37,20 @@ export function PaystackVerificationDialog({
 
     const verifyPaystackPayment = async () => {
       try {
+        // Get auth session for authenticated request
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.access_token) {
+          console.error("No auth session for verification");
+          setStatus("waiting");
+          return;
+        }
+
         const { data, error } = await supabase.functions.invoke("paystack-verify", {
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
           body: {
             reference,
-            userEmail,
           },
         });
 
@@ -59,7 +69,7 @@ export function PaystackVerificationDialog({
     };
 
     verifyPaystackPayment();
-  }, [open, reference, userEmail, status]);
+  }, [open, reference, status]);
 
   // Poll for payment confirmation from webhook
   useEffect(() => {
