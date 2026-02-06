@@ -104,7 +104,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
+    <div className="min-h-screen bg-secondary flex items-start sm:items-center justify-center px-3 sm:px-4 py-8 sm:py-12">
       <div className="w-full max-w-sm sm:max-w-md">
         {/* Back to Home */}
         <Link 
