@@ -182,7 +182,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
 
       {/* Modal */}
       <GlowCard glowColor="purple" customSize className="relative w-full h-full max-w-2xl max-h-screen mx-4">
-        <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center">
+        <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center overflow-y-auto max-h-[calc(100vh-4rem)]">
           {/* Close Button */}
           <button
             onClick={handleClose}
