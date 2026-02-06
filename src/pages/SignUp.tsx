@@ -245,7 +245,7 @@ const SignUp = () => {
 
   return (
     <div
-      className="min-h-screen bg-secondary flex items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
+      className="min-h-screen bg-secondary flex items-start sm:items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
       style={{
         backgroundImage:
           "radial-gradient(circle at calc(var(--global-xp,0.5) * 100%) calc(var(--global-yp,0.5) * 100%), hsla(var(--global-hue,280) 80% 60% / 0.12), transparent 20%), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2))",
@@ -264,7 +264,7 @@ const SignUp = () => {
 
         {/* Main Card */}
         <GlowCard glowColor="purple" customSize className="w-full max-w-md mx-auto">
-          <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-6 md:p-8 w-full h-full">
+          <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-5 sm:p-6 md:p-8 w-full h-full overflow-y-auto max-h-[calc(100vh-4rem)]">
           {/* Header */}
           <div className="text-center mb-5 sm:mb-8">
             <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2 sm:mb-3">
