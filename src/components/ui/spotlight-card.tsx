@@ -111,7 +111,7 @@ const GlowCard = forwardRef<HTMLDivElement, GlowCardProps>(({
       backgroundAttachment: 'fixed',
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative' as const,
-      touchAction: 'none' as const,
+      touchAction: 'auto' as const,
     };
 
     // Add width and height if provided
