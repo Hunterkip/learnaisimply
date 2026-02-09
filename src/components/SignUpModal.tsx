@@ -178,7 +178,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal */}
-      <GlowCard glowColor="purple" customSize className="relative w-auto h-auto max-w-2xl max-h-screen mx-4">
+      <GlowCard glowColor="purple" customSize className="relative w-full h-full max-w-lg max-h-[calc(100vh-6rem)] mx-4">
         <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center overflow-y-auto max-h-[calc(100vh-4rem)]">
           {/* Close Button */}
           <button
@@ -225,7 +225,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="John"
+                    placeholder="xxxx"
                     className="h-12 text-base"
                     required
                     disabled={isLoading}
@@ -240,7 +240,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Doe"
+                    placeholder="xxxx"
                     className="h-12 text-base"
                     required
                     disabled={isLoading}
@@ -315,7 +315,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full h-14 text-lg font-medium" disabled={isLoading}>
+              <Button type="submit" className="w-auto h-14 text-lg font-medium" disabled={isLoading}>
                 {isLoading ? "Creating account..." : "Create My Account"}
               </Button>
             </form>
