@@ -173,12 +173,12 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-left">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal */}
-      <GlowCard glowColor="purple" customSize className="relative w-full h-full max-w-2xl max-h-screen mx-4">
+      <GlowCard glowColor="purple" customSize className="relative w-auto h-auto max-w-2xl max-h-screen mx-4">
         <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center overflow-y-auto max-h-[calc(100vh-4rem)]">
           {/* Close Button */}
           <button
