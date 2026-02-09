@@ -1,15 +1,12 @@
+import { ContactForm } from "./ContactForm";
+
+const FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID";
+
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background py-10">
-      <div className="container mx-auto px-4">
-        <div className="text-center">
-          <p className="font-semibold text-lg mb-2">
-            AI Simplified
-          </p>
-          <p className="text-background/70 text-sm">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
-        </div>
+    <footer className="bg-foreground text-background py-12 px-4">
+      <div className="container mx-auto">
+        <ContactForm formspreeUrl={FORMSPREE_URL} />
       </div>
     </footer>
   );
