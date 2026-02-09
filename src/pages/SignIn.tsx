@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
 
 import { z } from "zod";
+import HoverSlatButton from "@/components/ui/hover-button";
 
 type FormData = {
   email: string;
