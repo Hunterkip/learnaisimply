@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Mail } from "lucide-react";
 import { z } from "zod";
+import { Footer } from "@/components/homepage/Footer";
 
 const emailSchema = z.string().email("Please enter a valid email address");
 
@@ -186,6 +187,7 @@ const ForgotPassword = () => {
           </Link>
         </p>
       </div>
+      <Footer />
     </div>
   );
 };

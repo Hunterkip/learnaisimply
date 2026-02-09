@@ -6,12 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Mail, User, MessageSquare, Send } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
-interface ContactFormProps {
-  formspreeUrl: string;
-}
-
-export function ContactForm({ formspreeUrl }: ContactFormProps) {
+export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -33,22 +30,20 @@ export function ContactForm({ formspreeUrl }: ContactFormProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(formspreeUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const { data, error } = await supabase.functions.invoke("contact-form", {
+        body: formData,
       });
 
-      if (res.ok) {
-        toast({
-          title: "Thank you, your message has been submitted",
-        });
-        setFormData({ name: "", email: "", message: "" });
-      } else {
+      if (error) {
         toast({
           title: "Something went wrong. Please try again.",
           variant: "destructive",
         });
+      } else {
+        toast({
+          title: "Thank you, your message has been submitted",
+        });
+        setFormData({ name: "", email: "", message: "" });
       }
     } catch {
       toast({

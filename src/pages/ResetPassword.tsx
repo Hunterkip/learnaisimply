@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Eye, EyeOff, CheckCircle } from "lucide-react";
 import { z } from "zod";
+import { Footer } from "@/components/homepage/Footer";
 
 const passwordSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -211,6 +212,7 @@ const ResetPassword = () => {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Eye, EyeOff, ArrowLeft, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
+import { Footer } from "@/components/homepage/Footer";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -244,8 +245,9 @@ const SignUp = () => {
   };
 
   return (
+    <div className="min-h-screen flex flex-col">
     <div
-      className="min-h-screen bg-secondary flex items-start sm:items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
+      className="flex-1 bg-secondary flex items-start sm:items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
       style={{
         backgroundImage:
           "radial-gradient(circle at calc(var(--global-xp,0.5) * 100%) calc(var(--global-yp,0.5) * 100%), hsla(var(--global-hue,280) 80% 60% / 0.12), transparent 20%), linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2))",
@@ -456,6 +458,8 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 };

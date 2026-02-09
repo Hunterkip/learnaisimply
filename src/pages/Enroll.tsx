@@ -233,6 +233,8 @@ const Enroll = () => {
   };
 
   const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (!confirmed) return;
     await supabase.auth.signOut();
     navigate("/");
   };
@@ -337,9 +339,9 @@ const Enroll = () => {
             variant="ghost"
             size="sm"
             onClick={handleLogout}
-            className="text-background/80 hover:text-background hover:bg-background/10 text-xs sm:text-sm px-2 sm:px-3"
+            className="text-background/80 hover:text-background hover:bg-background/10 text-xs sm:text-sm px-2 sm:px-3 group"
           >
-            <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+            <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" />
             <span className="hidden xs:inline">Log out</span>
           </Button>
         </div>

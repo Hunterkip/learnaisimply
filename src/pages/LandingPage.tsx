@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
+import { Clock, Video, Shield, Star, Check, ArrowRight, LogIn, UserPlus } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero-section";
 import { SignUpModal } from "@/components/SignUpModal";
@@ -229,17 +229,19 @@ export default function LandingPage() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-primary-foreground hover:bg-primary-foreground/10 text-sm sm:text-base px-2 sm:px-4"
+                className="text-primary-foreground hover:bg-primary-foreground/10 text-sm sm:text-base px-2 sm:px-4 group"
               >
+                <LogIn className="h-4 w-4 mr-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" />
                 Log In
               </Button>
             </Link>
             <Button
               variant="continue"
               size="sm"
-              className="text-sm sm:text-base px-3 sm:px-4"
+              className="text-sm sm:text-base px-3 sm:px-4 group"
               onClick={() => setIsSignUpModalOpen(true)}
             >
+              <UserPlus className="h-4 w-4 mr-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
               <span className="hidden xs:inline">Enroll Now</span>
               <span className="xs:hidden">Enroll</span>
             </Button>
