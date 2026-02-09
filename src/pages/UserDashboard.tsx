@@ -155,6 +155,8 @@ const UserDashboard = () => {
   }, [navigate]);
 
   const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (!confirmed) return;
     await supabase.auth.signOut();
     navigate("/");
   };
@@ -207,9 +209,9 @@ const UserDashboard = () => {
               variant="ghost" 
               size="sm"
               onClick={handleLogout}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground group"
             >
-              <LogOut className="h-4 w-4 mr-2" />
+              <LogOut className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" />
               <span className="hidden sm:inline">Log out</span>
             </Button>
           </div>

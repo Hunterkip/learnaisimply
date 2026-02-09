@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Mail, MessageCircle, HelpCircle } from "lucide-react";
+import { Footer } from "@/components/homepage/Footer";
 
 const PaymentHelp = () => {
   return (
@@ -90,6 +91,7 @@ const PaymentHelp = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
