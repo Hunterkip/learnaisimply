@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Clock, Video, Shield, Star, Check, ArrowRight, LogIn, UserPlus } from "lucide-react";
+import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero-section";
 import { SignUpModal } from "@/components/SignUpModal";
 import { useState } from "react";
 import * as React from "react";
-
+import { Navbar } from "@/components/layout/Navbar";
 // --- SVG Icon Components for Floating Hero ---
 const IconGoogle = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,34 +220,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation Header */}
-      <header className="bg-primary text-primary-foreground py-3 sm:py-4 sticky top-0 z-50">
-        <div className="container mx-auto px-3 sm:px-4 flex items-center justify-between">
-          <div className="text-lg sm:text-xl font-semibold">AI Simplified</div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Link to="/log-in">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-primary-foreground hover:bg-primary-foreground/10 text-sm sm:text-base px-2 sm:px-4 group"
-              >
-                <LogIn className="h-4 w-4 mr-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" />
-                Log In
-              </Button>
-            </Link>
-            <Button
-              variant="continue"
-              size="sm"
-              className="text-sm sm:text-base px-3 sm:px-4 group"
-              onClick={() => setIsSignUpModalOpen(true)}
-            >
-              <UserPlus className="h-4 w-4 mr-1.5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
-              <span className="hidden xs:inline">Enroll Now</span>
-              <span className="xs:hidden">Enroll</span>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Navbar variant="dark" />
 
       {/* Floating Icons Hero Section */}
       <FloatingIconsHero

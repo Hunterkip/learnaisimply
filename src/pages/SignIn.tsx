@@ -1,15 +1,11 @@
 import { useState, ChangeEvent, FormEvent, useEffect, ReactNode } from "react";
-
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-
 import { useToast } from "@/hooks/use-toast";
-
 import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
-
 import { z } from "zod";
-import HoverSlatButton from "@/components/ui/hover-button";
+import { ArrowLeft } from "lucide-react";
+import { Footer } from "@/components/homepage/Footer";
 
 type FormData = {
   email: string;
@@ -443,25 +439,32 @@ export default function SignIn() {
   };
 
   return (
-    <section className="flex max-lg:justify-center">
-      {/* Left Side */}
+    <div className="min-h-screen flex flex-col">
+      <section className="flex-1 flex max-lg:justify-center">
+        {/* Left Side */}
+        <span className="flex flex-col justify-center w-1/2 max-lg:hidden">
+          <Ripple mainCircleSize={100} />
+          <TechOrbitDisplay iconsArray={iconsArray} />
+        </span>
 
-      <span className="flex flex-col justify-center w-1/2 max-lg:hidden">
-        <Ripple mainCircleSize={100} />
-
-        <TechOrbitDisplay iconsArray={iconsArray} />
-      </span>
-
-      {/* Right Side */}
-
-      <span className="w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%]">
-        <AuthTabs
-          formFields={formFields}
-          goTo={goToForgotPassword}
-          handleSubmit={handleSubmit}
-          googleRedirectTo={googleRedirectTo}
-        />
-      </span>
-    </section>
+        {/* Right Side */}
+        <span className="w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%] relative">
+          <Link
+            to="/"
+            className="absolute top-6 left-6 inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm group"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            Back to Home
+          </Link>
+          <AuthTabs
+            formFields={formFields}
+            goTo={goToForgotPassword}
+            handleSubmit={handleSubmit}
+            googleRedirectTo={googleRedirectTo}
+          />
+        </span>
+      </section>
+      <Footer />
+    </div>
   );
 }

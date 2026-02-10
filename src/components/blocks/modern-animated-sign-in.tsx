@@ -497,19 +497,7 @@ const AnimatedForm = memo(function AnimatedForm({
         </BoxReveal>
 
         <BoxReveal width="100%" boxColor="var(--skeleton)" duration={0.3} overflow="visible">
-          <div className="flex items-center gap-2">
-            <HoverSlatButton initialText="SIGNIN " hoverText="WELCOME" className="flex-1" />
-            <button
-              className="bg-gradient-to-br relative group/btn from-zinc-200 dark:from-zinc-900
-              dark:to-zinc-900 to-zinc-200 block dark:bg-zinc-800 px-4 text-black
-              dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] 
-                dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] outline-hidden hover:cursor-pointer"
-              type="submit"
-            >
-              &rarr;
-              <BottomGradient />
-            </button>
-          </div>
+          <HoverSlatButton initialText="SIGNIN " hoverText="WELCOME" type="submit" className="w-full" />
         </BoxReveal>
 
         {textVariantButton && goTo && (

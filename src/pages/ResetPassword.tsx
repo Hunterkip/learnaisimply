@@ -103,113 +103,56 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
-        {/* Back to Home */}
-        <Link 
-          to="/" 
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
-
-        {/* Main Card */}
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-8 md:p-10">
-          {isSuccess ? (
-            /* Success State */
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="h-8 w-8 text-accent" />
-              </div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-                Password Updated!
-              </h1>
-              <p className="text-muted-foreground text-base mb-6">
-                Your password has been successfully reset. Redirecting you to login...
-              </p>
-              <Link to="/log-in">
-                <Button className="w-full">
-                  Go to Login
-                </Button>
-              </Link>
-            </div>
-          ) : (
-            /* Form State */
-            <>
-              <div className="text-center mb-8">
-                <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-                  Reset Your Password
-                </h1>
-                <p className="text-muted-foreground text-base">
-                  Enter your new password below.
-                </p>
-              </div>
-
-              <form onSubmit={handleResetPassword} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-foreground text-base">
-                    New Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="h-12 text-base pr-12"
-                      required
-                      disabled={isLoading}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    At least 8 characters
-                  </p>
+    <div className="min-h-screen bg-secondary flex flex-col">
+      <div className="flex-1 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md">
+          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
+          <div className="bg-card rounded-2xl shadow-sm border border-border p-8 md:p-10">
+            {isSuccess ? (
+              <div className="text-center">
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="h-8 w-8 text-accent" />
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-foreground text-base">
-                    Confirm New Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="confirmPassword"
-                      type={showConfirmPassword ? "text" : "password"}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="h-12 text-base pr-12"
-                      required
-                      disabled={isLoading}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                    >
-                      {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
+                <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">Password Updated!</h1>
+                <p className="text-muted-foreground text-base mb-6">Your password has been successfully reset. Redirecting you to login...</p>
+                <Link to="/log-in"><Button className="w-full">Go to Login</Button></Link>
+              </div>
+            ) : (
+              <>
+                <div className="text-center mb-8">
+                  <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">Reset Your Password</h1>
+                  <p className="text-muted-foreground text-base">Enter your new password below.</p>
                 </div>
-
-                <Button
-                  type="submit"
-                  className="w-full h-14 text-lg font-medium"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Updating..." : "Reset Password"}
-                </Button>
-              </form>
-            </>
-          )}
+                <form onSubmit={handleResetPassword} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-foreground text-base">New Password</Label>
+                    <div className="relative">
+                      <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="h-12 text-base pr-12" required disabled={isLoading} />
+                      <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                    <p className="text-sm text-muted-foreground">At least 8 characters</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword" className="text-foreground text-base">Confirm New Password</Label>
+                    <div className="relative">
+                      <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="••••••••" className="h-12 text-base pr-12" required disabled={isLoading} />
+                      <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                        {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full h-14 text-lg font-medium" disabled={isLoading}>
+                    {isLoading ? "Updating..." : "Reset Password"}
+                  </Button>
+                </form>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <Footer />

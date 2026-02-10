@@ -2,13 +2,13 @@
 import * as React from "react";
 
 export interface HoverSlatButtonProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   initialText: string;
   hoverText: string;
 }
 
 const HoverSlatButton = React.forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   HoverSlatButtonProps
 >(({ initialText, hoverText, className, ...props }, ref) => {
   if (initialText.length !== hoverText.length) {
@@ -17,7 +17,7 @@ const HoverSlatButton = React.forwardRef<
   }
 
   return (
-    <div
+    <button
       ref={ref}
       className={`group flex cursor-pointer ${className}`}
       {...props}
@@ -37,7 +37,7 @@ const HoverSlatButton = React.forwardRef<
           {char}
         </div>
       ))}
-    </div>
+    </button>
   );
 });
 
