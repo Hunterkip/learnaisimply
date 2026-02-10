@@ -57,9 +57,7 @@ export function Footer() {
           {/* Link Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h4 className="font-semibold text-background mb-4 text-sm uppercase tracking-wider">
-                {section.title}
-              </h4>
+              <h4 className="font-semibold text-background mb-4 text-sm uppercase tracking-wider">{section.title}</h4>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
@@ -83,7 +81,7 @@ export function Footer() {
                     <Facebook className="h-4 w-4" />
                   </a>
                   <a
-                    href="https://tiktok.com"
+                    href="https://www.tiktok.com/@aisimplifiedlearning?is_from_webapp=1&sender_device=pc"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
@@ -91,7 +89,7 @@ export function Footer() {
                     <TikTokIcon />
                   </a>
                   <a
-                    href="https://wa.me/"
+                    href="https://whatsapp.com/channel/0029Vb5jY2XGJP8BZUfFNS20"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
@@ -112,9 +110,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="text-center mt-10 pt-6 border-t border-background/10">
           <p className="font-semibold text-lg text-background mb-1">AI Simplified</p>
-          <p className="text-background/50 text-sm">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
+          <p className="text-background/50 text-sm">© {new Date().getFullYear()} All rights reserved.</p>
         </div>
       </div>
     </footer>
