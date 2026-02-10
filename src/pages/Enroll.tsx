@@ -3,12 +3,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, LogOut, Sparkles, Brain, Zap } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
-
 import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/homepage/Footer";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -233,8 +234,6 @@ const Enroll = () => {
   };
 
   const handleLogout = async () => {
-    const confirmed = window.confirm("Are you sure you want to log out?");
-    if (!confirmed) return;
     await supabase.auth.signOut();
     navigate("/");
   };
@@ -321,31 +320,8 @@ const Enroll = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Top Welcome Bar with Avatar and Logout */}
-      <div className="bg-foreground/95 text-background py-2 sm:py-3 px-3 sm:px-4">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Avatar className="h-7 w-7 sm:h-8 sm:w-8 border-2 border-accent/50">
-              <AvatarFallback className="bg-accent text-accent-foreground text-xs sm:text-sm font-medium">
-                {getUserInitials()}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-xs sm:text-sm truncate max-w-[150px] sm:max-w-none">
-              Welcome, <span className="font-medium">{getDisplayName()}</span>
-            </span>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleLogout}
-            className="text-background/80 hover:text-background hover:bg-background/10 text-xs sm:text-sm px-2 sm:px-3 group"
-          >
-            <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" />
-            <span className="hidden xs:inline">Log out</span>
-          </Button>
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
 
       {/* Hero Section with AI Gradient */}
       <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/80 text-primary-foreground relative overflow-hidden">
@@ -581,6 +557,7 @@ const Enroll = () => {
         userEmail={userEmail}
         userName={userName || userLastName}
       />
+      <Footer />
     </div>
   );
 };

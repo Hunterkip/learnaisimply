@@ -9,11 +9,12 @@ import {
   Play, 
   CheckCircle2, 
   Trophy,
-  LogOut,
   Sparkles,
   Brain
 } from "lucide-react";
 import { courseModules } from "@/data/courseData";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/homepage/Footer";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -154,12 +155,7 @@ const UserDashboard = () => {
     checkAuth();
   }, [navigate]);
 
-  const handleLogout = async () => {
-    const confirmed = window.confirm("Are you sure you want to log out?");
-    if (!confirmed) return;
-    await supabase.auth.signOut();
-    navigate("/");
-  };
+  // Logout is now handled by the Navbar component
 
   const getInitials = (email: string) => {
     return email.slice(0, 2).toUpperCase();
@@ -183,40 +179,8 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header with Profile and Logout */}
-      <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Brain className="h-8 w-8 text-primary" />
-            <span className="font-semibold text-foreground hidden sm:block">AI Simplified</span>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-10 w-10 border-2 border-primary/20">
-                <AvatarImage src="" />
-                <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">
-                  {getInitials(userEmail)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="hidden sm:block">
-                <p className="text-sm font-medium text-foreground">{userName}</p>
-                <p className="text-xs text-muted-foreground">{userEmail}</p>
-              </div>
-            </div>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={handleLogout}
-              className="text-muted-foreground hover:text-foreground group"
-            >
-              <LogOut className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" />
-              <span className="hidden sm:inline">Log out</span>
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background flex flex-col">
+      <Navbar />
 
       {/* Animated Hero Section */}
       <section className="bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-primary-foreground py-12 px-4 relative overflow-hidden">
@@ -420,6 +384,7 @@ const UserDashboard = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
