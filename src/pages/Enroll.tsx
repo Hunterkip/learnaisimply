@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, Sparkles, Brain, Zap, Star, Shield, ArrowRight } from "lucide-react";
+import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, Sparkles, Brain, Zap } from "lucide-react";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
 import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
@@ -40,13 +40,6 @@ const trustItems = [
     title: "Practical examples",
     description: "Real-life situations you'll recognize",
   },
-];
-
-const features = [
-  { icon: Clock, title: "Self-Paced", description: "Access anytime, take as long as you need." },
-  { icon: Video, title: "Multi-Format", description: "Watch, listen, or read — your choice." },
-  { icon: Shield, title: "No Experience", description: "Prior technical knowledge is not required." },
-  { icon: Star, title: "Lifetime Access", description: "No deadlines. Your course never expires." },
 ];
 
 const learningOutcomes = [
@@ -533,71 +526,6 @@ const Enroll = () => {
                 ))}
               </ul>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Strip */}
-      <section className="bg-background py-8 sm:py-12 md:py-16 border-b border-border">
-        <div className="container mx-auto px-3 sm:px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2 sm:mb-3">
-                  <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                </div>
-                <h3 className="text-sm sm:text-base font-semibold text-primary mb-0.5 sm:mb-1">{feature.title}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Who Is This For */}
-      <section className="bg-secondary py-10 sm:py-14 md:py-20">
-        <div className="container mx-auto px-3 sm:px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-4 sm:mb-6">
-              Who Is This Course For?
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
-              This course is designed for professionals, business owners, teams, and everyday individuals who want to
-              use AI practically in work and daily life — without needing a technical background.
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {["Business Owners", "Professionals", "Teams", "Everyday Individuals"].map((audience) => (
-                <span
-                  key={audience}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-accent/10 text-accent rounded-full text-xs sm:text-sm font-medium"
-                >
-                  {audience}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quiz CTA */}
-      <section className="bg-primary py-12 sm:py-16 md:py-20">
-        <div className="container mx-auto px-3 sm:px-4">
-          <div className="max-w-lg mx-auto text-center text-primary-foreground">
-            <Brain className="h-10 w-10 mx-auto mb-4 text-primary-foreground/80" />
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3 sm:mb-4">Not Sure If You're Ready?</h2>
-            <p className="text-primary-foreground/80 text-sm sm:text-lg mb-6 sm:mb-8">
-              Take our free AI Readiness Assessment and get a personalized score in under 2 minutes.
-            </p>
-            <Link to="/quiz">
-              <Button
-                size="lg"
-                variant="continue"
-                className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8"
-              >
-                Take the Quiz
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

@@ -9,7 +9,7 @@ import { z } from "zod";
 import { Eye, EyeOff, ArrowLeft, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { GlowCard } from "@/components/ui/spotlight-card";
 import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
-import { Brain } from "lucide-react";
+import { Footer } from "@/components/homepage/Footer";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50, "First name is too long"),
@@ -246,15 +246,6 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Minimal Header — just AI logo */}
-      <header className="px-6 py-4">
-        <Link to="/" className="inline-flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-            <Brain className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-bold text-foreground tracking-tight">AI Simplified</span>
-        </Link>
-      </header>
     <div
       className="flex-1 bg-secondary flex items-start sm:items-center justify-center px-3 sm:px-4 py-8 sm:py-12"
       style={{
@@ -264,6 +255,14 @@ const SignUp = () => {
       }}
     >
       <div className="w-full max-w-sm sm:max-w-md">
+        {/* Back to Home */}
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-4 sm:mb-6 transition-colors text-sm"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
 
         {/* Main Card */}
         <GlowCard glowColor="purple" customSize className="w-full max-w-md mx-auto">
@@ -460,6 +459,7 @@ const SignUp = () => {
         </p>
       </div>
     </div>
+    <Footer />
     </div>
   );
 };
