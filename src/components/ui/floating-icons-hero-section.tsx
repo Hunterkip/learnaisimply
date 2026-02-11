@@ -16,6 +16,7 @@ export interface FloatingIconsHeroProps {
   subtitle: string;
   ctaText: string;
   ctaHref: string;
+  onCtaClick?: () => void;
   icons: IconProps[];
 }
 
@@ -112,7 +113,7 @@ const Icon = ({
 const FloatingIconsHero = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & FloatingIconsHeroProps
->(({ className, title, subtitle, ctaText, ctaHref, icons, ...props }, ref) => {
+>(({ className, title, subtitle, ctaText, ctaHref, onCtaClick, icons, ...props }, ref) => {
   // Refs to track the raw mouse position
   const mouseX = React.useRef(0);
   const mouseY = React.useRef(0);
@@ -160,9 +161,15 @@ const FloatingIconsHero = React.forwardRef<
           {subtitle}
         </p>
         <div className="mt-10">
-          <Button asChild size="lg" className="px-8 py-6 text-base font-semibold">
-            <a href={ctaHref}>{ctaText}</a>
-          </Button>
+          {onCtaClick ? (
+            <Button size="lg" className="px-8 py-6 text-base font-semibold" onClick={onCtaClick}>
+              {ctaText}
+            </Button>
+          ) : (
+            <Button asChild size="lg" className="px-8 py-6 text-base font-semibold">
+              <a href={ctaHref}>{ctaText}</a>
+            </Button>
+          )}
         </div>
       </div>
     </section>
