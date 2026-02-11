@@ -38,11 +38,13 @@
     </script>
     <style>
       /* Hide Chatbase branding */
-      #CG_MpdWfv0i4KwNca-RrL,
-      .chatbase-badge,
-      [data-chatbase-badge] {
+      .chatbase-bubble-powered-by,
+      [class*="powered-by-chatbase"],
+      a[href*="chatbase.co"]:not(script) {
         display: none !important;
         visibility: hidden !important;
+        height: 0 !important;
+        overflow: hidden !important;
       }
     </style>
   </body>
