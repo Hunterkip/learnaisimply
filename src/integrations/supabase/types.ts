@@ -218,6 +218,48 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_leads: {
+        Row: {
+          comfort_level: number | null
+          created_at: string
+          current_ai_usage: string | null
+          email: string
+          hours_to_save: number | null
+          id: string
+          name: string
+          profession: string | null
+          readiness_score: number | null
+          repetitive_task: string | null
+          values_certificate: boolean | null
+        }
+        Insert: {
+          comfort_level?: number | null
+          created_at?: string
+          current_ai_usage?: string | null
+          email: string
+          hours_to_save?: number | null
+          id?: string
+          name: string
+          profession?: string | null
+          readiness_score?: number | null
+          repetitive_task?: string | null
+          values_certificate?: boolean | null
+        }
+        Update: {
+          comfort_level?: number | null
+          created_at?: string
+          current_ai_usage?: string | null
+          email?: string
+          hours_to_save?: number | null
+          id?: string
+          name?: string
+          profession?: string | null
+          readiness_score?: number | null
+          repetitive_task?: string | null
+          values_certificate?: boolean | null
+        }
+        Relationships: []
+      }
       user_courses: {
         Row: {
           course_id: string

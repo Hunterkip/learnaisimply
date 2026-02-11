@@ -4,6 +4,7 @@ import { Clock, Video, Shield, Star, Check, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/homepage/Footer";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero-section";
 import { SignUpModal } from "@/components/SignUpModal";
+import { AIReadinessQuiz } from "@/components/quiz/AIReadinessQuiz";
 import { useState } from "react";
 import * as React from "react";
 import { Navbar } from "@/components/layout/Navbar";
@@ -217,6 +218,7 @@ const courseIncludes = [
 
 export default function LandingPage() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -226,8 +228,9 @@ export default function LandingPage() {
       <FloatingIconsHero
         title="AI Simplified"
         subtitle="For Everyday People and Business - Practical, easy-to-follow AI training that simplifies complex concepts."
-        ctaText="Enroll Now"
-        ctaHref="#pricing"
+        ctaText="Check Your AI Readiness"
+        ctaHref="#"
+        onCtaClick={() => setIsQuizOpen(true)}
         icons={demoIcons}
       />
 
@@ -363,6 +366,9 @@ export default function LandingPage() {
 
       {/* Sign Up Modal */}
       <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
+
+      {/* AI Readiness Quiz */}
+      <AIReadinessQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
     </div>
   );
 }
