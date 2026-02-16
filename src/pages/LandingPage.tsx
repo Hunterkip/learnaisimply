@@ -89,6 +89,22 @@ export default function LandingPage() {
           >
             Takes less than 3 minutes • 10 questions • Free
           </motion.p>
+
+          {/* Returning user link */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+            className="text-sm text-primary-foreground/50"
+          >
+            Already have an account?{" "}
+            <button
+              onClick={() => navigate("/log-in")}
+              className="text-accent hover:text-accent/80 font-medium underline underline-offset-4 transition-colors"
+            >
+              Sign In
+            </button>
+          </motion.p>
         </motion.div>
       </div>
     </div>
