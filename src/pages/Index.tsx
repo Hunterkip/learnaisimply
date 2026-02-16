@@ -99,19 +99,24 @@ const Index = () => {
           onLessonSelect={handleLessonSelect}
         />
 
-        {/* Lesson Content */}
-        <main className="flex-1 p-6 lg:p-8 pb-32 lg:pb-8">
-          <div className="max-w-4xl">
+      {/* Lesson Content */}
+        <main className="flex-1 p-4 lg:p-8 pb-32 lg:pb-8">
+          <div className="max-w-4xl mx-auto">
             {/* Current lesson indicator */}
-            <div className="mb-6 text-sm text-muted-foreground">
-              Lesson {currentLessonIndex + 1} of {allLessons.length}
+            <div className="mb-5 flex items-center justify-between bg-card rounded-xl border border-border px-4 py-3 shadow-sm">
+              <span className="text-sm text-muted-foreground">
+                Lesson <span className="font-semibold text-foreground">{currentLessonIndex + 1}</span> of {allLessons.length}
+              </span>
               {currentLesson && (
-                <span className="ml-2 text-foreground font-medium">
-                  • {currentLesson.duration}
+                <span className="text-sm text-accent font-medium flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                  {currentLesson.duration}
                 </span>
               )}
             </div>
 
+            {/* Lesson card bezel */}
+            <div className="bg-card rounded-2xl border border-border shadow-sm p-5 lg:p-8">
             <LessonContent
               title={currentLessonContent.title}
               description={currentLessonContent.description}
@@ -128,6 +133,7 @@ const Index = () => {
               isCompleting={currentLessonIndex === allLessons.length - 1}
               hideMedia={currentLessonId.startsWith("wrap-1") || currentLessonId.startsWith("m0-") || currentLessonId === "welcome-2"}
             />
+            </div>
           </div>
         </main>
       </div>

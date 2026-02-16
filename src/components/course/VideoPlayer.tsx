@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Play, Pause, Maximize, Volume2, VolumeX, Loader } from "lucide-react";
+import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface VideoPlayerProps {
   videoUrl?: string;
@@ -172,8 +173,31 @@ export function VideoPlayer({
 
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <Loader className="h-10 w-10 text-white animate-spin" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <div className="relative">
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="absolute inset-0 w-16 h-16 rounded-full border-2 border-accent/40"
+                  style={{ margin: "auto", top: 0, bottom: 0, left: 0, right: 0 }}
+                  animate={{
+                    scale: [1, 1.3 + i * 0.15, 1],
+                    opacity: [0.5, 0, 0.5],
+                  }}
+                  transition={{
+                    duration: 1.8,
+                    delay: i * 0.3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              ))}
+              <motion.div
+                className="w-16 h-16 rounded-full border-t-2 border-accent"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
           </div>
         )}
 
