@@ -80,18 +80,30 @@ export function Footer() {
               )}
               {section.socials && (
                 <div className="space-y-3">
-                  <p className="text-primary-foreground/50 text-sm">hello@learnaisimply.com</p>
+                  <p className="text-primary-foreground/50 text-sm">support@learnaisimply.com</p>
                   <div className="flex items-center gap-3 mt-3">
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                    <a
+                      href="https://facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                    >
                       <Facebook className="h-4 w-4" />
                     </a>
-                    <a href="https://www.tiktok.com/@aisimplifiedlearning" target="_blank" rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                    <a
+                      href="https://www.tiktok.com/@aisimplifiedlearning"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                    >
                       <TikTokIcon />
                     </a>
-                    <a href="https://whatsapp.com/channel/0029Vb5jY2XGJP8BZUfFNS20" target="_blank" rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                    <a
+                      href="https://whatsapp.com/channel/0029Vb5jY2XGJP8BZUfFNS20"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                    >
                       <MessageCircle className="h-4 w-4" />
                     </a>
                   </div>
