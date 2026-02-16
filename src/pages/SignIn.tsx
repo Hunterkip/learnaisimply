@@ -1,11 +1,10 @@
-import { useState, ChangeEvent, FormEvent, useEffect, ReactNode } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Ripple, AuthTabs, TechOrbitDisplay } from "@/components/blocks/modern-animated-sign-in";
+import { AuthTabs } from "@/components/blocks/modern-animated-sign-in";
 import { z } from "zod";
 import { ArrowLeft } from "lucide-react";
-import { Footer } from "@/components/homepage/Footer";
 
 type FormData = {
   email: string;
@@ -13,179 +12,10 @@ type FormData = {
   password: string;
 };
 
-interface OrbitIcon {
-  component: () => ReactNode;
-
-  className: string;
-
-  duration?: number;
-
-  delay?: number;
-
-  radius?: number;
-
-  path?: boolean;
-
-  reverse?: boolean;
-}
-
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
-
   password: z.string().min(1, "Please enter your password"),
 });
-
-const iconsArray: OrbitIcon[] = [
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-        alt="HTML5"
-        className="w-[30px] h-[30px]"
-      />
-    ),
-
-    className: "size-[30px] border-none bg-transparent",
-
-    duration: 20,
-
-    delay: 20,
-
-    radius: 100,
-
-    path: false,
-
-    reverse: false,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-        alt="CSS3"
-        className="w-[30px] h-[30px]"
-      />
-    ),
-
-    className: "size-[30px] border-none bg-transparent",
-
-    duration: 20,
-
-    delay: 10,
-
-    radius: 100,
-
-    path: false,
-
-    reverse: false,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
-        alt="TypeScript"
-        className="w-[50px] h-[50px]"
-      />
-    ),
-
-    className: "size-[50px] border-none bg-transparent",
-
-    radius: 210,
-
-    duration: 20,
-
-    path: false,
-
-    reverse: false,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-        alt="JavaScript"
-        className="w-[50px] h-[50px]"
-      />
-    ),
-
-    className: "size-[50px] border-none bg-transparent",
-
-    radius: 210,
-
-    duration: 20,
-
-    delay: 20,
-
-    path: false,
-
-    reverse: false,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
-        alt="TailwindCSS"
-        className="w-[30px] h-[30px]"
-      />
-    ),
-
-    className: "size-[30px] border-none bg-transparent",
-
-    duration: 20,
-
-    delay: 20,
-
-    radius: 150,
-
-    path: false,
-
-    reverse: true,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
-        alt="React"
-        className="w-[50px] h-[50px]"
-      />
-    ),
-
-    className: "size-[50px] border-none bg-transparent",
-
-    radius: 270,
-
-    duration: 20,
-
-    path: false,
-
-    reverse: true,
-  },
-
-  {
-    component: () => (
-      <img
-        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-        alt="Git"
-        className="w-[50px] h-[50px]"
-      />
-    ),
-
-    className: "size-[50px] border-none bg-transparent",
-
-    radius: 320,
-
-    duration: 20,
-
-    delay: 20,
-
-    path: false,
-
-    reverse: false,
-  },
-];
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -439,32 +269,34 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <section className="flex-1 flex max-lg:justify-center">
-        {/* Left Side */}
-        <span className="flex flex-col justify-center w-1/2 max-lg:hidden">
-          <Ripple mainCircleSize={100} />
-          <TechOrbitDisplay iconsArray={iconsArray} />
-        </span>
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-primary">
+      {/* Animated background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)/0.15),transparent_50%)]" />
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.1),transparent_50%)]" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-accent/8 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
+      </div>
 
-        {/* Right Side */}
-        <span className="w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%] relative">
+      <section className="flex-1 flex items-center justify-center px-4 relative z-10">
+        <div className="w-full max-w-md">
           <Link
             to="/"
-            className="absolute top-6 left-6 inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm group"
+            className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm group mb-8"
           >
             <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to Home
           </Link>
-          <AuthTabs
-            formFields={formFields}
-            goTo={goToForgotPassword}
-            handleSubmit={handleSubmit}
-            googleRedirectTo={googleRedirectTo}
-          />
-        </span>
+          <div className="bg-card/90 backdrop-blur-xl rounded-2xl border border-border/50 p-8 shadow-2xl shadow-black/20">
+            <AuthTabs
+              formFields={formFields}
+              goTo={goToForgotPassword}
+              handleSubmit={handleSubmit}
+              googleRedirectTo={googleRedirectTo}
+            />
+          </div>
+        </div>
       </section>
-      <Footer />
     </div>
   );
 }

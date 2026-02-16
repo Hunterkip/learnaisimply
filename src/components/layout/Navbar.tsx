@@ -37,18 +37,17 @@ export function Navbar() {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const navLinks = [
-    { label: "Home", path: "/" },
-    { label: "AI Assessment", path: "/assessment" },
-    { label: "AI Tools", path: "/ai-tools" },
-    { label: "Enroll", path: isLoggedIn ? "/enroll" : "/sign-up" },
-    { label: "About", path: "/about" },
-  ];
-
-  if (isLoggedIn && hasAccess) {
-    navLinks.push({ label: "Dashboard", path: "/dashboard" });
-    navLinks.push({ label: "Course", path: "/course" });
-  }
+  // Only show full nav links when logged in
+  const navLinks = isLoggedIn
+    ? [
+        { label: "Home", path: "/" },
+        { label: "AI Assessment", path: "/assessment" },
+        { label: "AI Tools", path: "/ai-tools" },
+        { label: "Enroll", path: "/enroll" },
+        { label: "About", path: "/about" },
+        ...(hasAccess ? [{ label: "Dashboard", path: "/dashboard" }, { label: "Course", path: "/course" }] : []),
+      ]
+    : [];
 
   return (
     <>
@@ -74,16 +73,11 @@ export function Navbar() {
             ))}
 
             {!isLoggedIn ? (
-              <div className="flex items-center gap-2 ml-2">
-                <Link to="/log-in">
-                  <Button variant="ghost" size="sm" className="text-sm font-medium">Sign In</Button>
-                </Link>
-                <Link to="/sign-up">
-                  <Button size="sm" className="text-sm font-medium bg-accent text-accent-foreground hover:bg-accent/90">
-                    Sign Up
-                  </Button>
-                </Link>
-              </div>
+              <Link to="/log-in">
+                <Button size="sm" className="text-sm font-medium bg-accent text-accent-foreground hover:bg-accent/90 ml-2">
+                  Sign In
+                </Button>
+              </Link>
             ) : (
               <Button
                 variant="ghost"
@@ -116,12 +110,9 @@ export function Navbar() {
               </Link>
             ))}
             {!isLoggedIn ? (
-              <div className="flex flex-col gap-2 pt-2 border-t border-border mt-2">
+              <div className="pt-2 border-t border-border mt-2">
                 <Link to="/log-in" onClick={() => setMobileOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start text-sm">Sign In</Button>
-                </Link>
-                <Link to="/sign-up" onClick={() => setMobileOpen(false)}>
-                  <Button className="w-full text-sm bg-accent text-accent-foreground hover:bg-accent/90">Sign Up</Button>
+                  <Button className="w-full text-sm bg-accent text-accent-foreground hover:bg-accent/90">Sign In</Button>
                 </Link>
               </div>
             ) : (

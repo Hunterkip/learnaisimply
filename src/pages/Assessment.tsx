@@ -6,10 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/homepage/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Brain, CheckCircle2, Trophy, Sparkles, Target, User, Mail } from "lucide-react";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 interface Question {
   id: string;
@@ -230,7 +229,12 @@ export default function Assessment() {
   if (showResults) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <Navbar />
+        {/* Minimal branding only */}
+        <div className="bg-card border-b border-border px-4 py-4">
+          <div className="container mx-auto text-center">
+            <span className="text-lg font-bold text-foreground">AI Simplified</span>
+          </div>
+        </div>
         <div className="flex-1 flex items-center justify-center px-4 py-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -324,26 +328,32 @@ export default function Assessment() {
                     {questions[currentStep].options.map((option) => {
                       const isSelected = answers[questions[currentStep].id] === option.value;
                       return (
-                        <button
+                        <GlowCard
                           key={option.value}
-                          onClick={() => handleAnswer(questions[currentStep].id, option.value)}
-                          className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+                          glowColor="green"
+                          customSize
+                          className={`cursor-pointer transition-all duration-200 !p-0 !gap-0 !grid-rows-1 ${
                             isSelected
-                              ? "border-accent bg-accent/5 shadow-sm"
-                              : "border-border hover:border-accent/30 hover:bg-secondary/50"
+                              ? "!border-accent !bg-accent/5 shadow-sm"
+                              : "hover:!border-accent/30"
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                              isSelected ? "border-accent bg-accent" : "border-muted-foreground/30"
-                            }`}>
-                              {isSelected && <CheckCircle2 className="h-3 w-3 text-accent-foreground" />}
+                          <button
+                            onClick={() => handleAnswer(questions[currentStep].id, option.value)}
+                            className="w-full text-left p-4"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                                isSelected ? "border-accent bg-accent" : "border-muted-foreground/30"
+                              }`}>
+                                {isSelected && <CheckCircle2 className="h-3 w-3 text-accent-foreground" />}
+                              </div>
+                              <span className={`text-sm md:text-base ${isSelected ? "text-foreground font-medium" : "text-muted-foreground"}`}>
+                                {option.label}
+                              </span>
                             </div>
-                            <span className={`text-sm md:text-base ${isSelected ? "text-foreground font-medium" : "text-muted-foreground"}`}>
-                              {option.label}
-                            </span>
-                          </div>
-                        </button>
+                          </button>
+                        </GlowCard>
                       );
                     })}
                   </div>
