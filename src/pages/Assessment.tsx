@@ -274,14 +274,18 @@ export default function Assessment() {
             </div>
           </motion.div>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
+      {/* Minimal branding only - no navigation during assessment */}
+      <div className="bg-card border-b border-border px-4 py-4">
+        <div className="container mx-auto text-center">
+          <span className="text-lg font-bold text-foreground">AI Simplified</span>
+        </div>
+      </div>
 
       <div className="flex-1 flex flex-col">
         {/* Progress */}
@@ -433,7 +437,7 @@ export default function Assessment() {
         </div>
       </div>
 
-      <Footer />
+      
     </div>
   );
 }
