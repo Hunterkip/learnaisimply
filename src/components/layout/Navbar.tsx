@@ -1,21 +1,17 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Home, BookOpen, LayoutDashboard, LogIn, UserPlus, LogOut, Brain } from "lucide-react";
+import { Brain, Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 import { LogoutDialog } from "@/components/layout/LogoutDialog";
 
-interface NavbarProps {
-  variant?: "default" | "dark";
-  showAuth?: boolean;
-}
-
-export function Navbar({ variant = "default", showAuth = true }: NavbarProps) {
+export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -41,96 +37,104 @@ export function Navbar({ variant = "default", showAuth = true }: NavbarProps) {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const isDark = variant === "dark";
-  const bgClass = isDark ? "bg-primary text-primary-foreground" : "bg-card border-b border-border";
-  const textClass = isDark ? "text-primary-foreground" : "text-foreground";
-  const mutedClass = isDark ? "text-primary-foreground/70 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground";
-  const activeClass = isDark ? "text-primary-foreground bg-primary-foreground/10" : "text-foreground bg-accent/10";
+  const navLinks = [
+    { label: "Home", path: "/" },
+    { label: "AI Assessment", path: "/assessment" },
+    { label: "AI Tools", path: "/ai-tools" },
+    { label: "Enroll", path: isLoggedIn ? "/enroll" : "/sign-up" },
+    { label: "About", path: "/about" },
+  ];
+
+  if (isLoggedIn && hasAccess) {
+    navLinks.push({ label: "Dashboard", path: "/dashboard" });
+    navLinks.push({ label: "Course", path: "/course" });
+  }
 
   return (
     <>
-      <header className={`${bgClass} py-3 sticky top-0 z-50`}>
-        <div className="container mx-auto px-3 sm:px-4 flex items-center justify-between">
-          <Link to="/" className={`flex items-center gap-2 ${textClass} hover:opacity-80 transition-opacity`}>
-            <Brain className="h-6 w-6 sm:h-7 sm:w-7 transition-transform duration-300 hover:rotate-12" />
-            <span className="text-lg sm:text-xl font-semibold">AI Simplified</span>
+      <header className="bg-card/80 backdrop-blur-md border-b border-border py-3 sticky top-0 z-50">
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 text-foreground hover:opacity-80 transition-opacity">
+            <Brain className="h-7 w-7 text-accent" />
+            <span className="text-lg font-bold tracking-tight">LearnAISimply</span>
           </Link>
 
-          <nav className="flex items-center gap-1 sm:gap-2">
-            <Link to="/">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`group ${isActive("/") ? activeClass : mutedClass} text-xs sm:text-sm px-2 sm:px-3`}
-              >
-                <Home className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-0.5" />
-                <span className="hidden sm:inline">Home</span>
-              </Button>
-            </Link>
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link key={link.path} to={link.path}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`text-sm font-medium ${isActive(link.path) ? "text-accent bg-accent/10" : "text-muted-foreground hover:text-foreground"}`}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
 
-            {isLoggedIn && hasAccess && (
-              <>
-                <Link to="/dashboard">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`group ${isActive("/dashboard") ? activeClass : mutedClass} text-xs sm:text-sm px-2 sm:px-3`}
-                  >
-                    <LayoutDashboard className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
-                    <span className="hidden sm:inline">Dashboard</span>
-                  </Button>
-                </Link>
-                <Link to="/course">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`group ${isActive("/course") ? activeClass : mutedClass} text-xs sm:text-sm px-2 sm:px-3`}
-                  >
-                    <BookOpen className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6" />
-                    <span className="hidden sm:inline">Course</span>
-                  </Button>
-                </Link>
-              </>
-            )}
-
-            {showAuth && !isLoggedIn && (
-              <>
+            {!isLoggedIn ? (
+              <div className="flex items-center gap-2 ml-2">
                 <Link to="/log-in">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`group ${mutedClass} text-xs sm:text-sm px-2 sm:px-3`}
-                  >
-                    <LogIn className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:-translate-x-0.5" />
-                    <span className="hidden sm:inline">Log In</span>
-                  </Button>
+                  <Button variant="ghost" size="sm" className="text-sm font-medium">Sign In</Button>
                 </Link>
                 <Link to="/sign-up">
-                  <Button
-                    variant="continue"
-                    size="sm"
-                    className="group text-xs sm:text-sm px-2 sm:px-3"
-                  >
-                    <UserPlus className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
-                    <span className="hidden sm:inline">Enroll</span>
+                  <Button size="sm" className="text-sm font-medium bg-accent text-accent-foreground hover:bg-accent/90">
+                    Sign Up
                   </Button>
                 </Link>
-              </>
-            )}
-
-            {isLoggedIn && (
+              </div>
+            ) : (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowLogoutDialog(true)}
-                className={`group ${mutedClass} text-xs sm:text-sm px-2 sm:px-3`}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground ml-2"
               >
-                <LogOut className="h-4 w-4 mr-1 transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5" />
-                <span className="hidden sm:inline">Log out</span>
+                Log out
               </Button>
             )}
           </nav>
+
+          {/* Mobile menu toggle */}
+          <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {/* Mobile nav */}
+        {mobileOpen && (
+          <div className="md:hidden border-t border-border bg-card px-4 py-4 space-y-1">
+            {navLinks.map((link) => (
+              <Link key={link.path} to={link.path} onClick={() => setMobileOpen(false)}>
+                <Button
+                  variant="ghost"
+                  className={`w-full justify-start text-sm ${isActive(link.path) ? "text-accent bg-accent/10" : "text-muted-foreground"}`}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+            {!isLoggedIn ? (
+              <div className="flex flex-col gap-2 pt-2 border-t border-border mt-2">
+                <Link to="/log-in" onClick={() => setMobileOpen(false)}>
+                  <Button variant="ghost" className="w-full justify-start text-sm">Sign In</Button>
+                </Link>
+                <Link to="/sign-up" onClick={() => setMobileOpen(false)}>
+                  <Button className="w-full text-sm bg-accent text-accent-foreground hover:bg-accent/90">Sign Up</Button>
+                </Link>
+              </div>
+            ) : (
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-sm text-muted-foreground"
+                onClick={() => { setShowLogoutDialog(true); setMobileOpen(false); }}
+              >
+                Log out
+              </Button>
+            )}
+          </div>
+        )}
       </header>
 
       <LogoutDialog

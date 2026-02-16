@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ContactForm } from "./ContactForm";
 import { Brain, Facebook, MessageCircle } from "lucide-react";
 
 const TikTokIcon = () => (
@@ -10,107 +9,103 @@ const TikTokIcon = () => (
 
 const footerSections = [
   {
-    title: "Services",
+    title: "Platform",
     links: [
-      { label: "AI Training Course", href: "/sign-up" },
-      { label: "Business AI Solutions", href: "/sign-up" },
-      { label: "Team Training", href: "/sign-up" },
-      { label: "Consulting", href: "/sign-up" },
+      { label: "AI Assessment", href: "/assessment" },
+      { label: "Courses", href: "/enroll" },
+      { label: "AI Tools", href: "/ai-tools" },
+      { label: "Enrollment", href: "/sign-up" },
     ],
   },
   {
-    title: "About Us",
+    title: "Company",
     links: [
-      { label: "Our Mission", href: "/" },
-      { label: "How It Works", href: "/" },
-      { label: "Who It's For", href: "/" },
-      { label: "Pricing", href: "/" },
+      { label: "About", href: "/about" },
+      { label: "Mission", href: "/about" },
+      { label: "Contact", href: "#contact" },
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms", href: "#" },
     ],
   },
   {
-    title: "Support",
+    title: "Resources",
     links: [
+      { label: "AI Learning Guides", href: "/ai-tools" },
+      { label: "FAQs", href: "#" },
       { label: "Payment Help", href: "/payment-help" },
-      { label: "Contact Us", href: "#contact" },
-      { label: "FAQ", href: "/" },
     ],
+  },
+  {
+    title: "Connect",
+    links: [],
     socials: true,
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
-          <div className="space-y-4">
+          <div className="lg:col-span-1 space-y-4">
             <Link to="/" className="flex items-center gap-2 group">
               <Brain className="h-7 w-7 text-accent transition-transform duration-300 group-hover:rotate-12" />
-              <span className="text-xl font-bold text-background">AI Simplified</span>
+              <span className="text-xl font-bold">LearnAISimply</span>
             </Link>
-            <p className="text-background/60 text-sm leading-relaxed">
-              Practical, easy-to-follow AI training that simplifies complex concepts for everyday people and business.
+            <p className="text-primary-foreground/60 text-sm leading-relaxed">
+              Master AI confidently. Practical tools, real-world skills, zero overwhelm.
             </p>
           </div>
 
           {/* Link Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h4 className="font-semibold text-background mb-4 text-sm uppercase tracking-wider">{section.title}</h4>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      className="text-background/60 hover:text-accent text-sm transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">
+                {section.title}
+              </h4>
+              {section.links.length > 0 && (
+                <ul className="space-y-3">
+                  {section.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        className="text-primary-foreground/50 hover:text-accent text-sm transition-colors duration-200"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
               {section.socials && (
-                <div className="flex items-center gap-3 mt-4">
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
-                  >
-                    <Facebook className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@aisimplifiedlearning?is_from_webapp=1&sender_device=pc"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
-                  >
-                    <TikTokIcon />
-                  </a>
-                  <a
-                    href="https://whatsapp.com/channel/0029Vb5jY2XGJP8BZUfFNS20"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-background/10 flex items-center justify-center text-background/60 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:scale-110"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                  </a>
+                <div className="space-y-3">
+                  <p className="text-primary-foreground/50 text-sm">hello@learnaisimply.com</p>
+                  <div className="flex items-center gap-3 mt-3">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                      <Facebook className="h-4 w-4" />
+                    </a>
+                    <a href="https://www.tiktok.com/@aisimplifiedlearning" target="_blank" rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                      <TikTokIcon />
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029Vb5jY2XGJP8BZUfFNS20" target="_blank" rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center text-primary-foreground/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                      <MessageCircle className="h-4 w-4" />
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        {/* Contact Form Section */}
-        <div id="contact" className="mt-12 pt-10 border-t border-background/10">
-          <ContactForm />
-        </div>
-
-        {/* Copyright */}
-        <div className="text-center mt-10 pt-6 border-t border-background/10">
-          <p className="font-semibold text-lg text-background mb-1">AI Simplified</p>
-          <p className="text-background/50 text-sm">© {new Date().getFullYear()} All rights reserved.</p>
+        {/* Bottom */}
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10 text-center">
+          <p className="text-primary-foreground/40 text-sm">
+            © {new Date().getFullYear()} LearnAISimply. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
