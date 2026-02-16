@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,37 +6,35 @@
 
 @layer base {
   :root {
-    /* Course Platform - Calm & Professional */
-    --background: 210 20% 98%;
-    --foreground: 0 0% 17%;
+    /* Modern SaaS - Deep Navy + Electric Teal */
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 17%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 17%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Soft Navy Blue */
-    --primary: 213 50% 25%;
-    --primary-foreground: 0 0% 100%;
+    /* Deep Navy */
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
 
-    /* Warm Gray */
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 0 0% 17%;
+    /* Light Gray */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    /* Muted surfaces */
-    --muted: 220 14% 96%;
+    --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    /* Muted Teal Accent */
-    --accent: 174 51% 36%;
-    --accent-foreground: 0 0% 100%;
+    /* Electric Teal */
+    --accent: 172 66% 50%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Success/Completed state */
-    --success: 158 51% 36%;
+    --success: 158 64% 42%;
     --success-foreground: 0 0% 100%;
 
     /* Payment Brand Colors */
@@ -47,26 +45,26 @@
     --paystack: 193 100% 48%;
     --paystack-light: 193 100% 95%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 213 50% 25%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 172 66% 50%;
 
     --radius: 0.75rem;
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 17%;
-    --sidebar-primary: 213 50% 25%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 96%;
-    --sidebar-accent-foreground: 0 0% 17%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 213 50% 25%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 222 47% 11%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 172 66% 50%;
 
     /* Custom Course Variables */
-    --progress-bar: 174 51% 36%;
-    --lesson-active: 213 50% 25%;
-    --lesson-completed: 158 51% 36%;
+    --progress-bar: 172 66% 50%;
+    --lesson-active: 222 47% 11%;
+    --lesson-completed: 158 64% 42%;
   }
 }
 
@@ -79,58 +77,39 @@
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: "Poppins", system-ui, linotte;
+    @apply bg-background text-foreground;
+    font-family: "Inter", system-ui, sans-serif;
     line-height: 1.7;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
-  h1 {
-    @apply text-3xl md:text-4xl;
-  }
-
-  h2 {
-    @apply text-2xl md:text-3xl;
-  }
-
-  h3 {
-    @apply text-xl md:text-2xl;
-  }
-
-  p {
-    @apply text-base md:text-lg;
-  }
+  h1 { @apply text-3xl md:text-5xl; }
+  h2 { @apply text-2xl md:text-4xl; }
+  h3 { @apply text-xl md:text-2xl; }
+  p { @apply text-base md:text-lg; }
 }
 
 @layer components {
   .lesson-content {
     @apply max-w-none;
   }
-
   .lesson-content h2 {
     @apply text-xl font-semibold text-foreground mt-8 mb-4;
   }
-
   .lesson-content p {
     @apply mb-4;
   }
-
   .lesson-content ul {
     @apply space-y-2 my-4;
   }
-
   .lesson-content li {
     @apply pl-2;
   }
@@ -140,7 +119,6 @@
   .touch-target {
     @apply min-h-[48px] min-w-[48px];
   }
-
   .safe-padding {
     @apply px-4 md:px-6 lg:px-8;
   }

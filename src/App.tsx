@@ -16,6 +16,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
+import Assessment from "./pages/Assessment";
+import AITools from "./pages/AITools";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/ai-tools" element={<AITools />} />
+          <Route path="/about" element={<About />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/log-in" element={<SignIn />} />
           <Route path="/auth/callback" element={<AuthCallback />} />

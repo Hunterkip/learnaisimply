@@ -228,8 +228,10 @@ export type Database = {
           id: string
           name: string
           profession: string | null
+          readiness_level: string | null
           readiness_score: number | null
           repetitive_task: string | null
+          status: string
           values_certificate: boolean | null
         }
         Insert: {
@@ -241,8 +243,10 @@ export type Database = {
           id?: string
           name: string
           profession?: string | null
+          readiness_level?: string | null
           readiness_score?: number | null
           repetitive_task?: string | null
+          status?: string
           values_certificate?: boolean | null
         }
         Update: {
@@ -254,8 +258,10 @@ export type Database = {
           id?: string
           name?: string
           profession?: string | null
+          readiness_level?: string | null
           readiness_score?: number | null
           repetitive_task?: string | null
+          status?: string
           values_certificate?: boolean | null
         }
         Relationships: []
