@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/homepage/Footer";
 import { Button } from "@/components/ui/button";
+import { GlowCard } from "@/components/ui/spotlight-card";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -90,13 +91,20 @@ export default function AITools() {
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={fadeUp}
-                    className="bg-card rounded-2xl p-6 border border-border hover:border-accent/30 hover:shadow-lg transition-all duration-300 group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
-                      <tool.icon className="h-6 w-6 text-accent" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{tool.name}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{tool.desc}</p>
+                    <GlowCard
+                      glowColor={catIdx % 2 === 0 ? "blue" : "purple"}
+                      customSize
+                      className="h-full p-6 rounded-2xl"
+                    >
+                      <div className="relative z-10 flex flex-col h-full">
+                        <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                          <tool.icon className="h-6 w-6 text-accent" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-foreground mb-2">{tool.name}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{tool.desc}</p>
+                      </div>
+                    </GlowCard>
                   </motion.div>
                 ))}
               </div>
