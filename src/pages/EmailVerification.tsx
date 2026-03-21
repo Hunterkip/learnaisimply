@@ -184,14 +184,14 @@ const EmailVerification = () => {
                 type="text"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
-                placeholder="Enter 8-digit code"
+                placeholder="Enter 6-digit code"
                 className="h-12 text-base text-center tracking-widest"
-                maxLength={8}
+                maxLength={6}
                 required
                 disabled={isLoading}
               />
               <p className="text-sm text-muted-foreground">
-                Check your email inbox (and spam folder) for the verification code.
+                Check your email inbox (and spam folder) for the 6-digit verification code.
               </p>
             </div>
 
@@ -217,7 +217,7 @@ const EmailVerification = () => {
           {/* Additional Info */}
           <div className="mt-6 p-4 bg-secondary rounded-lg">
             <p className="text-xs text-muted-foreground text-center">
-              The verification code expires in 15 minutes. If you experience any issues, please try requesting a new
+              The 6-digit verification code expires in 15 minutes. If you experience any issues, please try requesting a new
               code.
             </p>
           </div>
