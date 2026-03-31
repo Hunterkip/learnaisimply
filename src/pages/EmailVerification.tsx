@@ -191,7 +191,7 @@ const EmailVerification = () => {
                 disabled={isLoading}
               />
               <p className="text-sm text-muted-foreground">
-                Check your email inbox (and spam folder) for the 6-digit verification code.
+                Check your email inbox (and spam folder) for the verification code.
               </p>
             </div>
 
