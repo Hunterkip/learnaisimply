@@ -184,9 +184,9 @@ const EmailVerification = () => {
                 type="text"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
-                placeholder="Enter 6-digit code"
+                placeholder="Enter verification code"
                 className="h-12 text-base text-center tracking-widest"
-                maxLength={6}
+                maxLength={8}
                 required
                 disabled={isLoading}
               />
