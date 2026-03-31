@@ -217,7 +217,7 @@ const EmailVerification = () => {
           {/* Additional Info */}
           <div className="mt-6 p-4 bg-secondary rounded-lg">
             <p className="text-xs text-muted-foreground text-center">
-              The 6-digit verification code expires in 15 minutes. If you experience any issues, please try requesting a new
+              The verification code expires in 15 minutes. If you experience any issues, please try requesting a new
               code.
             </p>
           </div>
