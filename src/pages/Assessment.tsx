@@ -182,6 +182,7 @@ export default function Assessment() {
               <p className="text-muted-foreground leading-relaxed">{readiness.desc}</p>
 
               <div className="space-y-3 pt-4">
+                <EasterOfferBanner variant="compact" />
                 <Button
                   size="lg"
                   className="w-full bg-accent text-accent-foreground hover:bg-accent/90 h-14 text-base"
