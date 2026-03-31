@@ -15,6 +15,7 @@ import {
 import { courseModules } from "@/data/courseData";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/homepage/Footer";
+import { EasterOfferBanner } from "@/components/EasterOfferBanner";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
