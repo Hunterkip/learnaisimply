@@ -27,24 +27,58 @@ const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isValidSession, setIsValidSession] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    // Check if user came from a valid reset link
-    const checkSession = async () => {
+    // Listen for the PASSWORD_RECOVERY event from the hash token in the URL
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "PASSWORD_RECOVERY" && session) {
+        setIsValidSession(true);
+        setIsChecking(false);
+      } else if (event === "SIGNED_IN" && session) {
+        // Some Supabase versions fire SIGNED_IN instead of PASSWORD_RECOVERY
+        // Check if URL hash contains type=recovery
+        const hash = window.location.hash;
+        if (hash.includes("type=recovery")) {
+          setIsValidSession(true);
+          setIsChecking(false);
+        }
+      }
+    });
+
+    // Also check if there's already a session (user may have already been authenticated via the link)
+    const checkExistingSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        setIsValidSession(true);
-      } else {
-        toast({
-          title: "Invalid or expired link",
-          description: "Please request a new password reset link.",
-          variant: "destructive",
-        });
-        navigate("/forgot-password");
+        // Check URL for recovery indicators
+        const hash = window.location.hash;
+        const params = new URLSearchParams(window.location.search);
+        if (hash.includes("type=recovery") || hash.includes("access_token") || params.get("type") === "recovery") {
+          setIsValidSession(true);
+        } else {
+          // User has a session but didn't come from recovery - still allow reset
+          setIsValidSession(true);
+        }
       }
+      setIsChecking(false);
     };
-    checkSession();
-  }, [navigate, toast]);
+
+    // Small delay to allow onAuthStateChange to fire first
+    setTimeout(checkExistingSession, 1000);
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!isChecking && !isValidSession) {
+      toast({
+        title: "Invalid or expired link",
+        description: "Please request a new password reset link.",
+        variant: "destructive",
+      });
+      navigate("/forgot-password");
+    }
+  }, [isChecking, isValidSession, navigate, toast]);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,6 +131,17 @@ const ResetPassword = () => {
       setIsLoading(false);
     }
   };
+
+  if (isChecking) {
+    return (
+      <div className="min-h-screen bg-secondary flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Verifying your reset link...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isValidSession) {
     return null;
