@@ -7,8 +7,9 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Brain, CheckCircle2, Trophy, Sparkles, Target, User, Mail } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Trophy, Sparkles, Target, User, Mail } from "lucide-react";
 import { GlowCard } from "@/components/ui/spotlight-card";
+import { EasterOfferBanner } from "@/components/EasterOfferBanner";
 
 interface Question {
   id: string;
