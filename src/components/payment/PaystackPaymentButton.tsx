@@ -22,7 +22,7 @@ export function PaystackPaymentButton({
   pricing,
   promoCode,
   discountPercentage = 0,
-  originalAmount = 2500
+  originalAmount = getCurrentPricing().kes
 }: PaystackPaymentButtonProps) {
   const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);

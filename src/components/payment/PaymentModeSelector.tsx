@@ -28,13 +28,12 @@ export function PaymentModeSelector({ plan = "standard", userEmail, userName }: 
     thankYouMessage: string | null;
   } | null>(null);
 
-  // Math logic for pricing
   const pricing = appliedPromo
     ? {
         usd: Math.round(appliedPromo.discountedAmount / 128.99),
         kes: appliedPromo.discountedAmount,
       }
-    : DEFAULT_PRICING[plan];
+    : DEFAULT_PRICING;
 
   useEffect(() => {
     const fetchPaymentSettings = async () => {
