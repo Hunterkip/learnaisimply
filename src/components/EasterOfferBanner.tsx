@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { isEasterOfferActive, getTimeLeft, EASTER_OFFER } from "@/lib/easterOffer";
 
 interface EasterOfferBannerProps {
   variant?: "inline" | "compact";
@@ -11,25 +12,16 @@ interface EasterOfferBannerProps {
 export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps) {
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const offerActive = isEasterOfferActive();
 
-  // Countdown to end of Easter (April 21, 2025)
   useEffect(() => {
-    const target = new Date("2025-04-21T23:59:59").getTime();
-    const interval = setInterval(() => {
-      const now = Date.now();
-      const diff = Math.max(0, target - now);
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        mins: Math.floor((diff / (1000 * 60)) % 60),
-        secs: Math.floor((diff / 1000) % 60),
-      });
-    }, 1000);
+    if (!offerActive) return;
+    const interval = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [offerActive]);
 
-  if (dismissed) return null;
+  if (dismissed || !offerActive) return null;
 
   if (variant === "compact") {
     return (
@@ -38,7 +30,6 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
         animate={{ opacity: 1, y: 0 }}
         className="relative overflow-hidden rounded-2xl border border-accent/20 bg-gradient-to-r from-primary via-primary/95 to-primary/90 p-4 md:p-6"
       >
-        {/* Rainbow top strip */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-destructive via-warning to-success" 
           style={{ backgroundSize: "400% 100%", animation: "shimmer 4s linear infinite" }} />
         
@@ -52,8 +43,8 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
             <div>
               <p className="text-xs font-semibold text-warning uppercase tracking-wider">Easter Special</p>
               <p className="text-primary-foreground font-bold">
-                <span className="line-through text-primary-foreground/40 mr-2">KES 2,500</span>
-                <span className="text-lg text-accent">KES 999</span>
+                <span className="line-through text-primary-foreground/40 mr-2">KES {EASTER_OFFER.originalPrice.toLocaleString()}</span>
+                <span className="text-lg text-accent">KES {EASTER_OFFER.offerPrice.toLocaleString()}</span>
               </p>
             </div>
           </div>
@@ -77,23 +68,24 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
       transition={{ duration: 0.5 }}
       className="relative overflow-hidden rounded-2xl border border-border bg-primary text-primary-foreground p-6 md:p-10"
     >
-      {/* Rainbow top strip */}
       <div className="absolute top-0 left-0 right-0 h-[5px] bg-gradient-to-r from-destructive via-warning to-success"
         style={{ backgroundSize: "400% 100%", animation: "shimmer 4s linear infinite" }} />
 
-      {/* Gradient orbs */}
       <div className="absolute -top-20 -right-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-info/10 rounded-full blur-3xl" />
 
-      {/* Dot pattern */}
       <div className="absolute inset-0 opacity-5"
         style={{ backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
 
       <div className="relative z-10 text-center space-y-6">
-        {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-warning/30 bg-warning/10">
           <div className="w-2 h-2 rounded-full bg-warning animate-pulse" />
           <span className="text-xs font-semibold text-warning uppercase tracking-wider">🐣 Easter Holiday Special</span>
+        </div>
+
+        {/* Poster image */}
+        <div className="mx-auto max-w-[200px]">
+          <img src="/images/easter-offer.png" alt="Easter Holiday Special" className="w-full rounded-xl shadow-xl" />
         </div>
 
         <h2 className="text-2xl md:text-4xl font-extrabold leading-tight">
@@ -105,16 +97,15 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
           This Easter, unlock full access to our AI courses at an unbeatable price. No prior tech experience needed.
         </p>
 
-        {/* Price card */}
         <div className="flex items-center justify-center gap-6 md:gap-10 bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl p-6 max-w-md mx-auto">
           <div className="text-left">
             <p className="text-xs uppercase tracking-wider text-primary-foreground/40">Regular price</p>
-            <p className="text-2xl md:text-3xl font-bold text-primary-foreground/30 line-through decoration-destructive/70 decoration-2">KES 2,500</p>
+            <p className="text-2xl md:text-3xl font-bold text-primary-foreground/30 line-through decoration-destructive/70 decoration-2">KES {EASTER_OFFER.originalPrice.toLocaleString()}</p>
           </div>
           <span className="text-2xl text-primary-foreground/20">→</span>
           <div className="text-right">
             <p className="text-xs uppercase tracking-wider text-success">Easter price</p>
-            <p className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">KES 999</p>
+            <p className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">KES {EASTER_OFFER.offerPrice.toLocaleString()}</p>
           </div>
         </div>
 
@@ -141,7 +132,6 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
           </div>
         </div>
 
-        {/* CTA */}
         <Button
           size="lg"
           variant="continue"
@@ -150,7 +140,7 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
             <Sparkles className="h-5 w-5" />
-            Claim Your Easter Offer → KES 999
+            Claim Your Easter Offer → KES {EASTER_OFFER.offerPrice.toLocaleString()}
           </span>
         </Button>
 

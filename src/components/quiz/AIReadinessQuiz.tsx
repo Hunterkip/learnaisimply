@@ -295,9 +295,9 @@ export function AIReadinessQuiz({ isOpen, onClose }: QuizProps) {
             >
               <Sparkles className="h-5 w-5 text-accent mx-auto mb-2" />
               <p className="text-sm font-semibold text-foreground">Limited-Time Offer</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Enroll now and start your AI journey for just <strong className="text-primary">KES 2,500</strong> — one-time, lifetime access.
-              </p>
+               <p className="text-xs text-muted-foreground mt-1">
+                 Enroll now and start your AI journey — one-time, lifetime access.
+               </p>
             </motion.div>
             <div className="flex flex-col gap-3">
               <Link to="/sign-up" onClick={onClose}>

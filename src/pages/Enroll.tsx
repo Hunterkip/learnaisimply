@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, Sparkles, Brain, Zap } from "lucide-react";
+import { Check, BookOpen, Code2, Clock, Video, Lightbulb, Lock, Sparkles, Brain, Zap, Gift } from "lucide-react";
+import { isEasterOfferActive, getCurrentPricing, getTimeLeft, EASTER_OFFER } from "@/lib/easterOffer";
 import { PaymentModeSelector } from "@/components/payment/PaymentModeSelector";
 import { PaystackVerificationDialog } from "@/components/payment/PaystackVerificationDialog";
 import { useToast } from "@/hooks/use-toast";
@@ -68,6 +69,121 @@ const typingTexts = [
   "Plan your day smarter...",
   "Create content effortlessly...",
 ];
+
+function EasterOfferPricingSection() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0, expired: false });
+  const offerActive = isEasterOfferActive();
+
+  useEffect(() => {
+    if (!offerActive) return;
+    const interval = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+    setTimeLeft(getTimeLeft());
+    return () => clearInterval(interval);
+  }, [offerActive]);
+
+  if (!offerActive) {
+    return (
+      <section className="bg-background py-8 sm:py-10 md:py-12 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-sm sm:max-w-md mx-auto">
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 text-center">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">Full Course Access</h2>
+              <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
+              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">KES 2,500</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative overflow-hidden border-b border-border">
+      {/* Dark background matching poster */}
+      <div className="bg-[hsl(230,60%,10%)] py-10 sm:py-14 md:py-20 relative">
+        {/* Gradient orbs */}
+        <div className="absolute -top-20 -right-20 w-80 h-80 bg-[hsl(239,84%,67%)]/20 rounded-full blur-[90px]" />
+        <div className="absolute bottom-20 -left-20 w-72 h-72 bg-[hsl(187,92%,69%)]/15 rounded-full blur-[90px]" />
+        <div className="absolute top-1/2 right-10 w-64 h-64 bg-[hsl(38,92%,50%)]/10 rounded-full blur-[90px]" />
+
+        {/* Dot pattern */}
+        <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+
+        {/* Rainbow top strip */}
+        <div className="absolute top-0 left-0 right-0 h-[5px] bg-gradient-to-r from-destructive via-warning to-success" style={{ backgroundSize: "400% 100%", animation: "shimmer 4s linear infinite" }} />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-2xl mx-auto text-center space-y-6">
+            {/* Easter badge */}
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-warning/30 bg-warning/10">
+              <div className="w-2 h-2 rounded-full bg-warning animate-pulse" />
+              <span className="text-xs font-semibold text-warning uppercase tracking-wider">🐣 Easter Holiday Special</span>
+            </div>
+
+            {/* Poster image */}
+            <div className="mx-auto max-w-xs">
+              <img src="/images/easter-offer.png" alt="Easter Holiday Special - KES 999" className="w-full rounded-2xl shadow-2xl" />
+            </div>
+
+            {/* Price card */}
+            <div className="flex items-center justify-center gap-6 md:gap-10 bg-white/[0.04] border border-white/10 rounded-2xl p-6 max-w-md mx-auto">
+              <div className="text-left">
+                <p className="text-xs uppercase tracking-wider text-white/40">Regular price</p>
+                <p className="text-2xl md:text-3xl font-bold text-white/30 line-through decoration-destructive/70 decoration-2">KES 2,500</p>
+              </div>
+              <span className="text-2xl text-white/20">→</span>
+              <div className="text-right">
+                <p className="text-xs uppercase tracking-wider text-success">Easter price</p>
+                <p className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">KES 999</p>
+              </div>
+            </div>
+
+            {/* Countdown */}
+            <div>
+              <p className="text-xs uppercase tracking-wider text-white/40 mb-3">⏳ Offer expires when Easter ends</p>
+              <div className="flex justify-center gap-3">
+                {[
+                  { val: timeLeft.days, label: "Days" },
+                  { val: timeLeft.hours, label: "Hours" },
+                  { val: timeLeft.mins, label: "Mins" },
+                  { val: timeLeft.secs, label: "Secs" },
+                ].map((item, i) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <div className="text-center">
+                      <div className="w-14 h-12 md:w-16 md:h-14 flex items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-xl md:text-2xl font-extrabold text-white">
+                        {String(item.val).padStart(2, "0")}
+                      </div>
+                      <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">{item.label}</p>
+                    </div>
+                    {i < 3 && <span className="text-xl font-bold text-white/20 -mt-4">:</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Features grid */}
+            <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+              {[
+                { icon: "🧠", title: "Beginner-friendly", sub: "No tech background needed" },
+                { icon: "📱", title: "Learn anywhere", sub: "Mobile & desktop" },
+                { icon: "🎓", title: "Certificate included", sub: "Shareable on LinkedIn" },
+                { icon: "⚡", title: "Lifetime access", sub: "Learn at your pace" },
+              ].map((f) => (
+                <div key={f.title} className="flex items-center gap-3 bg-white/[0.03] border border-white/[0.07] rounded-xl p-3">
+                  <span className="text-lg">{f.icon}</span>
+                  <div className="text-left">
+                    <p className="text-xs font-semibold text-white/90">{f.title}</p>
+                    <p className="text-[10px] text-white/40">{f.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const Enroll = () => {
   const navigate = useNavigate();
@@ -447,20 +563,8 @@ const Enroll = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="bg-background py-8 sm:py-10 md:py-12 border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-sm sm:max-w-md mx-auto">
-            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 text-center">
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">Full Course Access</h2>
-              <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">
-                <strong>KES 2,500</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section with Easter Offer */}
+      <EasterOfferPricingSection />
 
       {/* Trust Section */}
       <section className="bg-secondary py-10 sm:py-14 md:py-20">
