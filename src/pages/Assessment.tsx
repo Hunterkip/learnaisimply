@@ -43,6 +43,17 @@ const questions: Question[] = [
   },
   {
     id: "q3",
+    category: "Learning Confidence",
+    question: "How confident are you in learning new digital tools on your own?",
+    options: [
+      { label: "Not confident at all — I usually need someone to guide me", value: 1 },
+      { label: "Somewhat confident — I can follow tutorials step by step", value: 2 },
+      { label: "Fairly confident — I pick up new apps pretty quickly", value: 3 },
+      { label: "Very confident — I love exploring and figuring things out", value: 4 },
+    ],
+  },
+  {
+    id: "q4",
     category: "Learning Readiness",
     question: "What's your main goal for learning AI?",
     options: [
