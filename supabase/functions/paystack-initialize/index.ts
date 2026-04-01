@@ -6,8 +6,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Easter offer: KES 999 until April 21, 2026; then KES 2500
-const OFFER_END = new Date("2026-04-21T23:59:59").getTime();
+// Easter offer: KES 999 until April 08, 2026; then KES 2500
+const OFFER_END = new Date("2026-04-08T23:59:59").getTime();
 function getCurrentPrice(): number {
   return Date.now() < OFFER_END ? 999 : 2500;
 }
