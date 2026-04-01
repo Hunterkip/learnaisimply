@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Loader2, Lock, CreditCard, Gift } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { getCurrentPricing } from "@/lib/easterOffer";
 import { useToast } from "@/hooks/use-toast";
 
 interface PaystackPaymentButtonProps {
