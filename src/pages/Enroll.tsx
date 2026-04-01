@@ -448,20 +448,8 @@ const Enroll = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="bg-background py-8 sm:py-10 md:py-12 border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-sm sm:max-w-md mx-auto">
-            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 text-center">
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1 sm:mb-2">Full Course Access</h2>
-              <p className="text-muted-foreground text-sm mb-3 sm:mb-4">One-time payment • Lifetime access</p>
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-1">
-                <strong>KES 2,500</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section with Easter Offer */}
+      <EasterOfferPricingSection />
 
       {/* Trust Section */}
       <section className="bg-secondary py-10 sm:py-14 md:py-20">
