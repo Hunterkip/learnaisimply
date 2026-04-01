@@ -87,7 +87,7 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.7 }}
             className="text-sm text-primary-foreground/40"
           >
-            Takes less than 3 minutes • 10 questions • Free
+            Takes less than 2 minutes • 4 questions • Free
           </motion.p>
 
           {/* Returning user link */}
