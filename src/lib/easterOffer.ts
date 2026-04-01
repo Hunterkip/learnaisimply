@@ -1,6 +1,6 @@
 // Easter Holiday Offer Configuration
 // Offer runs for 4 days and auto-expires
-const OFFER_END = new Date("2026-04-21T23:59:59").getTime();
+const OFFER_END = new Date("2026-04-08T23:59:59").getTime();
 
 export const EASTER_OFFER = {
   enabled: true,
