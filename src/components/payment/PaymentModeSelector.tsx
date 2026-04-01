@@ -5,6 +5,7 @@ import { PaystackPaymentButton } from "./PaystackPaymentButton";
 import { PromoCodeInput } from "./PromoCodeInput";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { getCurrentPricing } from "@/lib/easterOffer";
 
 interface PaymentModeSelectorProps {
   plan?: "standard";
@@ -12,9 +13,7 @@ interface PaymentModeSelectorProps {
   userName?: string;
 }
 
-const DEFAULT_PRICING = {
-  standard: { usd: 19.38, kes: 2500 },
-};
+const DEFAULT_PRICING = getCurrentPricing();
 
 export function PaymentModeSelector({ plan = "standard", userEmail, userName }: PaymentModeSelectorProps) {
   const navigate = useNavigate();
