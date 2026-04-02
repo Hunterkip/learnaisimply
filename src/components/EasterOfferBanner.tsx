@@ -41,7 +41,7 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
           <div className="flex items-center gap-2">
             <span className="text-2xl">🐣</span>
             <div>
-              <p className="text-xs font-semibold text-warning uppercase tracking-wider">Easter Special</p>
+              <p className="text-xs font-semibold text-primary-foreground uppercase tracking-wider">Easter Special</p>
               <p className="text-primary-foreground font-bold">
                 <span className="line-through text-primary-foreground/40 mr-2">KES {EASTER_OFFER.originalPrice.toLocaleString()}</span>
                 <span className="text-lg text-accent">KES {EASTER_OFFER.offerPrice.toLocaleString()}</span>
@@ -78,9 +78,9 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
         style={{ backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
 
       <div className="relative z-10 text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-warning/30 bg-warning/10">
-          <div className="w-2 h-2 rounded-full bg-warning animate-pulse" />
-          <span className="text-xs font-semibold text-warning uppercase tracking-wider">🐣 Easter Holiday Special</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10">
+          <div className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
+          <span className="text-xs font-semibold text-primary-foreground uppercase tracking-wider">🐣 Easter Holiday Special</span>
         </div>
 
         {/* Poster image */}

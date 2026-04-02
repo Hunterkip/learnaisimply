@@ -115,11 +115,9 @@ function EasterOfferPricingSection() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             {/* Easter badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-warning/30 bg-warning/10">
-               {/* Easter badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/30 bg-white/10">
-              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              <span className="text-xs font-semibold text-white uppercase tracking-wider">🐣 Easter Holiday Special</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10">
+              <div className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
+              <span className="text-xs font-semibold text-primary-foreground uppercase tracking-wider">🐣 Easter Holiday Special</span>
             </div>
 
             {/* Poster image */}

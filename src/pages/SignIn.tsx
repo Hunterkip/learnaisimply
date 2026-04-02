@@ -295,6 +295,12 @@ export default function SignIn() {
               googleRedirectTo={googleRedirectTo}
             />
           </div>
+          <p className="text-center mt-5 text-primary-foreground/60 text-sm">
+            Don't have an account?{" "}
+            <Link to="/sign-up" className="text-accent font-medium hover:underline">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </section>
     </div>
