@@ -174,38 +174,44 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose} />
+      {/* Backdrop - dark primary background */}
+      <div className="absolute inset-0 bg-primary/95 backdrop-blur-md" onClick={handleClose}>
+        {/* Animated background orbs */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,hsl(var(--accent)/0.15),transparent_50%)]" />
+        <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.1),transparent_50%)]" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-accent/8 rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
+      </div>
 
       {/* Modal */}
-      <GlowCard glowColor="purple" customSize className="relative w-full h-full max-w-lg max-h-[calc(100vh-6rem)] mx-4">
-        <div className="relative bg-card rounded-2xl shadow-lg border border-border h-full flex flex-col justify-center overflow-y-auto max-h-[calc(100vh-4rem)]">
+      <div className="relative w-full max-w-md mx-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="relative bg-card/90 backdrop-blur-xl rounded-2xl border border-border/30 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] overflow-hidden">
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-accent/10 transition-colors z-10"
+            className="absolute top-3 right-3 p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors z-10"
             aria-label="Close modal"
           >
-            <X className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+            <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
           </button>
 
           {/* Content */}
-          <div className="p-6 md:p-8 flex flex-col justify-center">
+          <div className="p-6 md:p-7">
             {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">Create Account</h1>
-              <p className="text-muted-foreground text-base">
-                Learn at your own pace. No technical background required.
+            <div className="text-center mb-5">
+              <h1 className="text-xl md:text-2xl font-semibold text-foreground mb-1">Create Account</h1>
+              <p className="text-muted-foreground text-sm">
+                No technical background required.
               </p>
             </div>
 
-            {/* Google Sign Up Button */}
-            <GoogleAuthButton mode="signup" className="mb-4" />
+            {/* Google Sign Up Button - 3D */}
+            <GoogleAuthButton mode="signup" className="mb-3 [&>button]:shadow-[0_4px_0_0_hsl(var(--border)),0_6px_12px_-2px_rgba(0,0,0,0.15)] [&>button]:active:shadow-[0_1px_0_0_hsl(var(--border))] [&>button]:active:translate-y-[3px] [&>button]:transition-all" />
 
             {/* Divider */}
-            <div className="relative my-6">
+            <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
+                <span className="w-full border-t border-border/50" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
@@ -213,11 +219,11 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSignUp} className="space-y-5">
+            <form onSubmit={handleSignUp} className="space-y-3">
               {/* Name Fields */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-foreground text-base">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="firstName" className="text-foreground text-sm">
                     First Name
                   </Label>
                   <Input
@@ -225,14 +231,14 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="xxxx"
-                    className="h-12 text-base"
+                    placeholder="John"
+                    className="h-10 text-sm shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                     required
                     disabled={isLoading}
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-foreground text-base">
+                <div className="space-y-1">
+                  <Label htmlFor="lastName" className="text-foreground text-sm">
                     Last Name
                   </Label>
                   <Input
@@ -240,16 +246,16 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    placeholder="xxxx"
-                    className="h-12 text-base"
+                    placeholder="Doe"
+                    className="h-10 text-sm shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                     required
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-foreground text-base">
+              <div className="space-y-1">
+                <Label htmlFor="email" className="text-foreground text-sm">
                   Email address
                 </Label>
                 <Input
@@ -258,14 +264,14 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="h-12 text-base"
+                  className="h-10 text-sm shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                   required
                   disabled={isLoading}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-foreground text-base">
+              <div className="space-y-1">
+                <Label htmlFor="password" className="text-foreground text-sm">
                   Create a password
                 </Label>
                 <div className="relative">
@@ -275,7 +281,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="h-12 text-base pr-10"
+                    className="h-10 text-sm pr-10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                     required
                     disabled={isLoading}
                   />
@@ -284,14 +290,14 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
-                <p className="text-sm text-muted-foreground">At least 6 characters</p>
+                <p className="text-xs text-muted-foreground">At least 6 characters</p>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-foreground text-base">
+              <div className="space-y-1">
+                <Label htmlFor="confirmPassword" className="text-foreground text-sm">
                   Confirm password
                 </Label>
                 <div className="relative">
@@ -301,7 +307,7 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="h-12 text-base pr-10"
+                    className="h-10 text-sm pr-10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                     required
                     disabled={isLoading}
                   />
@@ -310,27 +316,25 @@ export function SignUpModal({ isOpen, onClose, onSuccess }: SignUpModalProps) {
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-auto h-14 text-lg font-medium" disabled={isLoading}>
+              <Button type="submit" className="w-full h-11 text-sm font-medium shadow-[0_4px_0_0_hsl(var(--primary)/0.3),0_6px_12px_-2px_rgba(0,0,0,0.2)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[3px] transition-all" disabled={isLoading}>
                 {isLoading ? "Creating account..." : "Create My Account"}
               </Button>
             </form>
 
             {/* Reassurance */}
-            <div className="mt-6 pt-6 border-t border-border">
-              <p className="text-center text-sm text-muted-foreground">
-                You won't be charged at this stage.
-                <br />
-                You'll only pay when you choose to start the course.
+            <div className="mt-4 pt-3 border-t border-border/30">
+              <p className="text-center text-xs text-muted-foreground">
+                You won't be charged at this stage. Pay only when you start the course.
               </p>
             </div>
           </div>
         </div>
-      </GlowCard>
+      </div>
     </div>
   );
 }
