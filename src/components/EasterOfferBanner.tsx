@@ -41,7 +41,7 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
           <div className="flex items-center gap-2">
             <span className="text-2xl">🐣</span>
             <div>
-              <p className="text-xs font-semibold text-warning uppercase tracking-wider">Easter Special</p>
+              <p className="text-xs font-semibold text-primary-foreground uppercase tracking-wider">Easter Special</p>
               <p className="text-primary-foreground font-bold">
                 <span className="line-through text-primary-foreground/40 mr-2">KES {EASTER_OFFER.originalPrice.toLocaleString()}</span>
                 <span className="text-lg text-accent">KES {EASTER_OFFER.offerPrice.toLocaleString()}</span>
