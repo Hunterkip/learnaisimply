@@ -93,10 +93,10 @@ const Login = () => {
             Back to Home
           </Link>
 
-          <div className="bg-card/90 backdrop-blur-xl rounded-2xl border border-border/50 p-8 shadow-2xl shadow-black/20">
+          <div className="bg-card/90 backdrop-blur-xl rounded-2xl border border-border/30 p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)]">
             {/* Header */}
-            <div className="text-center mb-6">
-              <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
+            <div className="text-center mb-5">
+              <h1 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
                 Welcome Back
               </h1>
               <p className="text-muted-foreground text-sm">
@@ -104,13 +104,13 @@ const Login = () => {
               </p>
             </div>
 
-            {/* Google Sign In */}
-            <GoogleAuthButton mode="signin" className="mb-4" />
+            {/* Google Sign In - 3D */}
+            <GoogleAuthButton mode="signin" className="mb-3 [&>button]:shadow-[0_4px_0_0_hsl(var(--border)),0_6px_12px_-2px_rgba(0,0,0,0.15)] [&>button]:active:shadow-[0_1px_0_0_hsl(var(--border))] [&>button]:active:translate-y-[3px] [&>button]:transition-all" />
 
             {/* Divider */}
-            <div className="relative my-6">
+            <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
+                <span className="w-full border-t border-border/50" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
@@ -118,8 +118,8 @@ const Login = () => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleLogin} className="space-y-5">
-              <div className="space-y-2">
+            <form onSubmit={handleLogin} className="space-y-3">
+              <div className="space-y-1">
                 <Label htmlFor="email" className="text-foreground text-sm">Email address</Label>
                 <Input
                   id="email"
@@ -127,13 +127,13 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="h-12"
+                  className="h-10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                   required
                   disabled={isLoading}
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password" className="text-foreground text-sm">Password</Label>
                   <Link to="/forgot-password" className="text-xs text-accent hover:underline">Forgot password?</Link>
@@ -144,13 +144,13 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-12"
+                  className="h-10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_1px_0_hsl(var(--border))] border-border/50 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_0_0_3px_hsl(var(--accent)/0.2)] transition-shadow"
                   required
                   disabled={isLoading}
                 />
               </div>
 
-              <Button type="submit" className="w-full h-14 text-base font-medium" disabled={isLoading}>
+              <Button type="submit" className="w-full h-11 text-sm font-medium shadow-[0_4px_0_0_hsl(var(--primary)/0.3),0_6px_12px_-2px_rgba(0,0,0,0.2)] active:shadow-[0_1px_0_0_hsl(var(--primary)/0.3)] active:translate-y-[3px] transition-all" disabled={isLoading}>
                 {isLoading ? "Logging in..." : "Log In"}
               </Button>
             </form>
