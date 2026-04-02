@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Eye, EyeOff, X } from "lucide-react";
-import { GlowCard } from "@/components/ui/spotlight-card";
+
 import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 const signUpSchema = z
