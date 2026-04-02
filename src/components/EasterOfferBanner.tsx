@@ -78,9 +78,9 @@ export function EasterOfferBanner({ variant = "inline" }: EasterOfferBannerProps
         style={{ backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
 
       <div className="relative z-10 text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-warning/30 bg-warning/10">
-          <div className="w-2 h-2 rounded-full bg-warning animate-pulse" />
-          <span className="text-xs font-semibold text-warning uppercase tracking-wider">🐣 Easter Holiday Special</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10">
+          <div className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
+          <span className="text-xs font-semibold text-primary-foreground uppercase tracking-wider">🐣 Easter Holiday Special</span>
         </div>
 
         {/* Poster image */}
