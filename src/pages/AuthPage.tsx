@@ -36,8 +36,11 @@ const typoSuggestions: Record<string, string> = {
 export default function AuthPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
-  const initialTab = searchParams.get("tab") === "signup" ? "signup" : "signin";
+  const isSignUpRoute = location.pathname === "/sign-up";
+  const tabFromParam = searchParams.get("tab");
+  const initialTab = tabFromParam === "signin" ? "signin" : tabFromParam === "signup" || isSignUpRoute ? "signup" : "signin";
   const [activeTab, setActiveTab] = useState<"signin" | "signup">(initialTab);
 
   // Sign in state
