@@ -4,8 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import AuthPage from "./pages/AuthPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import EmailVerification from "./pages/EmailVerification";
@@ -33,8 +32,8 @@ const App = () => (
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/ai-tools" element={<AITools />} />
           <Route path="/about" element={<About />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/log-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<AuthPage />} />
+          <Route path="/log-in" element={<AuthPage />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
