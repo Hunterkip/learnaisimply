@@ -32,8 +32,8 @@ const App = () => (
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/ai-tools" element={<AITools />} />
           <Route path="/about" element={<About />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/log-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<AuthPage />} />
+          <Route path="/log-in" element={<AuthPage />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
