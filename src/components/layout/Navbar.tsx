@@ -12,6 +12,13 @@ export function Navbar() {
   const [hasAccess, setHasAccess] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -37,7 +44,6 @@ export function Navbar() {
 
   const isActive = (path: string) => location.pathname === path;
 
-  // Only show full nav links when logged in
   const navLinks = isLoggedIn
     ? [
         { label: "Home", path: "/" },
@@ -51,10 +57,16 @@ export function Navbar() {
 
   return (
     <>
-      <header className="bg-card/80 backdrop-blur-md border-b border-border py-3 sticky top-0 z-50">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-foreground hover:opacity-80 transition-opacity">
-            <Brain className="h-7 w-7 text-accent" />
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-card/90 backdrop-blur-xl shadow-sm border-b border-border/50"
+          : "bg-card/60 backdrop-blur-md border-b border-transparent"
+      }`}>
+        <div className="container mx-auto px-4 flex items-center justify-between h-16">
+          <Link to="/" className="flex items-center gap-2.5 text-foreground hover:opacity-80 transition-opacity group">
+            <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <Brain className="h-5 w-5 text-accent" />
+            </div>
             <span className="text-lg font-bold tracking-tight">LearnAISimply</span>
           </Link>
 
@@ -65,7 +77,11 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`text-sm font-medium ${isActive(link.path) ? "text-accent bg-accent/10" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`text-sm font-medium rounded-lg transition-all duration-200 ${
+                    isActive(link.path)
+                      ? "text-accent bg-accent/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
                 >
                   {link.label}
                 </Button>
@@ -74,7 +90,7 @@ export function Navbar() {
 
             {!isLoggedIn ? (
               <Link to="/log-in">
-                <Button size="sm" className="text-sm font-medium bg-accent text-accent-foreground hover:bg-accent/90 ml-2">
+                <Button size="sm" className="text-sm font-semibold bg-accent text-accent-foreground hover:bg-accent/90 ml-3 shadow-sm shadow-accent/20 rounded-lg">
                   Sign In
                 </Button>
               </Link>
@@ -91,28 +107,28 @@ export function Navbar() {
           </nav>
 
           {/* Mobile menu toggle */}
-          <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button className="md:hidden p-2 rounded-lg hover:bg-muted/50 transition-colors" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
 
         {/* Mobile nav */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-border bg-card px-4 py-4 space-y-1">
+          <div className="md:hidden border-t border-border/50 bg-card/95 backdrop-blur-xl px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <Link key={link.path} to={link.path} onClick={() => setMobileOpen(false)}>
                 <Button
                   variant="ghost"
-                  className={`w-full justify-start text-sm ${isActive(link.path) ? "text-accent bg-accent/10" : "text-muted-foreground"}`}
+                  className={`w-full justify-start text-sm rounded-lg ${isActive(link.path) ? "text-accent bg-accent/10" : "text-muted-foreground"}`}
                 >
                   {link.label}
                 </Button>
               </Link>
             ))}
             {!isLoggedIn ? (
-              <div className="pt-2 border-t border-border mt-2">
+              <div className="pt-3 border-t border-border/50 mt-3">
                 <Link to="/log-in" onClick={() => setMobileOpen(false)}>
-                  <Button className="w-full text-sm bg-accent text-accent-foreground hover:bg-accent/90">Sign In</Button>
+                  <Button className="w-full text-sm bg-accent text-accent-foreground hover:bg-accent/90 shadow-sm">Sign In</Button>
                 </Link>
               </div>
             ) : (

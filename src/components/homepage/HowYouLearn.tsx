@@ -1,58 +1,83 @@
 import { Video, Headphones, FileText, Infinity } from "lucide-react";
+import { motion } from "framer-motion";
 
 const formats = [
   {
     icon: Video,
     title: "Pre-recorded video lessons",
-    description: "Watch at your convenience"
+    description: "Watch at your convenience, pause and replay anytime",
+    number: "01"
   },
   {
     icon: Headphones,
     title: "Audio versions",
-    description: "Listen while you commute or relax"
+    description: "Listen while you commute, walk, or relax",
+    number: "02"
   },
   {
     icon: FileText,
-    title: "Written notes",
-    description: "Read and reference anytime"
+    title: "Written notes & guides",
+    description: "Reference material you can revisit anytime",
+    number: "03"
   },
   {
     icon: Infinity,
     title: "Lifetime access",
-    description: "Learn at your own pace, forever"
+    description: "Learn at your pace — your course never expires",
+    number: "04"
   }
 ];
 
 export function HowYouLearn() {
   return (
-    <section className="bg-secondary py-16 md:py-24">
+    <section className="relative bg-background py-20 md:py-28 premium-section">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-4">
-            How You Will Learn
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 text-lg">
-            Learn in the way that suits you best.
-          </p>
-          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-14"
+          >
+            <span className="premium-badge mb-6 inline-flex">Flexible Learning</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mt-4 mb-4">
+              Learn Your Way
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Multiple formats so you can learn in the way that suits you best.
+            </p>
+          </motion.div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {formats.map((format, index) => (
-              <div 
+              <motion.div
                 key={index}
-                className="flex items-start gap-5 bg-background rounded-xl p-6 shadow-sm"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="premium-card group"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                  <format.icon className="h-6 w-6 text-accent" />
+                <div className="flex items-start gap-5">
+                  <div className="relative">
+                    <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center transition-all duration-300 group-hover:bg-accent/20 group-hover:scale-110">
+                      <format.icon className="h-7 w-7 text-accent" />
+                    </div>
+                    <span className="absolute -top-2 -right-2 text-[10px] font-bold text-accent bg-accent/10 rounded-full w-6 h-6 flex items-center justify-center">
+                      {format.number}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-foreground font-bold text-base mb-1.5">
+                      {format.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {format.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-foreground font-semibold text-lg mb-1">
-                    {format.title}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {format.description}
-                  </p>
-                </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

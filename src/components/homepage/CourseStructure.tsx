@@ -1,42 +1,62 @@
+import { motion } from "framer-motion";
+
 const modules = [
-  { number: 0, title: "Welcome & Orientation" },
-  { number: 1, title: "Understanding AI" },
-  { number: 2, title: "Prompting & Iteration" },
-  { number: 3, title: "Communication with AI" },
-  { number: 4, title: "Planning & Research" },
-  { number: 5, title: "AI for Everyday Life" },
-  { number: 6, title: "Creative AI" },
-  { number: 7, title: "Wellbeing & Ethics" },
-  { number: 8, title: "Course Wrap-Up" }
+  { number: 0, title: "Welcome & Orientation", lessons: 3 },
+  { number: 1, title: "Understanding AI", lessons: 4 },
+  { number: 2, title: "Prompting & Iteration", lessons: 5 },
+  { number: 3, title: "Communication with AI", lessons: 4 },
+  { number: 4, title: "Planning & Research", lessons: 4 },
+  { number: 5, title: "AI for Everyday Life", lessons: 4 },
+  { number: 6, title: "Creative AI", lessons: 3 },
+  { number: 7, title: "Wellbeing & Ethics", lessons: 3 },
+  { number: 8, title: "Course Wrap-Up", lessons: 2 },
 ];
 
 export function CourseStructure() {
   return (
-    <section className="bg-background py-16 md:py-24">
+    <section className="relative bg-secondary py-20 md:py-28 premium-section">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-4">
-            How the Course Is Structured
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 text-lg">
-            Short lessons. Clear explanations. No pressure.
-          </p>
-          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-14"
+          >
+            <span className="premium-badge mb-6 inline-flex">9 Modules</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mt-4 mb-4">
+              A Clear Path from Beginner to Confident
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Short lessons. Clear explanations. Zero pressure.
+            </p>
+          </motion.div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {modules.map((module, index) => (
-              <div 
+              <motion.div
                 key={index}
-                className="bg-secondary rounded-xl p-5 border border-border/50 hover:border-accent/30 transition-colors"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                className="premium-card group"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground group-hover:scale-110">
                     {module.number}
                   </div>
-                  <span className="text-foreground font-medium">
-                    {module.title}
-                  </span>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-foreground font-semibold text-sm block">
+                      {module.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {module.lessons} lessons
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
