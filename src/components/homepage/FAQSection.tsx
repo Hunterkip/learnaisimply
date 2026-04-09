@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
 
 const faqs = [
   {
@@ -19,7 +20,7 @@ const faqs = [
     answer: "Absolutely. You have lifetime access to all lessons. Watch them whenever suits you — morning, evening, or weekends. There's no rush."
   },
   {
-    question: "Is this course suitable if I've never used AI?",
+    question: "Is this suitable if I've never used AI?",
     answer: "Yes, this is exactly who the course is for. We start from the very beginning and build your understanding gradually. No prior AI experience is expected or required."
   },
   {
@@ -38,27 +39,43 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section className="bg-secondary py-16 md:py-24">
+    <section className="relative bg-secondary py-20 md:py-28 premium-section">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-12">
-            Frequently Asked Questions
-          </h2>
-          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-14"
+          >
+            <span className="premium-badge mb-6 inline-flex">FAQ</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mt-4">
+              Questions? We've Got Answers.
+            </h2>
+          </motion.div>
+
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="bg-background rounded-xl px-6 border border-border/50"
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                <AccordionTrigger className="text-left text-foreground font-medium text-lg hover:no-underline py-5">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base pb-5 leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="premium-card px-6 border-border/30 data-[state=open]:border-accent/20"
+                >
+                  <AccordionTrigger className="text-left text-foreground font-semibold text-base hover:no-underline py-5 hover:text-accent transition-colors">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base pb-5 leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </div>
