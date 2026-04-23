@@ -11,6 +11,8 @@ import { PaystackVerificationDialog } from "@/components/payment/PaystackVerific
 import { useToast } from "@/hooks/use-toast";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/homepage/Footer";
+import { OrderBumps, getBumpTotal } from "@/components/payment/OrderBumps";
+import { Testimonials } from "@/components/homepage/Testimonials";
 
 const included = [
   "Full course access (all 9 modules)",
@@ -200,6 +202,16 @@ const Enroll = () => {
   const [showCursor, setShowCursor] = useState(true);
   const [showPaystackVerification, setShowPaystackVerification] = useState(false);
   const [paystackReference, setPaystackReference] = useState<string | null>(null);
+  const [selectedBumps, setSelectedBumps] = useState<string[]>([]);
+  const bumpsTotal = getBumpTotal(selectedBumps);
+  const basePrice = getCurrentPricing().kes;
+  const grandTotal = basePrice + bumpsTotal;
+
+  const toggleBump = (id: string) => {
+    setSelectedBumps((prev) =>
+      prev.includes(id) ? prev.filter((b) => b !== id) : [...prev, id]
+    );
+  };
 
   // Typing animation effect
   useEffect(() => {
@@ -637,12 +649,37 @@ const Enroll = () => {
       {/* Payment Section */}
       <section id="payment" className="bg-background py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto space-y-4 sm:space-y-6">
+          <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto space-y-5">
+            {/* Order Bumps */}
+            <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6">
+              <OrderBumps selectedBumps={selectedBumps} onToggle={toggleBump} />
+            </div>
+
+            {/* Order Summary */}
+            <div className="bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+              <h3 className="font-bold text-foreground text-sm uppercase tracking-wider mb-3">Order Summary</h3>
+              <div className="space-y-2 mb-4 pb-4 border-b border-border/50">
+                <div className="flex justify-between text-sm">
+                  <span className="text-foreground">AI Simplified — Complete Course</span>
+                  <span className="font-semibold text-foreground">KES {basePrice.toLocaleString()}</span>
+                </div>
+                {selectedBumps.length > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-foreground">Add-ons ({selectedBumps.length})</span>
+                    <span className="font-semibold text-accent">+KES {bumpsTotal.toLocaleString()}</span>
+                  </div>
+                )}
+              </div>
+              <div className="flex justify-between items-baseline">
+                <span className="font-bold text-foreground">Total</span>
+                <span className="text-2xl font-extrabold gradient-text">KES {grandTotal.toLocaleString()}</span>
+              </div>
+            </div>
+
+            {/* Payment Selector */}
             <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6 md:p-8">
               <PaymentModeSelector plan="standard" userEmail={userEmail} userName={userName || userLastName} />
             </div>
-
-            
 
             <div className="text-center">
               <Link to="/payment-help" className="text-primary hover:underline text-sm sm:text-base">
@@ -652,6 +689,9 @@ const Enroll = () => {
           </div>
         </div>
       </section>
+
+      {/* Social proof before final exit */}
+      <Testimonials />
 
       {/* Paystack Verification Dialog */}
       <PaystackVerificationDialog
