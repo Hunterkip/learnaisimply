@@ -370,12 +370,12 @@ const AnimatedForm = memo(function AnimatedForm({
   return (
     <section className="max-md:w-full flex flex-col gap-4 w-96 mx-auto">
       <BoxReveal boxColor="var(--skeleton)" duration={0.3}>
-        <h2 className="font-bold text-3xl text-neutral-800 dark:text-neutral-200">{header}</h2>
+        <h2 className="font-bold text-3xl text-foreground">{header}</h2>
       </BoxReveal>
 
       {subHeader && (
         <BoxReveal boxColor="var(--skeleton)" duration={0.3} className="pb-2">
-          <p className="text-neutral-600 text-sm max-w-sm dark:text-neutral-300">{subHeader}</p>
+          <p className="text-muted-foreground text-sm max-w-sm">{subHeader}</p>
         </BoxReveal>
       )}
 
@@ -572,7 +572,7 @@ const Label = memo(function Label({ className, ...props }: LabelProps) {
   return (
     <label
       className={cn(
-        "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+        "text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
         className,
       )}
       {...props}
