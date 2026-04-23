@@ -63,7 +63,7 @@ export function BonusStack() {
               className="premium-card group relative overflow-hidden"
             >
               {/* Free badge */}
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-success to-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+              <div className="absolute top-4 right-4 bg-success text-success-foreground text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
                 Free Bonus
               </div>
 
