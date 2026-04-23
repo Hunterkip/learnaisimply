@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/homepage/Footer";
 import { OrderBumps, getBumpTotal } from "@/components/payment/OrderBumps";
+import { GuaranteeAndBonuses } from "@/components/payment/GuaranteeAndBonuses";
 import { Testimonials } from "@/components/homepage/Testimonials";
 
 const included = [
@@ -650,6 +651,9 @@ const Enroll = () => {
       <section id="payment" className="bg-background py-10 sm:py-14 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto space-y-5">
+            {/* FREE Bonuses + Money-Back Guarantee */}
+            <GuaranteeAndBonuses />
+
             {/* Order Bumps */}
             <div className="bg-card rounded-xl sm:rounded-2xl shadow-sm border border-border p-4 sm:p-6">
               <OrderBumps selectedBumps={selectedBumps} onToggle={toggleBump} />
@@ -663,17 +667,24 @@ const Enroll = () => {
                   <span className="text-foreground">AI Simplified — Complete Course</span>
                   <span className="font-semibold text-foreground">KES {basePrice.toLocaleString()}</span>
                 </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Free Bonuses (KES 8,000 value)</span>
+                  <span className="font-semibold text-success">FREE</span>
+                </div>
                 {selectedBumps.length > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-foreground">Add-ons ({selectedBumps.length})</span>
+                    <span className="text-foreground">Power-ups ({selectedBumps.length})</span>
                     <span className="font-semibold text-accent">+KES {bumpsTotal.toLocaleString()}</span>
                   </div>
                 )}
               </div>
               <div className="flex justify-between items-baseline">
-                <span className="font-bold text-foreground">Total</span>
+                <span className="font-bold text-foreground">Total today</span>
                 <span className="text-2xl font-extrabold gradient-text">KES {grandTotal.toLocaleString()}</span>
               </div>
+              <p className="text-[11px] text-muted-foreground mt-2 text-center">
+                🔒 14-day money-back guarantee • Lifetime access
+              </p>
             </div>
 
             {/* Payment Selector */}

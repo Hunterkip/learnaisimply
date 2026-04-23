@@ -50,10 +50,17 @@ interface OrderBumpsProps {
 export function OrderBumps({ selectedBumps, onToggle }: OrderBumpsProps) {
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-bold uppercase tracking-wider text-accent">
-          🎁 Add to Your Order — Save 70%
-        </span>
+      <div className="mb-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-accent">
+            🎁 Power-Ups — Save 70% (One-Time Offer)
+          </span>
+        </div>
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          Students who add <strong className="text-foreground">at least one power-up</strong> finish the course
+          <strong className="text-foreground"> 3× faster</strong> and start using AI in their work within 7 days.
+          These will <strong className="text-destructive">never be offered at this price again</strong> after checkout.
+        </p>
       </div>
 
       {bumps.map((bump, i) => {
